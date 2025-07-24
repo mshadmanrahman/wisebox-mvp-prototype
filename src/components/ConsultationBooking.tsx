@@ -23,68 +23,68 @@ interface ConsultationService {
 
 const CONSULTATION_SERVICES: ConsultationService[] = [
   {
-    id: "general_15",
+    id: "general_15_free",
     name: "General Consultation",
     duration: 15,
     price: 0,
-    description: "Quick questions about property matters",
+    description: "Quick property-related questions and guidance",
     category: "General"
   },
   {
     id: "general_60",
-    name: "Extended General Consultation", 
+    name: "General Consultation", 
     duration: 60,
     price: 30,
-    description: "In-depth discussion about property matters",
+    description: "In-depth property consultation and planning",
     category: "General"
   },
   {
-    id: "doc_verification",
+    id: "document_verification",
     name: "Document Verification",
     duration: 30,
     price: 30,
     description: "Professional verification of property documents",
-    category: "Documentation"
+    category: "Legal"
   },
   {
     id: "will_translation",
     name: "Will Translation",
     duration: 30, 
     price: 30,
-    description: "Translation services for legal documents",
-    category: "Documentation"
+    description: "Translation and explanation of will documents",
+    category: "Legal"
   },
   {
-    id: "legal_advice",
-    name: "Legal Advisory",
+    id: "legal_review",
+    name: "Legal Document Review",
     duration: 45,
     price: 50,
-    description: "Professional legal advice on property matters",
+    description: "Comprehensive review of property documents",
     category: "Legal"
+  },
+  {
+    id: "tax_planning",
+    name: "Tax Planning Session",
+    duration: 30,
+    price: 40,
+    description: "Property tax optimization strategies",
+    category: "Tax"
+  },
+  {
+    id: "investment_advice",
+    name: "Investment Advisory",
+    duration: 45,
+    price: 60,
+    description: "Property investment guidance and analysis",
+    category: "Investment"
   },
   {
     id: "property_valuation",
     name: "Property Valuation Consultation",
     duration: 30,
-    price: 40,
+    price: 45,
     description: "Expert guidance on property valuation",
     category: "Valuation"
-  },
-  {
-    id: "tax_consultation",
-    name: "Tax & Compliance Consultation", 
-    duration: 45,
-    price: 45,
-    description: "Tax implications and compliance requirements",
-    category: "Tax"
-  },
-  {
-    id: "inheritance_planning",
-    name: "Inheritance Planning",
-    duration: 60,
-    price: 60,
-    description: "Comprehensive inheritance and estate planning",
-    category: "Planning"
   }
 ];
 
@@ -114,7 +114,7 @@ const ConsultationBooking = ({ propertyId, propertyName }: ConsultationBookingPr
     }
 
     // If it's the free consultation, redirect to Calendly
-    if (selectedService === "general_15") {
+    if (selectedService === "general_15_free") {
       // Replace with your actual Calendly URL
       window.open("https://calendly.com/your-calendly-link/15min-free-consultation", "_blank");
       setOpen(false);
