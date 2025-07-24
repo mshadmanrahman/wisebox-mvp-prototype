@@ -171,7 +171,7 @@ const Dashboard = () => {
             {/* Quick Actions */}
             <div className="grid md:grid-cols-3 gap-4">
               <AddPropertyModal />
-              <UploadDocumentModal />
+              <UploadDocumentModal properties={properties} />
               <Button variant="secondary" className="h-auto p-6 flex-col space-y-2">
                 <Calendar className="h-6 w-6" />
                 <span>Book Consultation</span>

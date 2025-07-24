@@ -38,7 +38,11 @@ const DOCUMENT_TYPES = [
   { value: "survey", label: "Survey", hasExpiry: true }
 ];
 
-const AddPropertyModal = () => {
+interface AddPropertyModalProps {
+  trigger?: React.ReactNode;
+}
+
+const AddPropertyModal = ({ trigger }: AddPropertyModalProps) => {
   const [open, setOpen] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
@@ -84,10 +88,12 @@ const AddPropertyModal = () => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="hero" className="h-auto p-6 flex-col space-y-2">
-          <Plus className="h-6 w-6" />
-          <span>Add Property</span>
-        </Button>
+        {trigger || (
+          <Button variant="hero" className="h-auto p-6 flex-col space-y-2">
+            <Plus className="h-6 w-6" />
+            <span>Add Property</span>
+          </Button>
+        )}
       </DialogTrigger>
       <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>

@@ -8,8 +8,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { format } from "date-fns";
-import { CalendarIcon, Upload, Plus, X } from "lucide-react";
+import { CalendarIcon, Upload, Plus, X, Building } from "lucide-react";
 import { cn } from "@/lib/utils";
+import AddPropertyModal from "@/components/AddPropertyModal";
 
 interface Document {
   id: string;
@@ -20,10 +21,18 @@ interface Document {
 }
 
 interface Property {
-  id: string;
+  id: number;
   name: string;
   type: string;
   address: string;
+  status: string;
+  documents: number;
+  expiringDocs: number;
+  lastUpdated: string;
+}
+
+interface UploadDocumentModalProps {
+  properties?: Property[];
 }
 
 const DOCUMENT_TYPES = [
@@ -36,23 +45,7 @@ const DOCUMENT_TYPES = [
   { value: "survey", label: "Survey", hasExpiry: true }
 ];
 
-// Mock properties - in real app this would come from props or context
-const PROPERTIES: Property[] = [
-  {
-    id: "1",
-    name: "Family Home - Dhaka",
-    type: "Residential",
-    address: "Dhanmondi, Dhaka"
-  },
-  {
-    id: "2", 
-    name: "Commercial Plot - Chittagong",
-    type: "Commercial",
-    address: "Agrabad, Chittagong"
-  }
-];
-
-const UploadDocumentModal = () => {
+const UploadDocumentModal = ({ properties = [] }: UploadDocumentModalProps) => {
   const [open, setOpen] = useState(false);
   const [selectedProperty, setSelectedProperty] = useState("");
   const [documents, setDocuments] = useState<Document[]>([]);
@@ -122,21 +115,34 @@ const UploadDocumentModal = () => {
             <CardContent>
               <div className="space-y-2">
                 <Label htmlFor="property-select">Choose which property to upload documents for</Label>
-                <Select value={selectedProperty} onValueChange={setSelectedProperty}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select a property" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {PROPERTIES.map((property) => (
-                      <SelectItem key={property.id} value={property.id}>
-                        <div className="flex flex-col items-start">
-                          <span className="font-medium">{property.name}</span>
-                          <span className="text-sm text-muted-foreground">{property.address}</span>
-                        </div>
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+                <div className="flex items-center space-x-2">
+                  <Select value={selectedProperty} onValueChange={setSelectedProperty}>
+                    <SelectTrigger className="flex-1">
+                      <SelectValue placeholder="Select a property" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {properties.length > 0 ? (
+                        properties.map((property) => (
+                          <SelectItem key={property.id} value={property.id.toString()}>
+                            <div className="flex flex-col items-start">
+                              <span className="font-medium">{property.name}</span>
+                              <span className="text-sm text-muted-foreground">{property.address}</span>
+                            </div>
+                          </SelectItem>
+                        ))
+                      ) : (
+                        <SelectItem value="no-properties" disabled>
+                          No properties available
+                        </SelectItem>
+                      )}
+                    </SelectContent>
+                  </Select>
+                  <AddPropertyModal trigger={
+                    <Button variant="outline" size="icon" title="Add New Property">
+                      <Plus className="h-4 w-4" />
+                    </Button>
+                  } />
+                </div>
               </div>
             </CardContent>
           </Card>
