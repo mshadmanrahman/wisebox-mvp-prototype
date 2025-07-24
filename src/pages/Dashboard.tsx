@@ -23,6 +23,8 @@ import {
 } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import AdminUserManagement from "@/components/AdminUserManagement";
+import AddPropertyModal from "@/components/AddPropertyModal";
+import ConsultationBooking from "@/components/ConsultationBooking";
 
 const Dashboard = () => {
   const { user, logout, isAdmin } = useAuth();
@@ -167,10 +169,7 @@ const Dashboard = () => {
           <TabsContent value="overview" className="space-y-6">
             {/* Quick Actions */}
             <div className="grid md:grid-cols-3 gap-4">
-              <Button variant="hero" className="h-auto p-6 flex-col space-y-2">
-                <Plus className="h-6 w-6" />
-                <span>Add Property</span>
-              </Button>
+              <AddPropertyModal />
               <Button variant="elegant" className="h-auto p-6 flex-col space-y-2">
                 <Upload className="h-6 w-6" />
                 <span>Upload Document</span>
@@ -317,11 +316,20 @@ const Dashboard = () => {
                       </div>
                       
                       <div className="mt-3 pt-3 border-t border-border">
-                        <div className="flex items-center justify-between">
+                        <div className="flex items-center justify-between mb-3">
                           <span className="text-sm text-muted-foreground">Compliance Progress</span>
                           <span className="text-sm font-medium">75%</span>
                         </div>
-                        <Progress value={75} className="mt-1" />
+                        <Progress value={75} className="mb-3" />
+                        <div className="flex items-center justify-end space-x-2">
+                          <ConsultationBooking 
+                            propertyId={property.id.toString()} 
+                            propertyName={property.name} 
+                          />
+                          <Button variant="outline" size="sm">
+                            View Details
+                          </Button>
+                        </div>
                       </div>
                     </div>
                   );
