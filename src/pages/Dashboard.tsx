@@ -25,6 +25,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import AdminUserManagement from "@/components/AdminUserManagement";
 import AddPropertyModal from "@/components/AddPropertyModal";
 import ConsultationBooking from "@/components/ConsultationBooking";
+import UploadDocumentModal from "@/components/UploadDocumentModal";
 
 const Dashboard = () => {
   const { user, logout, isAdmin } = useAuth();
@@ -170,10 +171,7 @@ const Dashboard = () => {
             {/* Quick Actions */}
             <div className="grid md:grid-cols-3 gap-4">
               <AddPropertyModal />
-              <Button variant="elegant" className="h-auto p-6 flex-col space-y-2">
-                <Upload className="h-6 w-6" />
-                <span>Upload Document</span>
-              </Button>
+              <UploadDocumentModal />
               <Button variant="secondary" className="h-auto p-6 flex-col space-y-2">
                 <Calendar className="h-6 w-6" />
                 <span>Book Consultation</span>
