@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { 
   Building, 
   Plus, 
@@ -15,15 +16,22 @@ import {
   Bell,
   User,
   Settings,
-  LogOut
+  LogOut,
+  Users,
+  Shield,
+  BarChart3
 } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
+import AdminUserManagement from "@/components/AdminUserManagement";
 
 const Dashboard = () => {
-  const [user] = useState({
-    name: "Ahmed Rahman",
-    email: "ahmed.rahman@email.com",
-    location: "Toronto, Canada"
-  });
+  const { user, logout, isAdmin } = useAuth();
+  const [activeTab, setActiveTab] = useState("overview");
+
+  if (!user) {
+    window.location.href = "/auth";
+    return null;
+  }
 
   const [properties] = useState([
     {
@@ -94,15 +102,27 @@ const Dashboard = () => {
               </Button>
               <div className="flex items-center space-x-2">
                 <div className="h-8 w-8 rounded-full bg-gradient-to-br from-primary to-primary-glow flex items-center justify-center">
-                  <User className="h-4 w-4 text-primary-foreground" />
+                  {isAdmin ? (
+                    <Shield className="h-4 w-4 text-primary-foreground" />
+                  ) : (
+                    <User className="h-4 w-4 text-primary-foreground" />
+                  )}
                 </div>
                 <div className="hidden md:block text-sm">
-                  <p className="font-medium">{user.name}</p>
-                  <p className="text-muted-foreground">{user.location}</p>
+                  <div className="flex items-center space-x-2">
+                    <p className="font-medium">{user.name}</p>
+                    {isAdmin && (
+                      <Badge variant="default" className="text-xs">
+                        <Shield className="h-3 w-3 mr-1" />
+                        Admin
+                      </Badge>
+                    )}
+                  </div>
+                  <p className="text-muted-foreground">{user.location || `${user.role} user`}</p>
                 </div>
               </div>
-              <Button variant="ghost" size="icon">
-                <Settings className="h-5 w-5" />
+              <Button variant="ghost" size="icon" onClick={logout}>
+                <LogOut className="h-5 w-5" />
               </Button>
             </div>
           </div>
@@ -112,72 +132,137 @@ const Dashboard = () => {
       <div className="container mx-auto px-4 py-8">
         {/* Welcome Section */}
         <div className="mb-8">
-          <h2 className="text-2xl font-bold mb-2">Welcome back, {user.name.split(' ')[0]}!</h2>
-          <p className="text-muted-foreground">Manage your properties and stay compliant from anywhere</p>
+          <h2 className="text-2xl font-bold mb-2">
+            Welcome back, {user.name.split(' ')[0]}!
+            {isAdmin && <span className="text-primary"> (Administrator)</span>}
+          </h2>
+          <p className="text-muted-foreground">
+            {isAdmin 
+              ? "Manage the WiseBox platform and user accounts"
+              : "Manage your properties and stay compliant from anywhere"
+            }
+          </p>
         </div>
 
-        {/* Quick Actions */}
-        <div className="grid md:grid-cols-3 gap-4 mb-8">
-          <Button variant="hero" className="h-auto p-6 flex-col space-y-2">
-            <Plus className="h-6 w-6" />
-            <span>Add Property</span>
-          </Button>
-          <Button variant="elegant" className="h-auto p-6 flex-col space-y-2">
-            <Upload className="h-6 w-6" />
-            <span>Upload Document</span>
-          </Button>
-          <Button variant="secondary" className="h-auto p-6 flex-col space-y-2">
-            <Calendar className="h-6 w-6" />
-            <span>Book Consultation</span>
-          </Button>
-        </div>
+        {/* Admin/User Tabs */}
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+          <TabsList className="grid w-full grid-cols-3">
+            <TabsTrigger value="overview" className="flex items-center space-x-2">
+              <BarChart3 className="h-4 w-4" />
+              <span>Overview</span>
+            </TabsTrigger>
+            <TabsTrigger value="properties" className="flex items-center space-x-2">
+              <Building className="h-4 w-4" />
+              <span>Properties</span>
+            </TabsTrigger>
+            {isAdmin && (
+              <TabsTrigger value="users" className="flex items-center space-x-2">
+                <Users className="h-4 w-4" />
+                <span>User Management</span>
+              </TabsTrigger>
+            )}
+          </TabsList>
 
-        {/* Stats Overview */}
-        <div className="grid md:grid-cols-4 gap-6 mb-8">
-          <Card>
-            <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium text-muted-foreground">Total Properties</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">{properties.length}</div>
-              <p className="text-xs text-success">+1 this month</p>
-            </CardContent>
-          </Card>
-          
-          <Card>
-            <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium text-muted-foreground">Compliant Properties</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold text-success">1</div>
-              <p className="text-xs text-muted-foreground">50% compliance rate</p>
-            </CardContent>
-          </Card>
-          
-          <Card>
-            <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium text-muted-foreground">Expiring Documents</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold text-warning">2</div>
-              <p className="text-xs text-muted-foreground">Next 30 days</p>
-            </CardContent>
-          </Card>
-          
-          <Card>
-            <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium text-muted-foreground">Active Consultations</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">1</div>
-              <p className="text-xs text-muted-foreground">Scheduled this week</p>
-            </CardContent>
-          </Card>
-        </div>
+          <TabsContent value="overview" className="space-y-6">
+            {/* Quick Actions */}
+            <div className="grid md:grid-cols-3 gap-4">
+              <Button variant="hero" className="h-auto p-6 flex-col space-y-2">
+                <Plus className="h-6 w-6" />
+                <span>Add Property</span>
+              </Button>
+              <Button variant="elegant" className="h-auto p-6 flex-col space-y-2">
+                <Upload className="h-6 w-6" />
+                <span>Upload Document</span>
+              </Button>
+              <Button variant="secondary" className="h-auto p-6 flex-col space-y-2">
+                <Calendar className="h-6 w-6" />
+                <span>Book Consultation</span>
+              </Button>
+            </div>
 
-        <div className="grid lg:grid-cols-3 gap-8">
-          {/* Properties List */}
-          <div className="lg:col-span-2">
+            {/* Stats Overview */}
+            <div className="grid md:grid-cols-4 gap-6">
+              <Card>
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-sm font-medium text-muted-foreground">
+                    {isAdmin ? "Total Users" : "Total Properties"}
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold">{isAdmin ? "156" : properties.length}</div>
+                  <p className="text-xs text-success">+12 this month</p>
+                </CardContent>
+              </Card>
+              
+              <Card>
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-sm font-medium text-muted-foreground">
+                    {isAdmin ? "Active Properties" : "Compliant Properties"}
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold text-success">{isAdmin ? "284" : "1"}</div>
+                  <p className="text-xs text-muted-foreground">
+                    {isAdmin ? "89% active rate" : "50% compliance rate"}
+                  </p>
+                </CardContent>
+              </Card>
+              
+              <Card>
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-sm font-medium text-muted-foreground">
+                    {isAdmin ? "Consultations Today" : "Expiring Documents"}
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold text-warning">{isAdmin ? "8" : "2"}</div>
+                  <p className="text-xs text-muted-foreground">
+                    {isAdmin ? "Scheduled today" : "Next 30 days"}
+                  </p>
+                </CardContent>
+              </Card>
+              
+              <Card>
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-sm font-medium text-muted-foreground">
+                    {isAdmin ? "Revenue This Month" : "Active Consultations"}
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold">{isAdmin ? "$12,450" : "1"}</div>
+                  <p className="text-xs text-muted-foreground">
+                    {isAdmin ? "+18% from last month" : "Scheduled this week"}
+                  </p>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Recent Activity */}
+            <Card>
+              <CardHeader>
+                <CardTitle>Recent Activity</CardTitle>
+                <CardDescription>Latest updates and actions</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-3">
+                {recentActivity.map((activity, index) => (
+                  <div key={index} className="flex items-start space-x-3 text-sm">
+                    <div className={`h-2 w-2 rounded-full mt-2 ${
+                      activity.type === 'success' ? 'bg-success' :
+                      activity.type === 'warning' ? 'bg-warning' : 'bg-primary'
+                    }`} />
+                    <div className="flex-1 min-w-0">
+                      <p className="font-medium">{activity.action}</p>
+                      <p className="text-muted-foreground truncate">{activity.item}</p>
+                      <p className="text-xs text-muted-foreground">{activity.time}</p>
+                    </div>
+                  </div>
+                ))}
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="properties" className="space-y-6">
+            {/* Properties List */}
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center justify-between">
@@ -242,61 +327,14 @@ const Dashboard = () => {
                 })}
               </CardContent>
             </Card>
-          </div>
+          </TabsContent>
 
-          {/* Recent Activity & Alerts */}
-          <div className="space-y-6">
-            <Card>
-              <CardHeader>
-                <CardTitle>Recent Activity</CardTitle>
-                <CardDescription>Latest updates and actions</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-3">
-                {recentActivity.map((activity, index) => (
-                  <div key={index} className="flex items-start space-x-3 text-sm">
-                    <div className={`h-2 w-2 rounded-full mt-2 ${
-                      activity.type === 'success' ? 'bg-success' :
-                      activity.type === 'warning' ? 'bg-warning' : 'bg-primary'
-                    }`} />
-                    <div className="flex-1 min-w-0">
-                      <p className="font-medium">{activity.action}</p>
-                      <p className="text-muted-foreground truncate">{activity.item}</p>
-                      <p className="text-xs text-muted-foreground">{activity.time}</p>
-                    </div>
-                  </div>
-                ))}
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-warning">Urgent Alerts</CardTitle>
-                <CardDescription>Items requiring immediate attention</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3">
-                  <div className="flex items-center space-x-3 p-3 bg-warning/10 rounded-lg border border-warning/20">
-                    <AlertTriangle className="h-5 w-5 text-warning" />
-                    <div className="flex-1">
-                      <p className="font-medium">Khajna Payment Due</p>
-                      <p className="text-sm text-muted-foreground">Commercial Plot - Chittagong</p>
-                      <p className="text-xs text-warning">Due in 5 days</p>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-center space-x-3 p-3 bg-warning/10 rounded-lg border border-warning/20">
-                    <FileText className="h-5 w-5 text-warning" />
-                    <div className="flex-1">
-                      <p className="font-medium">Document Expiring</p>
-                      <p className="text-sm text-muted-foreground">Property Tax Certificate</p>
-                      <p className="text-xs text-warning">Expires in 2 weeks</p>
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
+          {isAdmin && (
+            <TabsContent value="users">
+              <AdminUserManagement />
+            </TabsContent>
+          )}
+        </Tabs>
       </div>
     </div>
   );

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -6,23 +7,36 @@ import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Building, Mail, Lock, User, Phone, ArrowLeft } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useAuth } from "@/contexts/AuthContext";
 
 const Auth = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const { toast } = useToast();
+  const { login } = useAuth();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
     
-    // Simulate authentication
-    setTimeout(() => {
-      setIsLoading(false);
+    try {
+      await login(email, password);
       toast({
-        title: "Success!",
-        description: "Authentication successful. Redirecting to dashboard...",
+        title: "Welcome back!",
+        description: "Successfully signed in to your account.",
       });
-    }, 2000);
+      navigate("/dashboard");
+    } catch (error) {
+      toast({
+        title: "Sign in failed",
+        description: error instanceof Error ? error.message : "Invalid credentials",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -77,6 +91,8 @@ const Auth = () => {
                         type="email" 
                         placeholder="your@email.com"
                         className="pl-10"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                         required
                       />
                     </div>
@@ -91,9 +107,18 @@ const Auth = () => {
                         type="password" 
                         placeholder="Enter your password"
                         className="pl-10"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
                         required
                       />
                     </div>
+                  </div>
+
+                  {/* Demo Credentials Info */}
+                  <div className="text-xs bg-muted/50 p-3 rounded-lg">
+                    <p className="font-medium mb-1">Demo Credentials:</p>
+                    <p>Admin: admin@wisebox.com / password</p>
+                    <p>User: ahmed.rahman@email.com / password</p>
                   </div>
 
                   <div className="flex items-center justify-between text-sm">
