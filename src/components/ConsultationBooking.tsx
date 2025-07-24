@@ -113,6 +113,19 @@ const ConsultationBooking = ({ propertyId, propertyName }: ConsultationBookingPr
       return; // Add proper validation
     }
 
+    // If it's the free consultation, redirect to Calendly
+    if (selectedService === "general_15") {
+      // Replace with your actual Calendly URL
+      window.open("https://calendly.com/your-calendly-link/15min-free-consultation", "_blank");
+      setOpen(false);
+      // Reset form
+      setSelectedService("");
+      setSelectedDate(undefined);
+      setSelectedTime("");
+      setNotes("");
+      return;
+    }
+
     const bookingData = {
       propertyId,
       serviceId: selectedService,
@@ -123,7 +136,7 @@ const ConsultationBooking = ({ propertyId, propertyName }: ConsultationBookingPr
     };
 
     console.log("Booking consultation:", bookingData);
-    // Here you would send the booking data to your backend
+    // Here you would send the booking data to your backend for paid consultations
     
     setOpen(false);
     // Reset form
