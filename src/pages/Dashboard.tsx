@@ -28,11 +28,6 @@ const Dashboard = () => {
   const { user, logout, isAdmin } = useAuth();
   const [activeTab, setActiveTab] = useState("overview");
 
-  if (!user) {
-    window.location.href = "/auth";
-    return null;
-  }
-
   const [properties] = useState([
     {
       id: 1,
@@ -61,6 +56,12 @@ const Dashboard = () => {
     { action: "Consultation booked", item: "Will Planning Session", time: "1 day ago", type: "info" },
     { action: "Reminder sent", item: "Khajna Payment Due", time: "3 days ago", type: "warning" }
   ]);
+
+  // All hooks are called before any conditional logic
+  if (!user) {
+    window.location.href = "/auth";
+    return null;
+  }
 
   const getStatusColor = (status: string) => {
     switch (status) {
