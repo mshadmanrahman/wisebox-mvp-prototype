@@ -8,51 +8,51 @@ All colors MUST be HSL for proper theming.
 
 @layer base {
   :root {
-    /* Base colors */
-    --background: 220 20% 98%;
-    --foreground: 220 20% 10%;
+    /* Base colors - WiseBox Professional Theme */
+    --background: 0 0% 100%;
+    --foreground: 213 31% 15%;
 
     /* Card system */
     --card: 0 0% 100%;
-    --card-foreground: 220 20% 10%;
+    --card-foreground: 213 31% 15%;
 
     /* Popover system */
     --popover: 0 0% 100%;
-    --popover-foreground: 220 20% 10%;
+    --popover-foreground: 213 31% 15%;
 
-    /* Primary brand - Professional blue */
-    --primary: 210 100% 45%;
-    --primary-foreground: 0 0% 98%;
-    --primary-glow: 210 100% 60%;
+    /* Primary brand - WiseBox Blue */
+    --primary: 214 100% 37%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 214 100% 50%;
 
-    /* Secondary - Trusted green */
-    --secondary: 142 76% 36%;
-    --secondary-foreground: 0 0% 98%;
+    /* Secondary - Professional */
+    --secondary: 213 27% 84%;
+    --secondary-foreground: 213 31% 15%;
 
     /* Muted tones */
-    --muted: 220 13% 95%;
-    --muted-foreground: 220 9% 46%;
+    --muted: 213 27% 93%;
+    --muted-foreground: 213 19% 46%;
 
-    /* Accent - Success green */
-    --accent: 142 76% 36%;
-    --accent-foreground: 0 0% 98%;
+    /* Accent - WiseBox Brand */
+    --accent: 214 100% 37%;
+    --accent-foreground: 0 0% 100%;
 
     /* Status colors */
     --success: 142 76% 36%;
-    --success-foreground: 0 0% 98%;
+    --success-foreground: 0 0% 100%;
     --warning: 45 93% 47%;
-    --warning-foreground: 220 20% 10%;
+    --warning-foreground: 213 31% 15%;
     --danger: 0 84% 60%;
-    --danger-foreground: 0 0% 98%;
+    --danger-foreground: 0 0% 100%;
 
     /* Destructive */
     --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 98%;
+    --destructive-foreground: 0 0% 100%;
 
     /* Borders and inputs */
-    --border: 220 13% 91%;
-    --input: 220 13% 91%;
-    --ring: 210 100% 45%;
+    --border: 213 27% 84%;
+    --input: 213 27% 84%;
+    --ring: 214 100% 37%;
 
     /* Gradients */
     --gradient-primary: linear-gradient(135deg, hsl(210 100% 45%), hsl(210 100% 60%));
@@ -89,51 +89,51 @@ All colors MUST be HSL for proper theming.
   }
 
   .dark {
-    /* Base colors - dark theme */
-    --background: 220 20% 8%;
-    --foreground: 220 13% 95%;
+    /* Base colors - WiseBox Dark Blue Theme */
+    --background: 213 31% 11%;
+    --foreground: 0 0% 95%;
 
-    /* Card system - dark */
-    --card: 220 20% 10%;
-    --card-foreground: 220 13% 95%;
+    /* Card system - dark navy */
+    --card: 213 31% 15%;
+    --card-foreground: 0 0% 95%;
 
-    /* Popover system - dark */
-    --popover: 220 20% 10%;
-    --popover-foreground: 220 13% 95%;
+    /* Popover system - dark navy */
+    --popover: 213 31% 15%;
+    --popover-foreground: 0 0% 95%;
 
-    /* Primary brand - brighter in dark mode */
-    --primary: 210 100% 55%;
-    --primary-foreground: 220 20% 8%;
-    --primary-glow: 210 100% 70%;
+    /* Primary brand - WiseBox Blue */
+    --primary: 214 100% 50%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 214 100% 60%;
 
-    /* Secondary - adjusted for dark */
-    --secondary: 142 76% 40%;
-    --secondary-foreground: 220 20% 8%;
+    /* Secondary - Professional */
+    --secondary: 213 27% 25%;
+    --secondary-foreground: 0 0% 95%;
 
     /* Muted tones - dark */
-    --muted: 220 20% 14%;
-    --muted-foreground: 220 9% 60%;
+    --muted: 213 31% 18%;
+    --muted-foreground: 213 10% 65%;
 
-    /* Accent - dark mode green */
-    --accent: 142 76% 40%;
-    --accent-foreground: 220 20% 8%;
+    /* Accent - WiseBox Brand */
+    --accent: 214 100% 50%;
+    --accent-foreground: 0 0% 100%;
 
     /* Status colors - dark mode */
-    --success: 142 76% 40%;
-    --success-foreground: 220 20% 8%;
+    --success: 142 76% 45%;
+    --success-foreground: 0 0% 100%;
     --warning: 45 93% 55%;
-    --warning-foreground: 220 20% 8%;
+    --warning-foreground: 213 31% 11%;
     --danger: 0 84% 65%;
-    --danger-foreground: 220 20% 8%;
+    --danger-foreground: 0 0% 100%;
 
     /* Destructive - dark */
     --destructive: 0 84% 65%;
-    --destructive-foreground: 220 20% 8%;
+    --destructive-foreground: 0 0% 100%;
 
-    /* Borders and inputs - dark */
-    --border: 220 20% 18%;
-    --input: 220 20% 18%;
-    --ring: 210 100% 55%;
+    /* Borders and inputs - dark navy */
+    --border: 213 31% 20%;
+    --input: 213 31% 20%;
+    --ring: 214 100% 50%;
 
     /* Update gradients for dark mode */
     --gradient-primary: linear-gradient(135deg, hsl(210 100% 55%), hsl(210 100% 70%));
