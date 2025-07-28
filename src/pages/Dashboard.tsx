@@ -244,7 +244,6 @@ const Dashboard = () => {
 
               {/* Consultation Card */}
               <Card className="rounded-xl border border-white/10 border-t-white/10" style={{
-                height: '298px',
                 background: '#001731',
                 boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
               }}>
