@@ -11,7 +11,7 @@ const Dashboard = () => {
     user
   } = useAuth();
   const [currentDate] = useState(new Date());
-  const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date());
+  const [selectedConsultationDate, setSelectedConsultationDate] = useState<number>(10);
 
   // Mock data for the exact layout
   const netWorthData = [{
@@ -294,107 +294,107 @@ const Dashboard = () => {
                       <button className="w-8 h-8 rounded-lg flex items-center justify-center">
                         <span className="text-sm text-[#A3A3A3] font-normal leading-5">30</span>
                       </button>
-                      <button className="w-8 h-8 rounded-lg flex items-center justify-center">
-                        <span className="text-sm text-white font-normal leading-5">1</span>
-                      </button>
-                      <button className="w-8 h-8 rounded-lg flex items-center justify-center">
-                        <span className="text-sm text-white font-normal leading-5">2</span>
-                      </button>
-                      <button className="w-8 h-8 rounded-lg flex items-center justify-center">
-                        <span className="text-sm text-white font-normal leading-5">3</span>
-                      </button>
-                      <button className="w-8 h-8 rounded-lg flex items-center justify-center">
-                        <span className="text-sm text-white font-normal leading-5">4</span>
-                      </button>
-                      <button className="w-8 h-8 rounded-lg flex items-center justify-center">
-                        <span className="text-sm text-white font-normal leading-5">5</span>
-                      </button>
-                      <button className="w-8 h-8 rounded-lg flex items-center justify-center">
-                        <span className="text-sm text-white font-normal leading-5">6</span>
-                      </button>
+                      {[1, 2, 3, 4, 5, 6].map((day) => (
+                        <button 
+                          key={day}
+                          onClick={() => setSelectedConsultationDate(day)}
+                          className="w-8 h-8 rounded-lg flex items-center justify-center"
+                          style={selectedConsultationDate === day ? { background: 'white' } : {}}
+                        >
+                          <span 
+                            className="text-sm font-normal leading-5"
+                            style={{ color: selectedConsultationDate === day ? '#001731' : 'white' }}
+                          >
+                            {day}
+                          </span>
+                        </button>
+                      ))}
 
                       {/* Week 2 */}
-                      <button className="w-8 h-8 rounded-lg flex items-center justify-center">
-                        <span className="text-sm text-white font-normal leading-5">7</span>
-                      </button>
-                      <button className="w-8 h-8 rounded-lg flex items-center justify-center">
-                        <span className="text-sm text-white font-normal leading-5">8</span>
-                      </button>
-                      <button className="w-8 h-8 rounded-lg flex items-center justify-center">
-                        <span className="text-sm text-white font-normal leading-5">9</span>
-                      </button>
-                      <button className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: 'white' }}>
-                        <span className="text-sm font-normal leading-5" style={{ color: '#001731' }}>10</span>
-                      </button>
-                      <button className="w-8 h-8 rounded-lg flex items-center justify-center">
-                        <span className="text-sm text-white font-normal leading-5">11</span>
-                      </button>
-                      <button className="w-8 h-8 rounded-lg flex items-center justify-center">
-                        <span className="text-sm text-white font-normal leading-5">12</span>
-                      </button>
-                      <button className="w-8 h-8 rounded-lg flex items-center justify-center">
-                        <span className="text-sm text-white font-normal leading-5">13</span>
-                      </button>
+                      {[7, 8, 9, 10, 11, 12, 13].map((day) => (
+                        <button 
+                          key={day}
+                          onClick={() => setSelectedConsultationDate(day)}
+                          className="w-8 h-8 rounded-lg flex items-center justify-center"
+                          style={selectedConsultationDate === day ? { background: 'white' } : {}}
+                        >
+                          <span 
+                            className="text-sm font-normal leading-5"
+                            style={{ color: selectedConsultationDate === day ? '#001731' : 'white' }}
+                          >
+                            {day}
+                          </span>
+                        </button>
+                      ))}
 
                       {/* Week 3 */}
-                      <button className="w-8 h-8 rounded-lg flex items-center justify-center">
-                        <span className="text-sm text-white font-normal leading-5">14</span>
-                      </button>
-                      <button className="w-8 h-8 rounded-lg flex items-center justify-center">
-                        <span className="text-sm text-white font-normal leading-5">15</span>
-                      </button>
-                      <button className="w-8 h-8 rounded-lg flex items-center justify-center">
-                        <span className="text-sm text-white font-normal leading-5">16</span>
-                      </button>
-                      <button className="w-8 h-8 rounded-lg flex items-center justify-center">
-                        <span className="text-sm text-white font-normal leading-5">17</span>
-                      </button>
-                      <button className="w-8 h-8 rounded-lg flex items-center justify-center">
-                        <span className="text-sm text-white font-normal leading-5">18</span>
-                      </button>
-                      <button className="w-8 h-8 rounded-lg flex items-center justify-center">
-                        <span className="text-sm text-white font-normal leading-5">19</span>
-                      </button>
-                      <button className="w-8 h-8 rounded-lg flex items-center justify-center">
-                        <span className="text-sm text-white font-normal leading-5">20</span>
-                      </button>
+                      {[14, 15, 16, 17, 18, 19, 20].map((day) => (
+                        <button 
+                          key={day}
+                          onClick={() => setSelectedConsultationDate(day)}
+                          className="w-8 h-8 rounded-lg flex items-center justify-center"
+                          style={selectedConsultationDate === day ? { background: 'white' } : {}}
+                        >
+                          <span 
+                            className="text-sm font-normal leading-5"
+                            style={{ color: selectedConsultationDate === day ? '#001731' : 'white' }}
+                          >
+                            {day}
+                          </span>
+                        </button>
+                      ))}
 
                       {/* Week 4 */}
-                      <button className="w-8 h-8 rounded-lg flex items-center justify-center">
-                        <span className="text-sm text-white font-normal leading-5">21</span>
-                      </button>
-                      <button className="w-8 h-8 rounded-lg flex items-center justify-center">
-                        <span className="text-sm text-white font-normal leading-5">22</span>
-                      </button>
-                      <button className="w-8 h-8 rounded-lg flex items-center justify-center">
-                        <span className="text-sm text-white font-normal leading-5">23</span>
-                      </button>
+                      {[21, 22, 23].map((day) => (
+                        <button 
+                          key={day}
+                          onClick={() => setSelectedConsultationDate(day)}
+                          className="w-8 h-8 rounded-lg flex items-center justify-center"
+                          style={selectedConsultationDate === day ? { background: 'white' } : {}}
+                        >
+                          <span 
+                            className="text-sm font-normal leading-5"
+                            style={{ color: selectedConsultationDate === day ? '#001731' : 'white' }}
+                          >
+                            {day}
+                          </span>
+                        </button>
+                      ))}
                       <button className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: '#002B5E' }}>
                         <span className="text-sm font-normal leading-5" style={{ color: '#EDEFF7' }}>24</span>
                       </button>
-                      <button className="w-8 h-8 rounded-lg flex items-center justify-center">
-                        <span className="text-sm text-white font-normal leading-5">25</span>
-                      </button>
-                      <button className="w-8 h-8 rounded-lg flex items-center justify-center">
-                        <span className="text-sm text-white font-normal leading-5">26</span>
-                      </button>
-                      <button className="w-8 h-8 rounded-lg flex items-center justify-center">
-                        <span className="text-sm text-white font-normal leading-5">27</span>
-                      </button>
+                      {[25, 26, 27].map((day) => (
+                        <button 
+                          key={day}
+                          onClick={() => setSelectedConsultationDate(day)}
+                          className="w-8 h-8 rounded-lg flex items-center justify-center"
+                          style={selectedConsultationDate === day ? { background: 'white' } : {}}
+                        >
+                          <span 
+                            className="text-sm font-normal leading-5"
+                            style={{ color: selectedConsultationDate === day ? '#001731' : 'white' }}
+                          >
+                            {day}
+                          </span>
+                        </button>
+                      ))}
 
                       {/* Week 5 */}
-                      <button className="w-8 h-8 rounded-lg flex items-center justify-center">
-                        <span className="text-sm text-white font-normal leading-5">28</span>
-                      </button>
-                      <button className="w-8 h-8 rounded-lg flex items-center justify-center">
-                        <span className="text-sm text-white font-normal leading-5">29</span>
-                      </button>
-                      <button className="w-8 h-8 rounded-lg flex items-center justify-center">
-                        <span className="text-sm text-white font-normal leading-5">30</span>
-                      </button>
-                      <button className="w-8 h-8 rounded-lg flex items-center justify-center">
-                        <span className="text-sm text-white font-normal leading-5">31</span>
-                      </button>
+                      {[28, 29, 30, 31].map((day) => (
+                        <button 
+                          key={day}
+                          onClick={() => setSelectedConsultationDate(day)}
+                          className="w-8 h-8 rounded-lg flex items-center justify-center"
+                          style={selectedConsultationDate === day ? { background: 'white' } : {}}
+                        >
+                          <span 
+                            className="text-sm font-normal leading-5"
+                            style={{ color: selectedConsultationDate === day ? '#001731' : 'white' }}
+                          >
+                            {day}
+                          </span>
+                        </button>
+                      ))}
                       <button className="w-8 h-8 rounded-lg flex items-center justify-center">
                         <span className="text-sm text-[#A3A3A3] font-normal leading-5">1</span>
                       </button>
