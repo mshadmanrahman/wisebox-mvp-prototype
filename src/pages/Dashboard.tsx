@@ -161,7 +161,7 @@ const Dashboard = () => {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             {/* Net Worth Card */}
             <div className="lg:col-span-2">
-              <Card className="bg-card border border-border">
+              <Card className="bg-white border border-border">
                 <CardHeader className="pb-4">
                   <div className="flex items-center justify-between">
                     <div>
