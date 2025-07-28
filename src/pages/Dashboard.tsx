@@ -45,7 +45,9 @@ const Dashboard = () => {
     window.location.href = "/auth";
     return null;
   }
-  return <div className="min-h-screen text-foreground" style={{background: 'linear-gradient(180deg, #001731 0%, #002B5E 100%)'}}>
+  return <div className="min-h-screen text-foreground" style={{
+    background: 'linear-gradient(180deg, #001731 0%, #002B5E 100%)'
+  }}>
       {/* Top Navigation */}
       <header className="border-b border-border">
         <div className="flex items-center justify-between px-6 py-4">
@@ -167,10 +169,10 @@ const Dashboard = () => {
 
               {/* Property Facts Card */}
               <Card className="mt-6 rounded-xl border border-white/10 border-t-white/10" style={{
-                height: '298px',
-                background: '#001731',
-                boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
-              }}>
+              height: '298px',
+              background: '#001731',
+              boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
+            }}>
                 <CardHeader className="pb-4">
                   <div className="flex items-center justify-between">
                     <CardTitle className="text-lg font-semibold">Property Facts</CardTitle>
@@ -221,10 +223,10 @@ const Dashboard = () => {
             <div className="space-y-6">
               {/* Upcoming Fees Card */}
               <Card className="rounded-xl border border-white/10 border-t-white/10" style={{
-                height: '298px',
-                background: '#001731',
-                boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
-              }}>
+              height: '298px',
+              background: '#001731',
+              boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
+            }}>
                 <CardHeader className="pb-3">
                   <div className="flex items-center justify-between">
                     <CardTitle className="text-lg font-semibold">Upcoming fees</CardTitle>
@@ -244,9 +246,9 @@ const Dashboard = () => {
 
               {/* Consultation Card */}
               <Card className="rounded-xl border border-white/10 border-t-white/10" style={{
-                background: '#001731',
-                boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
-              }}>
+              background: '#001731',
+              boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
+            }}>
                 <CardHeader className="pb-3">
                   <div className="flex items-center justify-between">
                     <CardTitle className="text-lg font-semibold">Consultation</CardTitle>
@@ -262,17 +264,11 @@ const Dashboard = () => {
                   
                   {/* Calendar Component */}
                   <div className="space-y-4">
-                    <div className="flex items-center justify-between">
-                      <Button variant="ghost" size="icon">
-                        <ChevronLeft className="h-4 w-4" />
-                      </Button>
-                      <span className="font-medium">January 2025</span>
-                      <Button variant="ghost" size="icon">
-                        <ChevronRight className="h-4 w-4" />
-                      </Button>
-                    </div>
                     
-                    <Calendar mode="single" selected={selectedDate} onSelect={setSelectedDate} className="w-full rounded-xl" style={{borderTop: '1px solid #FFFFFF1A'}} />
+                    
+                    <Calendar mode="single" selected={selectedDate} onSelect={setSelectedDate} className="w-full rounded-xl" style={{
+                    borderTop: '1px solid #FFFFFF1A'
+                  }} />
                     
                     <div className="text-xs text-muted-foreground">
                       <div className="flex items-center space-x-2">
@@ -290,13 +286,23 @@ const Dashboard = () => {
       </div>
 
       {/* Footer */}
-      <footer className="py-4 px-6" style={{borderTop: '0.5px solid #FFFFFF1A'}}>
+      <footer className="py-4 px-6" style={{
+      borderTop: '0.5px solid #FFFFFF1A'
+    }}>
         <div className="flex items-center justify-between text-sm text-muted-foreground">
-          <p style={{color: '#6B7280'}}>© 2025 WiseBox. All rights reserved.</p>
+          <p style={{
+          color: '#6B7280'
+        }}>© 2025 WiseBox. All rights reserved.</p>
           <div className="flex items-center space-x-4">
-            <Button variant="ghost" size="sm" className="font-sans font-medium text-xs tracking-normal align-middle" style={{color: '#1C70EA'}}>Privacy Policy</Button>
-            <Button variant="ghost" size="sm" className="font-sans font-medium text-xs tracking-normal align-middle" style={{color: '#1C70EA'}}>Terms of Service</Button>
-            <Button variant="ghost" size="sm" className="font-sans font-medium text-xs tracking-normal align-middle" style={{color: '#1C70EA'}}>Help Center</Button>
+            <Button variant="ghost" size="sm" className="font-sans font-medium text-xs tracking-normal align-middle" style={{
+            color: '#1C70EA'
+          }}>Privacy Policy</Button>
+            <Button variant="ghost" size="sm" className="font-sans font-medium text-xs tracking-normal align-middle" style={{
+            color: '#1C70EA'
+          }}>Terms of Service</Button>
+            <Button variant="ghost" size="sm" className="font-sans font-medium text-xs tracking-normal align-middle" style={{
+            color: '#1C70EA'
+          }}>Help Center</Button>
           </div>
         </div>
       </footer>
