@@ -185,7 +185,7 @@ const Dashboard = () => {
                   <div className="space-y-4">
                     <div>
                       <p className="text-sm font-medium text-foreground">Ownership Initiation</p>
-                      <p className="text-sm text-primary">{propertyFacts.ownership.date}</p>
+                      <p className="text-sm text-[#4cdff2]">{propertyFacts.ownership.date}</p>
                     </div>
                     <div>
                       <p className="text-sm font-medium text-foreground">Taxation</p>
