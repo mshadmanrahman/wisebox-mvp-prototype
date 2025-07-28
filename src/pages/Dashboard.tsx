@@ -31,6 +31,54 @@ const Dashboard = () => {
     return date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
   };
 
+  // Generate calendar days for the current month
+  const generateCalendarDays = () => {
+    const year = currentMonth.getFullYear();
+    const month = currentMonth.getMonth();
+    
+    // Get first day of month and how many days in month
+    const firstDay = new Date(year, month, 1);
+    const lastDay = new Date(year, month + 1, 0);
+    const daysInMonth = lastDay.getDate();
+    const startDayOfWeek = firstDay.getDay(); // 0 = Sunday
+    
+    // Get previous month's last few days
+    const prevMonth = new Date(year, month - 1, 0);
+    const daysInPrevMonth = prevMonth.getDate();
+    
+    const days = [];
+    
+    // Add previous month's trailing days
+    for (let i = startDayOfWeek - 1; i >= 0; i--) {
+      days.push({
+        day: daysInPrevMonth - i,
+        isCurrentMonth: false,
+        isNextMonth: false
+      });
+    }
+    
+    // Add current month's days
+    for (let day = 1; day <= daysInMonth; day++) {
+      days.push({
+        day,
+        isCurrentMonth: true,
+        isNextMonth: false
+      });
+    }
+    
+    // Add next month's leading days to complete the grid
+    const remainingSlots = 42 - days.length; // 6 weeks × 7 days
+    for (let day = 1; day <= remainingSlots && days.length < 42; day++) {
+      days.push({
+        day,
+        isCurrentMonth: false,
+        isNextMonth: true
+      });
+    }
+    
+    return days;
+  };
+
   // Mock data for the exact layout
   const netWorthData = [{
     name: "Purbanchal Plot 17, Road 8, Block F",
@@ -314,120 +362,41 @@ const Dashboard = () => {
 
                     {/* Calendar Days */}
                     <div className="grid grid-cols-7 gap-0">
-                      {/* Week 1 */}
-                      <button className="w-8 h-8 rounded-lg flex items-center justify-center">
-                        <span className="text-sm text-[#A3A3A3] font-normal leading-5">30</span>
-                      </button>
-                      {[1, 2, 3, 4, 5, 6].map((day) => (
-                        <button 
-                          key={day}
-                          onClick={() => setSelectedConsultationDate(day)}
-                          className="w-8 h-8 rounded-lg flex items-center justify-center"
-                          style={selectedConsultationDate === day ? { background: 'white' } : {}}
-                        >
-                          <span 
-                            className="text-sm font-normal leading-5"
-                            style={{ color: selectedConsultationDate === day ? '#001731' : 'white' }}
+                      {generateCalendarDays().map((dayObj, index) => {
+                        const isSelected = dayObj.isCurrentMonth && selectedConsultationDate === dayObj.day;
+                        const isUnavailable = dayObj.isCurrentMonth && dayObj.day === 24; // Example: 24th is unavailable
+                        
+                        return (
+                          <button 
+                            key={index}
+                            onClick={() => dayObj.isCurrentMonth && setSelectedConsultationDate(dayObj.day)}
+                            className="w-8 h-8 rounded-lg flex items-center justify-center"
+                            style={
+                              isSelected 
+                                ? { background: 'white' } 
+                                : isUnavailable 
+                                  ? { background: '#002B5E' }
+                                  : {}
+                            }
+                            disabled={!dayObj.isCurrentMonth}
                           >
-                            {day}
-                          </span>
-                        </button>
-                      ))}
-
-                      {/* Week 2 */}
-                      {[7, 8, 9, 10, 11, 12, 13].map((day) => (
-                        <button 
-                          key={day}
-                          onClick={() => setSelectedConsultationDate(day)}
-                          className="w-8 h-8 rounded-lg flex items-center justify-center"
-                          style={selectedConsultationDate === day ? { background: 'white' } : {}}
-                        >
-                          <span 
-                            className="text-sm font-normal leading-5"
-                            style={{ color: selectedConsultationDate === day ? '#001731' : 'white' }}
-                          >
-                            {day}
-                          </span>
-                        </button>
-                      ))}
-
-                      {/* Week 3 */}
-                      {[14, 15, 16, 17, 18, 19, 20].map((day) => (
-                        <button 
-                          key={day}
-                          onClick={() => setSelectedConsultationDate(day)}
-                          className="w-8 h-8 rounded-lg flex items-center justify-center"
-                          style={selectedConsultationDate === day ? { background: 'white' } : {}}
-                        >
-                          <span 
-                            className="text-sm font-normal leading-5"
-                            style={{ color: selectedConsultationDate === day ? '#001731' : 'white' }}
-                          >
-                            {day}
-                          </span>
-                        </button>
-                      ))}
-
-                      {/* Week 4 */}
-                      {[21, 22, 23].map((day) => (
-                        <button 
-                          key={day}
-                          onClick={() => setSelectedConsultationDate(day)}
-                          className="w-8 h-8 rounded-lg flex items-center justify-center"
-                          style={selectedConsultationDate === day ? { background: 'white' } : {}}
-                        >
-                          <span 
-                            className="text-sm font-normal leading-5"
-                            style={{ color: selectedConsultationDate === day ? '#001731' : 'white' }}
-                          >
-                            {day}
-                          </span>
-                        </button>
-                      ))}
-                      <button className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: '#002B5E' }}>
-                        <span className="text-sm font-normal leading-5" style={{ color: '#EDEFF7' }}>24</span>
-                      </button>
-                      {[25, 26, 27].map((day) => (
-                        <button 
-                          key={day}
-                          onClick={() => setSelectedConsultationDate(day)}
-                          className="w-8 h-8 rounded-lg flex items-center justify-center"
-                          style={selectedConsultationDate === day ? { background: 'white' } : {}}
-                        >
-                          <span 
-                            className="text-sm font-normal leading-5"
-                            style={{ color: selectedConsultationDate === day ? '#001731' : 'white' }}
-                          >
-                            {day}
-                          </span>
-                        </button>
-                      ))}
-
-                      {/* Week 5 */}
-                      {[28, 29, 30, 31].map((day) => (
-                        <button 
-                          key={day}
-                          onClick={() => setSelectedConsultationDate(day)}
-                          className="w-8 h-8 rounded-lg flex items-center justify-center"
-                          style={selectedConsultationDate === day ? { background: 'white' } : {}}
-                        >
-                          <span 
-                            className="text-sm font-normal leading-5"
-                            style={{ color: selectedConsultationDate === day ? '#001731' : 'white' }}
-                          >
-                            {day}
-                          </span>
-                        </button>
-                      ))}
-                      <button className="w-8 h-8 rounded-lg flex items-center justify-center">
-                        <span className="text-sm text-[#A3A3A3] font-normal leading-5">1</span>
-                      </button>
-                      <button className="w-8 h-8 rounded-lg flex items-center justify-center">
-                        <span className="text-sm text-[#A3A3A3] font-normal leading-5">2</span>
-                      </button>
-                      <button className="w-8 h-8 rounded-lg flex items-center justify-center">
-                        <span className="text-sm text-[#A3A3A3] font-normal leading-5">3</span>
-                      </button>
+                            <span 
+                              className="text-sm font-normal leading-5"
+                              style={{ 
+                                color: isSelected 
+                                  ? '#001731' 
+                                  : isUnavailable 
+                                    ? '#EDEFF7'
+                                    : dayObj.isCurrentMonth 
+                                      ? 'white' 
+                                      : '#A3A3A3' 
+                              }}
+                            >
+                              {dayObj.day}
+                            </span>
+                          </button>
+                        );
+                      })}
                     </div>
                   </div>
                 </div>
