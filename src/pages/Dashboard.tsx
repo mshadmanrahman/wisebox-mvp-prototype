@@ -226,7 +226,6 @@ const Dashboard = () => {
             <div className="space-y-6">
               {/* Upcoming Fees Card */}
               <div className="rounded-xl border border-white/10 p-6" style={{
-                height: '298px',
                 background: '#001731',
                 boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
               }}>
