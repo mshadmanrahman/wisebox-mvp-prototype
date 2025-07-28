@@ -189,7 +189,7 @@ const Dashboard = () => {
                     </div>
                     <div>
                       <p className="text-sm font-medium text-foreground">Taxation</p>
-                      <p className="text-sm text-primary">{propertyFacts.taxation.status}</p>
+                      <p className="text-sm text-[#4cdff2]">{propertyFacts.taxation.status}</p>
                       <p className="text-xs text-muted-foreground">Khazna payed on</p>
                       <p className="text-xs text-muted-foreground">{propertyFacts.taxation.lastPaid}</p>
                     </div>
@@ -197,11 +197,11 @@ const Dashboard = () => {
                   <div className="space-y-4">
                     <div>
                       <p className="text-sm font-medium text-foreground">Owner</p>
-                      <p className="text-sm text-primary">{propertyFacts.ownership.owner}</p>
+                      <p className="text-sm text-[#4cdff2]">{propertyFacts.ownership.owner}</p>
                     </div>
                     <div>
                       <p className="text-sm font-medium text-foreground">Document status</p>
-                      <p className="text-sm text-primary">{propertyFacts.documents.uploaded}</p>
+                      <p className="text-sm text-[#4cdff2]">{propertyFacts.documents.uploaded}</p>
                       <p className="text-xs text-muted-foreground">{propertyFacts.documents.status}</p>
                       <Button variant="outline" size="sm" className="mt-2">
                         Verify Documents
