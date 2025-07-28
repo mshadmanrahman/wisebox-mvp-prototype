@@ -75,9 +75,11 @@ const Dashboard = () => {
         <div className="flex items-center justify-between px-6 py-4">
           <div className="flex items-center space-x-8">
             <div className="flex items-center space-x-2">
-              <div className="h-8 w-8 rounded bg-primary flex items-center justify-center">
-                <Building className="h-5 w-5 text-primary-foreground" />
-              </div>
+              <img 
+                src="/lovable-uploads/6e9b6655-3299-407b-b223-68cb733da78d.png" 
+                alt="Wisebox" 
+                className="h-8 w-8"
+              />
               <span className="text-lg font-semibold">Wisebox</span>
             </div>
             <nav className="hidden md:flex items-center space-x-6">
