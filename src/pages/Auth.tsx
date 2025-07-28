@@ -33,28 +33,28 @@ const Auth = () => {
       quote: "WiseBox has truly transformed how I manage my family properties back in Bangladesh. Now, from the comfort of living room in NYC, I can effortlessly keep track of all my important documents and transactions.",
       name: "Sharmin Rahman",
       title: "Accounting Professional",
-      image: "/lovable-uploads/86a0d692-1113-4719-a3be-f23fd2cbd2ec.png"
+      image: "/lovable-uploads/700c333f-a1db-4af2-9c3e-e303806cc5f0.png"
     },
     {
       location: "New York, USA", 
       quote: "Using WiseBox has truly simplified the management of my family properties in Bangladesh. I can effortlessly monitor all my documents and transactions right from Toronto.",
       name: "Badhan Mazumdar",
       title: "Software Engineer",
-      image: "/lovable-uploads/d56cdf2a-24b9-40ee-b3af-3f74fc759d3b.png"
+      image: "/lovable-uploads/e38c16d8-5fc9-47cc-8d85-942e9e136f29.png"
     },
     {
       location: "Birmingham, UK",
       quote: "WiseBox has completely changed the game for managing my family's estate in Sylhet. From my cozy apartment in Birmingham, I can easily oversee all my vital paperwork and financial dealings without a hitch.",
       name: "Sharmin Rahman", 
       title: "Accounting Professional",
-      image: "/lovable-uploads/649e016c-ad21-4dbd-b723-f8aa0f554730.png"
+      image: "/lovable-uploads/e38c16d8-5fc9-47cc-8d85-942e9e136f29.png"
     },
     {
       location: "Sydney, Australia",
       quote: "As a grandfather, I find great comfort in knowing that WiseBox allows me to manage our family's properties in Bangladesh from my home in Toronto. I can easily keep track of all the important documents and transactions, ensuring that my children and grandchildren will inherit not just assets, but also the wisdom and guidance they need to navigate their future.",
       name: "Enayet Chowdhury",
       title: "Retd. Physician", 
-      image: "/lovable-uploads/07d3ec82-2db8-427d-afc6-8fd443b1c958.png"
+      image: "/lovable-uploads/f823bd09-3741-48e7-813d-25ddf4c7d909.png"
     }
   ];
 
