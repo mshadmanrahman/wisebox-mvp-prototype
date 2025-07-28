@@ -197,7 +197,7 @@ const Dashboard = () => {
               </Card>
 
               {/* Property Facts Card */}
-              <Card className="mt-6 bg-card border border-border">
+              <Card className="mt-6 bg-white border border-border">
                 <CardHeader className="pb-4">
                   <div className="flex items-center justify-between">
                     <CardTitle className="text-lg font-semibold">Property Facts</CardTitle>
@@ -247,7 +247,7 @@ const Dashboard = () => {
             {/* Right Sidebar */}
             <div className="space-y-6">
               {/* Upcoming Fees Card */}
-              <Card className="bg-card border border-border">
+              <Card className="bg-white border border-border">
                 <CardHeader className="pb-3">
                   <div className="flex items-center justify-between">
                     <CardTitle className="text-lg font-semibold">Upcoming fees</CardTitle>
@@ -266,7 +266,7 @@ const Dashboard = () => {
               </Card>
 
               {/* Consultation Card */}
-              <Card className="bg-card border border-border">
+              <Card className="bg-white border border-border">
                 <CardHeader className="pb-3">
                   <div className="flex items-center justify-between">
                     <CardTitle className="text-lg font-semibold">Consultation</CardTitle>
