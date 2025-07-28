@@ -148,9 +148,11 @@ const Auth = () => {
             <div className="max-w-sm mx-auto w-full space-y-8">
               {/* Logo */}
               <div className="flex items-center justify-center space-x-2">
-                <div className="h-8 w-8 rounded bg-primary flex items-center justify-center">
-                  <Building className="h-5 w-5 text-primary-foreground" />
-                </div>
+                <img 
+                  src="/lovable-uploads/6e9b6655-3299-407b-b223-68cb733da78d.png" 
+                  alt="Wisebox" 
+                  className="h-8 w-8"
+                />
                 <span className="text-xl font-semibold text-foreground">Wisebox</span>
               </div>
 
@@ -237,9 +239,11 @@ const Auth = () => {
             <div className="max-w-sm mx-auto w-full space-y-8">
               {/* Logo */}
               <div className="flex items-center justify-center space-x-2">
-                <div className="h-8 w-8 rounded bg-primary flex items-center justify-center">
-                  <Building className="h-5 w-5 text-primary-foreground" />
-                </div>
+                <img 
+                  src="/lovable-uploads/6e9b6655-3299-407b-b223-68cb733da78d.png" 
+                  alt="Wisebox" 
+                  className="h-8 w-8"
+                />
                 <span className="text-xl font-semibold text-foreground">Wisebox</span>
               </div>
 
@@ -361,9 +365,11 @@ const Auth = () => {
             <div className="max-w-sm mx-auto w-full space-y-8">
               {/* Logo */}
               <div className="flex items-center justify-center space-x-2">
-                <div className="h-8 w-8 rounded bg-primary flex items-center justify-center">
-                  <Building className="h-5 w-5 text-primary-foreground" />
-                </div>
+                <img 
+                  src="/lovable-uploads/6e9b6655-3299-407b-b223-68cb733da78d.png" 
+                  alt="Wisebox" 
+                  className="h-8 w-8"
+                />
                 <span className="text-xl font-semibold text-foreground">Wisebox</span>
               </div>
 
@@ -433,9 +439,11 @@ const Auth = () => {
             <div className="max-w-sm mx-auto w-full space-y-8">
               {/* Logo */}
               <div className="flex items-center justify-center space-x-2">
-                <div className="h-8 w-8 rounded bg-primary flex items-center justify-center">
-                  <Building className="h-5 w-5 text-primary-foreground" />
-                </div>
+                <img 
+                  src="/lovable-uploads/6e9b6655-3299-407b-b223-68cb733da78d.png" 
+                  alt="Wisebox" 
+                  className="h-8 w-8"
+                />
                 <span className="text-xl font-semibold text-foreground">Wisebox</span>
               </div>
 
@@ -514,9 +522,11 @@ const Auth = () => {
               <div className="max-w-md w-full space-y-8">
                 {/* Logo */}
                 <div className="flex items-center justify-center space-x-2">
-                  <div className="h-8 w-8 rounded bg-primary flex items-center justify-center">
-                    <Building className="h-5 w-5 text-primary-foreground" />
-                  </div>
+                  <img 
+                    src="/lovable-uploads/6e9b6655-3299-407b-b223-68cb733da78d.png" 
+                    alt="Wisebox" 
+                    className="h-8 w-8"
+                  />
                   <span className="text-xl font-semibold text-foreground">Wisebox</span>
                 </div>
 
