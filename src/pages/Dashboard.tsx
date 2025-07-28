@@ -175,19 +175,19 @@ const Dashboard = () => {
                   </div>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <div className="grid grid-cols-2 gap-4 text-sm font-medium">
+                  <div className="grid grid-cols-2 gap-4 text-sm font-medium text-slate-900">
                     <div>Property</div>
                     <div className="text-right">Estimated Value</div>
                   </div>
                   {netWorthData.map((property, index) => (
-                    <div key={index} className="grid grid-cols-2 gap-4 py-3 border-t border-border">
+                    <div key={index} className="grid grid-cols-2 gap-4 py-3 border-t border-gray-200">
                       <div>
-                        <p className="font-medium text-foreground">{property.name}</p>
-                        <p className="text-sm text-muted-foreground">{property.type}</p>
+                        <p className="font-medium text-slate-900">{property.name}</p>
+                        <p className="text-sm text-slate-600">{property.type}</p>
                       </div>
                       <div className="text-right">
-                        <p className="font-semibold text-foreground">{property.value}</p>
-                        <p className={`text-sm ${property.isPositive ? 'text-success' : 'text-danger'}`}>
+                        <p className="font-semibold text-slate-900">{property.value}</p>
+                        <p className={`text-sm ${property.isPositive ? 'text-green-600' : 'text-red-600'}`}>
                           {property.change}
                         </p>
                       </div>
