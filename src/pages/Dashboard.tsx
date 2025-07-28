@@ -292,7 +292,7 @@ const Dashboard = () => {
       {/* Footer */}
       <footer className="border-t border-border py-4 px-6">
         <div className="flex items-center justify-between text-sm text-muted-foreground">
-          <p>© 2025 WiseBox. All rights reserved.</p>
+          <p style={{color: '#6B7280'}}>© 2025 WiseBox. All rights reserved.</p>
           <div className="flex items-center space-x-4">
             <Button variant="ghost" size="sm">Privacy Policy</Button>
             <Button variant="ghost" size="sm">Terms of Service</Button>
