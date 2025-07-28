@@ -21,9 +21,9 @@ All colors MUST be HSL for proper theming.
     --popover-foreground: 213 31% 15%;
 
     /* Primary brand - WiseBox Blue */
-    --primary: 214 100% 37%;
+    --primary: 215 85% 52%;
     --primary-foreground: 0 0% 100%;
-    --primary-glow: 214 100% 50%;
+    --primary-glow: 215 85% 60%;
 
     /* Secondary - Professional */
     --secondary: 213 27% 84%;
@@ -34,7 +34,7 @@ All colors MUST be HSL for proper theming.
     --muted-foreground: 213 19% 46%;
 
     /* Accent - WiseBox Brand */
-    --accent: 214 100% 37%;
+    --accent: 215 85% 52%;
     --accent-foreground: 0 0% 100%;
 
     /* Status colors */
