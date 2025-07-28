@@ -272,7 +272,7 @@ const Dashboard = () => {
                       </Button>
                     </div>
                     
-                    <Calendar mode="single" selected={selectedDate} onSelect={setSelectedDate} className="w-full" />
+                    <Calendar mode="single" selected={selectedDate} onSelect={setSelectedDate} className="w-full rounded-xl" style={{borderTop: '1px solid #FFFFFF1A'}} />
                     
                     <div className="text-xs text-muted-foreground">
                       <div className="flex items-center space-x-2">
