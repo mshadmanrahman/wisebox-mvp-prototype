@@ -47,7 +47,7 @@ const Dashboard = () => {
   }
   return <div className="min-h-screen text-foreground" style={{background: 'linear-gradient(180deg, #001731 0%, #002B5E 100%)'}}>
       {/* Top Navigation */}
-      <header className="border-b border-border bg-card">
+      <header className="border-b border-border">
         <div className="flex items-center justify-between px-6 py-4">
           <div className="flex items-center space-x-8">
             <div className="flex items-center space-x-2">
@@ -290,7 +290,7 @@ const Dashboard = () => {
       </div>
 
       {/* Footer */}
-      <footer className="border-t border-border bg-card py-4 px-6">
+      <footer className="border-t border-border py-4 px-6">
         <div className="flex items-center justify-between text-sm text-muted-foreground">
           <p>© 2025 WiseBox. All rights reserved.</p>
           <div className="flex items-center space-x-4">
