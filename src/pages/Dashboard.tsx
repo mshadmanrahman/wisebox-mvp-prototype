@@ -294,9 +294,9 @@ const Dashboard = () => {
         <div className="flex items-center justify-between text-sm text-muted-foreground">
           <p style={{color: '#6B7280'}}>© 2025 WiseBox. All rights reserved.</p>
           <div className="flex items-center space-x-4">
-            <Button variant="ghost" size="sm">Privacy Policy</Button>
-            <Button variant="ghost" size="sm">Terms of Service</Button>
-            <Button variant="ghost" size="sm">Help Center</Button>
+            <Button variant="ghost" size="sm" className="font-sans font-medium text-xs tracking-normal align-middle">Privacy Policy</Button>
+            <Button variant="ghost" size="sm" className="font-sans font-medium text-xs tracking-normal align-middle">Terms of Service</Button>
+            <Button variant="ghost" size="sm" className="font-sans font-medium text-xs tracking-normal align-middle">Help Center</Button>
           </div>
         </div>
       </footer>
