@@ -80,7 +80,7 @@ const Dashboard = () => {
 
       <div className="flex">
         {/* Left Sidebar */}
-        <aside className="w-64 border-r border-border bg-card h-[calc(100vh-73px)] p-6">
+        <aside className="w-64 border-r border-border/20 h-[calc(100vh-73px)] p-6">
           <div className="mb-8">
             <h1 className="text-2xl font-bold text-foreground mb-1">Hi Shadman!</h1>
             <p className="text-sm text-muted-foreground">Sunday, July 27</p>
