@@ -364,20 +364,13 @@ const Dashboard = () => {
                     <div className="grid grid-cols-7 gap-0">
                       {generateCalendarDays().map((dayObj, index) => {
                         const isSelected = dayObj.isCurrentMonth && selectedConsultationDate === dayObj.day;
-                        const isUnavailable = dayObj.isCurrentMonth && dayObj.day === 24; // Example: 24th is unavailable
                         
                         return (
                           <button 
                             key={index}
                             onClick={() => dayObj.isCurrentMonth && setSelectedConsultationDate(dayObj.day)}
                             className="w-8 h-8 rounded-lg flex items-center justify-center"
-                            style={
-                              isSelected 
-                                ? { background: 'white' } 
-                                : isUnavailable 
-                                  ? { background: '#002B5E' }
-                                  : {}
-                            }
+                            style={isSelected ? { background: 'white' } : {}}
                             disabled={!dayObj.isCurrentMonth}
                           >
                             <span 
@@ -385,11 +378,9 @@ const Dashboard = () => {
                               style={{ 
                                 color: isSelected 
                                   ? '#001731' 
-                                  : isUnavailable 
-                                    ? '#EDEFF7'
-                                    : dayObj.isCurrentMonth 
-                                      ? 'white' 
-                                      : '#A3A3A3' 
+                                  : dayObj.isCurrentMonth 
+                                    ? 'white' 
+                                    : '#A3A3A3' 
                               }}
                             >
                               {dayObj.day}
