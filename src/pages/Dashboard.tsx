@@ -86,39 +86,39 @@ const Dashboard = () => {
             <p className="text-sm text-muted-foreground">Sunday, July 27</p>
           </div>
           
-          <nav className="space-y-2">
-            <Button variant="default" className="w-full justify-start">
+          <nav className="space-y-1">
+            <Button variant="ghost" className="w-full justify-start text-[#002B5E] font-medium bg-transparent hover:bg-transparent">
               <BarChart3 className="h-4 w-4 mr-3" />
               Snapshot
             </Button>
-            <Button variant="ghost" className="w-full justify-start">
+            <Button variant="ghost" className="w-full justify-start text-gray-500 font-normal bg-transparent hover:bg-gray-100">
               <Building className="h-4 w-4 mr-3" />
               My Properties
             </Button>
-            <Button variant="ghost" className="w-full justify-start">
+            <Button variant="ghost" className="w-full justify-start text-gray-500 font-normal bg-transparent hover:bg-gray-100">
               <FileText className="h-4 w-4 mr-3" />
               Documents
             </Button>
-            <Button variant="ghost" className="w-full justify-start">
+            <Button variant="ghost" className="w-full justify-start text-gray-500 font-normal bg-transparent hover:bg-gray-100">
               <Settings className="h-4 w-4 mr-3" />
               Services
             </Button>
-            <Button variant="ghost" className="w-full justify-start">
+            <Button variant="ghost" className="w-full justify-start text-gray-500 font-normal bg-transparent hover:bg-gray-100">
               <BarChart3 className="h-4 w-4 mr-3" />
               Accounting
             </Button>
-            <Button variant="ghost" className="w-full justify-start">
+            <Button variant="ghost" className="w-full justify-start text-gray-500 font-normal bg-transparent hover:bg-gray-100">
               <FileText className="h-4 w-4 mr-3" />
               Compliance
             </Button>
-            <Button variant="ghost" className="w-full justify-start">
+            <Button variant="ghost" className="w-full justify-start text-gray-500 font-normal bg-transparent hover:bg-gray-100">
               <Settings className="h-4 w-4 mr-3" />
               More
             </Button>
           </nav>
 
           <div className="mt-8">
-            <Button variant="outline" className="w-full">
+            <Button variant="outline" className="w-full text-[#002B5E] border-gray-200 bg-gray-50 hover:bg-gray-100">
               <Plus className="h-4 w-4 mr-2" />
               New Property
             </Button>
