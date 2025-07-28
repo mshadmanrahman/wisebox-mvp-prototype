@@ -168,81 +168,81 @@ const Dashboard = () => {
               </Card>
 
               {/* Property Facts Card */}
-              <Card className="mt-6 rounded-xl border border-white/10 border-t-white/10" style={{
-              height: '298px',
-              background: '#001731',
-              boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
-            }}>
-                <CardHeader className="pb-4">
-                  <div className="flex items-center justify-between">
-                    <CardTitle className="text-lg font-semibold">Property Facts</CardTitle>
+              <div className="mt-6 rounded-xl border border-white/10 p-6" style={{
+                height: '298px',
+                background: '#001731',
+                boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
+              }}>
+                {/* Header */}
+                <div className="mb-4">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-sm font-medium text-[#FAFAFA]">Property Facts</span>
                     <div className="flex items-center space-x-2">
-                      <Button variant="ghost" size="icon">
-                        <ChevronLeft className="h-4 w-4" />
-                      </Button>
-                      <Button variant="ghost" size="icon">
-                        <ChevronRight className="h-4 w-4" />
-                      </Button>
+                      <button className="p-2">
+                        <ChevronLeft className="h-4 w-4 text-white" />
+                      </button>
+                      <button className="p-2">
+                        <ChevronRight className="h-4 w-4 text-white" />
+                      </button>
                     </div>
                   </div>
-                  <p className="text-sm text-muted-foreground">Purbanchal Plot 17, Road 8, Block F</p>
-                </CardHeader>
-                <CardContent className="grid grid-cols-2 gap-6">
+                  <p className="text-sm text-[#A3A3A3]">Purbanchal Plot 17, Road 8, Block F</p>
+                </div>
+                
+                {/* Content Grid */}
+                <div className="grid grid-cols-2 gap-6">
                   <div className="space-y-4">
                     <div>
-                      <p className="text-sm font-medium text-foreground">Ownership Initiation</p>
+                      <p className="text-sm font-medium text-white">Ownership Initiation</p>
                       <p className="text-sm text-[#4cdff2]">{propertyFacts.ownership.date}</p>
                     </div>
                     <div>
-                      <p className="text-sm font-medium text-foreground">Taxation</p>
+                      <p className="text-sm font-medium text-white">Taxation</p>
                       <p className="text-sm text-[#4cdff2]">{propertyFacts.taxation.status}</p>
-                      <p className="text-xs text-muted-foreground">Khazna payed on</p>
-                      <p className="text-xs text-muted-foreground">{propertyFacts.taxation.lastPaid}</p>
+                      <p className="text-xs text-[#A3A3A3]">Khazna payed on</p>
+                      <p className="text-xs text-[#A3A3A3]">{propertyFacts.taxation.lastPaid}</p>
                     </div>
                   </div>
                   <div className="space-y-4">
                     <div>
-                      <p className="text-sm font-medium text-foreground">Owner</p>
+                      <p className="text-sm font-medium text-white">Owner</p>
                       <p className="text-sm text-[#4cdff2]">{propertyFacts.ownership.owner}</p>
                     </div>
                     <div>
-                      <p className="text-sm font-medium text-foreground">Document status</p>
+                      <p className="text-sm font-medium text-white">Document status</p>
                       <p className="text-sm text-[#4cdff2]">{propertyFacts.documents.uploaded}</p>
-                      <p className="text-xs text-muted-foreground">{propertyFacts.documents.status}</p>
-                      <Button variant="outline" size="sm" className="mt-2">
+                      <p className="text-xs text-[#A3A3A3]">{propertyFacts.documents.status}</p>
+                      <button className="mt-2 px-3 py-1 text-xs border border-white/20 rounded-md text-white hover:bg-white/10">
                         Verify Documents
-                        <ExternalLink className="h-4 w-4 ml-2" />
-                      </Button>
+                        <ExternalLink className="h-3 w-3 ml-1 inline" />
+                      </button>
                     </div>
                   </div>
-                </CardContent>
-              </Card>
+                </div>
+              </div>
             </div>
 
             {/* Right Sidebar */}
             <div className="space-y-6">
               {/* Upcoming Fees Card */}
-              <Card className="rounded-xl border border-white/10 border-t-white/10" style={{
-              height: '298px',
-              background: '#001731',
-              boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
-            }}>
-                <CardHeader className="pb-3">
-                  <div className="flex items-center justify-between">
-                    <CardTitle className="text-lg font-semibold">Upcoming fees</CardTitle>
-                    <Button variant="ghost" size="icon">
-                      <ExternalLink className="h-4 w-4" />
-                    </Button>
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-2">
-                    <div className="text-2xl font-bold text-foreground">$830</div>
-                    <div className="text-sm text-danger">₹101,294.11</div>
-                    <div className="text-xs text-muted-foreground">Khazna due on September 20, 2025</div>
-                  </div>
-                </CardContent>
-              </Card>
+              <div className="rounded-xl border border-white/10 p-6" style={{
+                height: '298px',
+                background: '#001731',
+                boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
+              }}>
+                {/* Header */}
+                <div className="flex items-center justify-between mb-4">
+                  <span className="text-sm font-medium text-[#FAFAFA]">Upcoming fees</span>
+                  <ExternalLink className="h-4 w-4 text-white" />
+                </div>
+                
+                {/* Content */}
+                <div className="space-y-2">
+                  <div className="text-2xl font-bold text-white">$830</div>
+                  <div className="text-sm text-red-400">₹101,294.11</div>
+                  <div className="text-xs text-[#A3A3A3]">Khazna due on September 20, 2025</div>
+                </div>
+              </div>
 
               {/* Consultation Card */}
               <div className="rounded-xl border border-white/10 p-6" style={{
