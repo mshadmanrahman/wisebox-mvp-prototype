@@ -245,41 +245,181 @@ const Dashboard = () => {
               </Card>
 
               {/* Consultation Card */}
-              <Card className="rounded-xl border border-white/10 border-t-white/10" style={{
-              background: '#001731',
-              boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
-            }}>
-                <CardHeader className="pb-3">
-                  <div className="flex items-center justify-between">
-                    <CardTitle className="text-lg font-semibold">Consultation</CardTitle>
-                    <Button variant="ghost" size="icon">
-                      <MessageSquare className="h-4 w-4" />
-                    </Button>
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <div className="text-sm text-muted-foreground mb-4">
+              <div className="rounded-xl border border-white/10 p-6" style={{
+                background: '#001731',
+                boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
+              }}>
+                {/* Header */}
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-sm font-medium text-[#FAFAFA]">Consultation</span>
+                  <MessageSquare className="h-4 w-4 text-white" />
+                </div>
+                
+                {/* Description */}
+                <div className="mb-4">
+                  <span className="text-xs text-[#A3A3A3] font-normal leading-4">
                     You have one free consultation left this month. Schedule today to book your spot.
+                  </span>
+                </div>
+
+                {/* Custom Calendar */}
+                <div className="p-3 rounded-xl border border-white/10" style={{
+                  background: '#001731',
+                  borderTop: '1px solid #FFFFFF1A'
+                }}>
+                  {/* Calendar Header */}
+                  <div className="flex items-center justify-between mb-4 relative">
+                    <button className="w-8 h-8 p-2.5 rounded-lg flex items-center justify-center absolute left-0">
+                      <ChevronLeft className="h-4 w-4 text-white" />
+                    </button>
+                    <button className="w-8 h-8 p-2.5 rounded-lg flex items-center justify-center absolute right-0">
+                      <ChevronRight className="h-4 w-4 text-white" />
+                    </button>
+                    <span className="text-sm font-medium text-white mx-auto">January 2025</span>
                   </div>
-                  
-                  {/* Calendar Component */}
-                  <div className="space-y-4">
-                    
-                    
-                    <Calendar mode="single" selected={selectedDate} onSelect={setSelectedDate} className="w-full rounded-xl" style={{
-                    borderTop: '1px solid #FFFFFF1A'
-                  }} />
-                    
-                    <div className="text-xs text-muted-foreground">
-                      <div className="flex items-center space-x-2">
-                        <Clock className="h-3 w-3" />
-                        <span>Time zone</span>
-                      </div>
-                      <p className="ml-5">Eastern Standard Time</p>
+
+                  {/* Calendar Grid */}
+                  <div className="space-y-2">
+                    {/* Day Headers */}
+                    <div className="grid grid-cols-7 gap-0">
+                      {['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'].map((day) => (
+                        <div key={day} className="w-8 h-5 rounded-lg flex items-center justify-center">
+                          <span className="text-xs text-[#A3A3A3] font-normal leading-4">{day}</span>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Calendar Days */}
+                    <div className="grid grid-cols-7 gap-0">
+                      {/* Week 1 */}
+                      <button className="w-8 h-8 rounded-lg flex items-center justify-center">
+                        <span className="text-sm text-[#A3A3A3] font-normal leading-5">30</span>
+                      </button>
+                      <button className="w-8 h-8 rounded-lg flex items-center justify-center">
+                        <span className="text-sm text-white font-normal leading-5">1</span>
+                      </button>
+                      <button className="w-8 h-8 rounded-lg flex items-center justify-center">
+                        <span className="text-sm text-white font-normal leading-5">2</span>
+                      </button>
+                      <button className="w-8 h-8 rounded-lg flex items-center justify-center">
+                        <span className="text-sm text-white font-normal leading-5">3</span>
+                      </button>
+                      <button className="w-8 h-8 rounded-lg flex items-center justify-center">
+                        <span className="text-sm text-white font-normal leading-5">4</span>
+                      </button>
+                      <button className="w-8 h-8 rounded-lg flex items-center justify-center">
+                        <span className="text-sm text-white font-normal leading-5">5</span>
+                      </button>
+                      <button className="w-8 h-8 rounded-lg flex items-center justify-center">
+                        <span className="text-sm text-white font-normal leading-5">6</span>
+                      </button>
+
+                      {/* Week 2 */}
+                      <button className="w-8 h-8 rounded-lg flex items-center justify-center">
+                        <span className="text-sm text-white font-normal leading-5">7</span>
+                      </button>
+                      <button className="w-8 h-8 rounded-lg flex items-center justify-center">
+                        <span className="text-sm text-white font-normal leading-5">8</span>
+                      </button>
+                      <button className="w-8 h-8 rounded-lg flex items-center justify-center">
+                        <span className="text-sm text-white font-normal leading-5">9</span>
+                      </button>
+                      <button className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: 'white' }}>
+                        <span className="text-sm font-normal leading-5" style={{ color: '#001731' }}>10</span>
+                      </button>
+                      <button className="w-8 h-8 rounded-lg flex items-center justify-center">
+                        <span className="text-sm text-white font-normal leading-5">11</span>
+                      </button>
+                      <button className="w-8 h-8 rounded-lg flex items-center justify-center">
+                        <span className="text-sm text-white font-normal leading-5">12</span>
+                      </button>
+                      <button className="w-8 h-8 rounded-lg flex items-center justify-center">
+                        <span className="text-sm text-white font-normal leading-5">13</span>
+                      </button>
+
+                      {/* Week 3 */}
+                      <button className="w-8 h-8 rounded-lg flex items-center justify-center">
+                        <span className="text-sm text-white font-normal leading-5">14</span>
+                      </button>
+                      <button className="w-8 h-8 rounded-lg flex items-center justify-center">
+                        <span className="text-sm text-white font-normal leading-5">15</span>
+                      </button>
+                      <button className="w-8 h-8 rounded-lg flex items-center justify-center">
+                        <span className="text-sm text-white font-normal leading-5">16</span>
+                      </button>
+                      <button className="w-8 h-8 rounded-lg flex items-center justify-center">
+                        <span className="text-sm text-white font-normal leading-5">17</span>
+                      </button>
+                      <button className="w-8 h-8 rounded-lg flex items-center justify-center">
+                        <span className="text-sm text-white font-normal leading-5">18</span>
+                      </button>
+                      <button className="w-8 h-8 rounded-lg flex items-center justify-center">
+                        <span className="text-sm text-white font-normal leading-5">19</span>
+                      </button>
+                      <button className="w-8 h-8 rounded-lg flex items-center justify-center">
+                        <span className="text-sm text-white font-normal leading-5">20</span>
+                      </button>
+
+                      {/* Week 4 */}
+                      <button className="w-8 h-8 rounded-lg flex items-center justify-center">
+                        <span className="text-sm text-white font-normal leading-5">21</span>
+                      </button>
+                      <button className="w-8 h-8 rounded-lg flex items-center justify-center">
+                        <span className="text-sm text-white font-normal leading-5">22</span>
+                      </button>
+                      <button className="w-8 h-8 rounded-lg flex items-center justify-center">
+                        <span className="text-sm text-white font-normal leading-5">23</span>
+                      </button>
+                      <button className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: '#002B5E' }}>
+                        <span className="text-sm font-normal leading-5" style={{ color: '#EDEFF7' }}>24</span>
+                      </button>
+                      <button className="w-8 h-8 rounded-lg flex items-center justify-center">
+                        <span className="text-sm text-white font-normal leading-5">25</span>
+                      </button>
+                      <button className="w-8 h-8 rounded-lg flex items-center justify-center">
+                        <span className="text-sm text-white font-normal leading-5">26</span>
+                      </button>
+                      <button className="w-8 h-8 rounded-lg flex items-center justify-center">
+                        <span className="text-sm text-white font-normal leading-5">27</span>
+                      </button>
+
+                      {/* Week 5 */}
+                      <button className="w-8 h-8 rounded-lg flex items-center justify-center">
+                        <span className="text-sm text-white font-normal leading-5">28</span>
+                      </button>
+                      <button className="w-8 h-8 rounded-lg flex items-center justify-center">
+                        <span className="text-sm text-white font-normal leading-5">29</span>
+                      </button>
+                      <button className="w-8 h-8 rounded-lg flex items-center justify-center">
+                        <span className="text-sm text-white font-normal leading-5">30</span>
+                      </button>
+                      <button className="w-8 h-8 rounded-lg flex items-center justify-center">
+                        <span className="text-sm text-white font-normal leading-5">31</span>
+                      </button>
+                      <button className="w-8 h-8 rounded-lg flex items-center justify-center">
+                        <span className="text-sm text-[#A3A3A3] font-normal leading-5">1</span>
+                      </button>
+                      <button className="w-8 h-8 rounded-lg flex items-center justify-center">
+                        <span className="text-sm text-[#A3A3A3] font-normal leading-5">2</span>
+                      </button>
+                      <button className="w-8 h-8 rounded-lg flex items-center justify-center">
+                        <span className="text-sm text-[#A3A3A3] font-normal leading-5">3</span>
+                      </button>
                     </div>
                   </div>
-                </CardContent>
-              </Card>
+                </div>
+
+                {/* Timezone Section */}
+                <div className="px-4 py-2 mt-2">
+                  <div className="space-y-1">
+                    <span className="text-xs text-[#A3A3A3] font-normal leading-3">Time zone</span>
+                    <div className="flex items-center gap-2">
+                      <Clock className="h-4 w-4 text-[#A3A3A3]" />
+                      <span className="text-xs text-[#FAFAFA] font-medium leading-4">Eastern Standard Time</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </main>
