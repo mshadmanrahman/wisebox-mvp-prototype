@@ -7,7 +7,7 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky top-0 z-50 w-full border-b border-border/40 backdrop-blur">
       <div className="container flex h-16 items-center justify-between">
         {/* Logo */}
         <div className="flex items-center space-x-2">
@@ -58,7 +58,7 @@ const Header = () => {
 
       {/* Mobile Menu */}
       <div className={cn(
-        "md:hidden border-t border-border/40 bg-background/95 backdrop-blur",
+        "md:hidden border-t border-border/40 backdrop-blur",
         isMenuOpen ? "block" : "hidden"
       )}>
         <nav className="container flex flex-col space-y-4 py-4">

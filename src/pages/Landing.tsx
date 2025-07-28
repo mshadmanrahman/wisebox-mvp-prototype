@@ -4,7 +4,9 @@ import Features from "@/components/Features";
 
 const Landing = () => {
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="min-h-screen text-foreground" style={{
+      background: 'linear-gradient(180deg, #001731 0%, #002B5E 100%)'
+    }}>
       <Header />
       <Hero />
       <Features />
