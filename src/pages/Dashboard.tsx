@@ -1,348 +1,328 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Progress } from "@/components/ui/progress";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Calendar } from "@/components/ui/calendar";
+import { Input } from "@/components/ui/input";
 import { 
   Building, 
   Plus, 
-  Upload, 
-  Calendar, 
-  AlertTriangle, 
-  CheckCircle, 
-  FileText,
-  MapPin,
+  Search,
   Bell,
   User,
+  ChevronLeft,
+  ChevronRight,
+  FileText,
   Settings,
-  LogOut,
-  Users,
-  Shield,
-  BarChart3
+  MessageSquare,
+  BarChart3,
+  Calendar as CalendarIcon,
+  Clock,
+  MapPin,
+  TrendingUp,
+  TrendingDown,
+  ExternalLink
 } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
-import AdminUserManagement from "@/components/AdminUserManagement";
-import AddPropertyModal from "@/components/AddPropertyModal";
-import ConsultationBooking from "@/components/ConsultationBooking";
-import UploadDocumentModal from "@/components/UploadDocumentModal";
 
 const Dashboard = () => {
-  const { user, logout, isAdmin } = useAuth();
-  const [activeTab, setActiveTab] = useState("overview");
+  const { user } = useAuth();
+  const [currentDate] = useState(new Date());
+  const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date());
 
-  const [properties] = useState([
+  // Mock data for the exact layout
+  const netWorthData = [
     {
-      id: 1,
-      name: "Family Home - Dhaka",
-      type: "Residential",
-      address: "Dhanmondi, Dhaka",
-      status: "compliant",
-      documents: 8,
-      expiringDocs: 0,
-      lastUpdated: "2 days ago"
+      name: "Purbanchal Plot 17, Road 8, Block F",
+      type: "Land",
+      value: "$400,024.92",
+      change: "+4.5% YoY",
+      isPositive: true
     },
     {
-      id: 2,
-      name: "Commercial Plot - Chittagong",
-      type: "Commercial",
-      address: "Agrabad, Chittagong",
-      status: "warning",
-      documents: 5,
-      expiringDocs: 2,
-      lastUpdated: "1 week ago"
+      name: "House 17, Road 14, Sector 13, Uttara",
+      type: "Apartment", 
+      value: "$90,952.52",
+      change: "-1.3% YoY",
+      isPositive: false
     }
-  ]);
+  ];
 
-  const [recentActivity] = useState([
-    { action: "Document uploaded", item: "Property Tax Receipt", time: "2 hours ago", type: "success" },
-    { action: "Consultation booked", item: "Will Planning Session", time: "1 day ago", type: "info" },
-    { action: "Reminder sent", item: "Khajna Payment Due", time: "3 days ago", type: "warning" }
-  ]);
+  const propertyFacts = {
+    ownership: {
+      date: "January 1, 2008",
+      owner: "Shadman Sakib, Sabrina Nawrin"
+    },
+    taxation: {
+      status: "Up to date",
+      lastPaid: "September 20, 2024"
+    },
+    documents: {
+      uploaded: "4 out 8 Uploaded",
+      status: "Your documents are not verified yet."
+    }
+  };
 
-  // All hooks are called before any conditional logic
   if (!user) {
     window.location.href = "/auth";
     return null;
   }
 
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case "compliant": return "default";
-      case "warning": return "secondary";
-      case "critical": return "destructive";
-      default: return "outline";
-    }
-  };
-
-  const getStatusIcon = (status: string) => {
-    switch (status) {
-      case "compliant": return CheckCircle;
-      case "warning": return AlertTriangle;
-      case "critical": return AlertTriangle;
-      default: return FileText;
-    }
-  };
-
   return (
-    <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="border-b border-border bg-card shadow-card">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-primary-glow">
-                <Building className="h-6 w-6 text-primary-foreground" />
+    <div className="min-h-screen bg-background text-foreground">
+      {/* Top Navigation */}
+      <header className="border-b border-border bg-card">
+        <div className="flex items-center justify-between px-6 py-4">
+          <div className="flex items-center space-x-8">
+            <div className="flex items-center space-x-2">
+              <div className="h-8 w-8 rounded bg-primary flex items-center justify-center">
+                <Building className="h-5 w-5 text-primary-foreground" />
               </div>
-              <div>
-                <h1 className="text-xl font-bold">WiseBox Dashboard</h1>
-                <p className="text-sm text-muted-foreground">Property Management Platform</p>
-              </div>
+              <span className="text-lg font-semibold">Wisebox</span>
             </div>
-            
-            <div className="flex items-center space-x-3">
-              <Button variant="ghost" size="icon">
-                <Bell className="h-5 w-5" />
-              </Button>
-              <div className="flex items-center space-x-2">
-                <div className="h-8 w-8 rounded-full bg-gradient-to-br from-primary to-primary-glow flex items-center justify-center">
-                  {isAdmin ? (
-                    <Shield className="h-4 w-4 text-primary-foreground" />
-                  ) : (
-                    <User className="h-4 w-4 text-primary-foreground" />
-                  )}
-                </div>
-                <div className="hidden md:block text-sm">
-                  <div className="flex items-center space-x-2">
-                    <p className="font-medium">{user.name}</p>
-                    {isAdmin && (
-                      <Badge variant="default" className="text-xs">
-                        <Shield className="h-3 w-3 mr-1" />
-                        Admin
-                      </Badge>
-                    )}
-                  </div>
-                  <p className="text-muted-foreground">{user.location || `${user.role} user`}</p>
-                </div>
+            <nav className="hidden md:flex items-center space-x-6">
+              <Button variant="ghost" className="text-sm">Assets</Button>
+              <Button variant="ghost" className="text-sm">Communication</Button>
+              <Button variant="ghost" className="text-sm">Settings</Button>
+            </nav>
+          </div>
+          
+          <div className="flex items-center space-x-4">
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+              <Input 
+                placeholder="Search..." 
+                className="pl-10 w-64"
+              />
+            </div>
+            <Button variant="ghost" size="icon">
+              <Bell className="h-5 w-5" />
+            </Button>
+            <div className="flex items-center space-x-2">
+              <div className="h-8 w-8 rounded-full bg-primary flex items-center justify-center">
+                <span className="text-sm font-medium text-primary-foreground">SS</span>
               </div>
-              <Button variant="ghost" size="icon" onClick={logout}>
-                <LogOut className="h-5 w-5" />
-              </Button>
             </div>
           </div>
         </div>
       </header>
 
-      <div className="container mx-auto px-4 py-8">
-        {/* Welcome Section */}
-        <div className="mb-8">
-          <h2 className="text-2xl font-bold mb-2">
-            Welcome back, {user.name.split(' ')[0]}!
-            {isAdmin && <span className="text-primary"> (Administrator)</span>}
-          </h2>
-          <p className="text-muted-foreground">
-            {isAdmin 
-              ? "Manage the WiseBox platform and user accounts"
-              : "Manage your properties and stay compliant from anywhere"
-            }
-          </p>
-        </div>
+      <div className="flex">
+        {/* Left Sidebar */}
+        <aside className="w-64 border-r border-border bg-card h-[calc(100vh-73px)] p-6">
+          <div className="mb-8">
+            <h1 className="text-2xl font-bold text-foreground mb-1">Hi Shadman!</h1>
+            <p className="text-sm text-muted-foreground">Sunday, July 27</p>
+          </div>
+          
+          <nav className="space-y-2">
+            <Button variant="default" className="w-full justify-start">
+              <BarChart3 className="h-4 w-4 mr-3" />
+              Snapshot
+            </Button>
+            <Button variant="ghost" className="w-full justify-start">
+              <Building className="h-4 w-4 mr-3" />
+              My Properties
+            </Button>
+            <Button variant="ghost" className="w-full justify-start">
+              <FileText className="h-4 w-4 mr-3" />
+              Documents
+            </Button>
+            <Button variant="ghost" className="w-full justify-start">
+              <Settings className="h-4 w-4 mr-3" />
+              Services
+            </Button>
+            <Button variant="ghost" className="w-full justify-start">
+              <BarChart3 className="h-4 w-4 mr-3" />
+              Accounting
+            </Button>
+            <Button variant="ghost" className="w-full justify-start">
+              <FileText className="h-4 w-4 mr-3" />
+              Compliance
+            </Button>
+            <Button variant="ghost" className="w-full justify-start">
+              <Settings className="h-4 w-4 mr-3" />
+              More
+            </Button>
+          </nav>
 
-        {/* Admin/User Tabs */}
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-3">
-            <TabsTrigger value="overview" className="flex items-center space-x-2">
-              <BarChart3 className="h-4 w-4" />
-              <span>Overview</span>
-            </TabsTrigger>
-            <TabsTrigger value="properties" className="flex items-center space-x-2">
-              <Building className="h-4 w-4" />
-              <span>Properties</span>
-            </TabsTrigger>
-            {isAdmin && (
-              <TabsTrigger value="users" className="flex items-center space-x-2">
-                <Users className="h-4 w-4" />
-                <span>User Management</span>
-              </TabsTrigger>
-            )}
-          </TabsList>
+          <div className="mt-8">
+            <Button variant="outline" className="w-full">
+              <Plus className="h-4 w-4 mr-2" />
+              New Property
+            </Button>
+          </div>
+        </aside>
 
-          <TabsContent value="overview" className="space-y-6">
-            {/* Quick Actions */}
-            <div className="grid md:grid-cols-3 gap-4">
-              <AddPropertyModal />
-              <UploadDocumentModal properties={properties} />
-              <Button variant="secondary" className="h-auto p-6 flex-col space-y-2">
-                <Calendar className="h-6 w-6" />
-                <span>Book Consultation</span>
-              </Button>
-            </div>
-
-            {/* Stats Overview */}
-            <div className="grid md:grid-cols-4 gap-6">
-              <Card>
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-sm font-medium text-muted-foreground">
-                    {isAdmin ? "Total Users" : "Total Properties"}
-                  </CardTitle>
+        {/* Main Content */}
+        <main className="flex-1 p-6">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            {/* Net Worth Card */}
+            <div className="lg:col-span-2">
+              <Card className="bg-card border border-border">
+                <CardHeader className="pb-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <CardTitle className="text-lg font-semibold">Net Worth</CardTitle>
+                      <p className="text-sm text-muted-foreground">Based on our current valuation data.</p>
+                    </div>
+                    <Button variant="outline" size="sm">
+                      Request Appraisal
+                      <ExternalLink className="h-4 w-4 ml-2" />
+                    </Button>
+                  </div>
                 </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">{isAdmin ? "156" : properties.length}</div>
-                  <p className="text-xs text-success">+12 this month</p>
+                <CardContent className="space-y-4">
+                  <div className="grid grid-cols-2 gap-4 text-sm font-medium">
+                    <div>Property</div>
+                    <div className="text-right">Estimated Value</div>
+                  </div>
+                  {netWorthData.map((property, index) => (
+                    <div key={index} className="grid grid-cols-2 gap-4 py-3 border-t border-border">
+                      <div>
+                        <p className="font-medium text-foreground">{property.name}</p>
+                        <p className="text-sm text-muted-foreground">{property.type}</p>
+                      </div>
+                      <div className="text-right">
+                        <p className="font-semibold text-foreground">{property.value}</p>
+                        <p className={`text-sm ${property.isPositive ? 'text-success' : 'text-danger'}`}>
+                          {property.change}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
                 </CardContent>
               </Card>
-              
-              <Card>
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-sm font-medium text-muted-foreground">
-                    {isAdmin ? "Active Properties" : "Compliant Properties"}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold text-success">{isAdmin ? "284" : "1"}</div>
-                  <p className="text-xs text-muted-foreground">
-                    {isAdmin ? "89% active rate" : "50% compliance rate"}
-                  </p>
-                </CardContent>
-              </Card>
-              
-              <Card>
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-sm font-medium text-muted-foreground">
-                    {isAdmin ? "Consultations Today" : "Expiring Documents"}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold text-warning">{isAdmin ? "8" : "2"}</div>
-                  <p className="text-xs text-muted-foreground">
-                    {isAdmin ? "Scheduled today" : "Next 30 days"}
-                  </p>
-                </CardContent>
-              </Card>
-              
-              <Card>
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-sm font-medium text-muted-foreground">
-                    {isAdmin ? "Revenue This Month" : "Active Consultations"}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">{isAdmin ? "$12,450" : "1"}</div>
-                  <p className="text-xs text-muted-foreground">
-                    {isAdmin ? "+18% from last month" : "Scheduled this week"}
-                  </p>
-                </CardContent>
-              </Card>
-            </div>
 
-            {/* Recent Activity */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Recent Activity</CardTitle>
-                <CardDescription>Latest updates and actions</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-3">
-                {recentActivity.map((activity, index) => (
-                  <div key={index} className="flex items-start space-x-3 text-sm">
-                    <div className={`h-2 w-2 rounded-full mt-2 ${
-                      activity.type === 'success' ? 'bg-success' :
-                      activity.type === 'warning' ? 'bg-warning' : 'bg-primary'
-                    }`} />
-                    <div className="flex-1 min-w-0">
-                      <p className="font-medium">{activity.action}</p>
-                      <p className="text-muted-foreground truncate">{activity.item}</p>
-                      <p className="text-xs text-muted-foreground">{activity.time}</p>
+              {/* Property Facts Card */}
+              <Card className="mt-6 bg-card border border-border">
+                <CardHeader className="pb-4">
+                  <div className="flex items-center justify-between">
+                    <CardTitle className="text-lg font-semibold">Property Facts</CardTitle>
+                    <div className="flex items-center space-x-2">
+                      <Button variant="ghost" size="icon">
+                        <ChevronLeft className="h-4 w-4" />
+                      </Button>
+                      <Button variant="ghost" size="icon">
+                        <ChevronRight className="h-4 w-4" />
+                      </Button>
                     </div>
                   </div>
-                ))}
-              </CardContent>
-            </Card>
-          </TabsContent>
-
-          <TabsContent value="properties" className="space-y-6">
-            {/* Properties List */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center justify-between">
-                  Your Properties
-                  <Button variant="outline" size="sm">
-                    <Plus className="h-4 w-4 mr-2" />
-                    Add New
-                  </Button>
-                </CardTitle>
-                <CardDescription>
-                  Manage and monitor your property portfolio
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                {properties.map((property) => {
-                  const StatusIcon = getStatusIcon(property.status);
-                  return (
-                    <div key={property.id} className="border border-border rounded-lg p-4 hover:shadow-md transition-shadow">
-                      <div className="flex items-start justify-between mb-3">
-                        <div className="flex items-center space-x-3">
-                          <div className="h-10 w-10 rounded-lg bg-muted flex items-center justify-center">
-                            <Building className="h-5 w-5 text-muted-foreground" />
-                          </div>
-                          <div>
-                            <h3 className="font-semibold">{property.name}</h3>
-                            <p className="text-sm text-muted-foreground flex items-center">
-                              <MapPin className="h-3 w-3 mr-1" />
-                              {property.address}
-                            </p>
-                          </div>
-                        </div>
-                        <Badge variant={getStatusColor(property.status)}>
-                          <StatusIcon className="h-3 w-3 mr-1" />
-                          {property.status}
-                        </Badge>
-                      </div>
-                      
-                      <div className="grid grid-cols-3 gap-4 text-sm">
-                        <div>
-                          <p className="text-muted-foreground">Documents</p>
-                          <p className="font-medium">{property.documents} files</p>
-                        </div>
-                        <div>
-                          <p className="text-muted-foreground">Expiring Soon</p>
-                          <p className="font-medium text-warning">{property.expiringDocs} docs</p>
-                        </div>
-                        <div>
-                          <p className="text-muted-foreground">Last Updated</p>
-                          <p className="font-medium">{property.lastUpdated}</p>
-                        </div>
-                      </div>
-                      
-                      <div className="mt-3 pt-3 border-t border-border">
-                        <div className="flex items-center justify-between mb-3">
-                          <span className="text-sm text-muted-foreground">Compliance Progress</span>
-                          <span className="text-sm font-medium">75%</span>
-                        </div>
-                        <Progress value={75} className="mb-3" />
-                        <div className="flex items-center justify-end space-x-2">
-                          <ConsultationBooking 
-                            propertyId={property.id.toString()} 
-                            propertyName={property.name} 
-                          />
-                          <Button variant="outline" size="sm">
-                            View Details
-                          </Button>
-                        </div>
-                      </div>
+                  <p className="text-sm text-muted-foreground">Purbanchal Plot 17, Road 8, Block F</p>
+                </CardHeader>
+                <CardContent className="grid grid-cols-2 gap-6">
+                  <div className="space-y-4">
+                    <div>
+                      <p className="text-sm font-medium text-foreground">Ownership Initiation</p>
+                      <p className="text-sm text-primary">{propertyFacts.ownership.date}</p>
                     </div>
-                  );
-                })}
-              </CardContent>
-            </Card>
-          </TabsContent>
+                    <div>
+                      <p className="text-sm font-medium text-foreground">Taxation</p>
+                      <p className="text-sm text-primary">{propertyFacts.taxation.status}</p>
+                      <p className="text-xs text-muted-foreground">Khazna payed on</p>
+                      <p className="text-xs text-muted-foreground">{propertyFacts.taxation.lastPaid}</p>
+                    </div>
+                  </div>
+                  <div className="space-y-4">
+                    <div>
+                      <p className="text-sm font-medium text-foreground">Owner</p>
+                      <p className="text-sm text-primary">{propertyFacts.ownership.owner}</p>
+                    </div>
+                    <div>
+                      <p className="text-sm font-medium text-foreground">Document status</p>
+                      <p className="text-sm text-primary">{propertyFacts.documents.uploaded}</p>
+                      <p className="text-xs text-muted-foreground">{propertyFacts.documents.status}</p>
+                      <Button variant="outline" size="sm" className="mt-2">
+                        Verify Documents
+                        <ExternalLink className="h-4 w-4 ml-2" />
+                      </Button>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
 
-          {isAdmin && (
-            <TabsContent value="users">
-              <AdminUserManagement />
-            </TabsContent>
-          )}
-        </Tabs>
+            {/* Right Sidebar */}
+            <div className="space-y-6">
+              {/* Upcoming Fees Card */}
+              <Card className="bg-card border border-border">
+                <CardHeader className="pb-3">
+                  <div className="flex items-center justify-between">
+                    <CardTitle className="text-lg font-semibold">Upcoming fees</CardTitle>
+                    <Button variant="ghost" size="icon">
+                      <ExternalLink className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-2">
+                    <div className="text-2xl font-bold text-foreground">$830</div>
+                    <div className="text-sm text-danger">₹101,294.11</div>
+                    <div className="text-xs text-muted-foreground">Khazna due on September 20, 2025</div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Consultation Card */}
+              <Card className="bg-card border border-border">
+                <CardHeader className="pb-3">
+                  <div className="flex items-center justify-between">
+                    <CardTitle className="text-lg font-semibold">Consultation</CardTitle>
+                    <Button variant="ghost" size="icon">
+                      <MessageSquare className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-sm text-muted-foreground mb-4">
+                    You have one free consultation left this month. Schedule today to book your spot.
+                  </div>
+                  
+                  {/* Calendar Component */}
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between">
+                      <Button variant="ghost" size="icon">
+                        <ChevronLeft className="h-4 w-4" />
+                      </Button>
+                      <span className="font-medium">January 2025</span>
+                      <Button variant="ghost" size="icon">
+                        <ChevronRight className="h-4 w-4" />
+                      </Button>
+                    </div>
+                    
+                    <Calendar
+                      mode="single"
+                      selected={selectedDate}
+                      onSelect={setSelectedDate}
+                      className="w-full"
+                    />
+                    
+                    <div className="text-xs text-muted-foreground">
+                      <div className="flex items-center space-x-2">
+                        <Clock className="h-3 w-3" />
+                        <span>Time zone</span>
+                      </div>
+                      <p className="ml-5">Eastern Standard Time</p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        </main>
       </div>
+
+      {/* Footer */}
+      <footer className="border-t border-border bg-card py-4 px-6">
+        <div className="flex items-center justify-between text-sm text-muted-foreground">
+          <p>© 2025 WiseBox. All rights reserved.</p>
+          <div className="flex items-center space-x-4">
+            <Button variant="ghost" size="sm">Privacy Policy</Button>
+            <Button variant="ghost" size="sm">Terms of Service</Button>
+            <Button variant="ghost" size="sm">Help Center</Button>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 };
