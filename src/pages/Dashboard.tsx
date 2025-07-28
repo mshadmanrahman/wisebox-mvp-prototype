@@ -290,7 +290,7 @@ const Dashboard = () => {
       </div>
 
       {/* Footer */}
-      <footer className="border-t border-border py-4 px-6">
+      <footer className="py-4 px-6" style={{borderTop: '0.5px solid #FFFFFF1A'}}>
         <div className="flex items-center justify-between text-sm text-muted-foreground">
           <p style={{color: '#6B7280'}}>© 2025 WiseBox. All rights reserved.</p>
           <div className="flex items-center space-x-4">
