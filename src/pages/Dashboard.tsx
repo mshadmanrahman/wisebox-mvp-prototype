@@ -167,7 +167,6 @@ const Dashboard = () => {
 
               {/* Property Facts Card */}
               <Card className="mt-6 rounded-xl border border-white/10 border-t-white/10" style={{
-                width: '664px',
                 height: '298px',
                 background: '#001731',
                 boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
@@ -222,7 +221,6 @@ const Dashboard = () => {
             <div className="space-y-6">
               {/* Upcoming Fees Card */}
               <Card className="rounded-xl border border-white/10 border-t-white/10" style={{
-                width: '664px',
                 height: '298px',
                 background: '#001731',
                 boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
@@ -246,7 +244,6 @@ const Dashboard = () => {
 
               {/* Consultation Card */}
               <Card className="rounded-xl border border-white/10 border-t-white/10" style={{
-                width: '664px',
                 height: '298px',
                 background: '#001731',
                 boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
