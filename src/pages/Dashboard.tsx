@@ -165,8 +165,8 @@ const Dashboard = () => {
                 <CardHeader className="pb-4">
                   <div className="flex items-center justify-between">
                     <div>
-                      <CardTitle className="text-lg font-semibold">Net Worth</CardTitle>
-                      <p className="text-sm text-muted-foreground">Based on our current valuation data.</p>
+                      <CardTitle className="text-lg font-semibold" style={{color: '#002B5E'}}>Net Worth</CardTitle>
+                      <p className="text-sm text-slate-600">Based on our current valuation data.</p>
                     </div>
                     <Button variant="outline" size="sm">
                       Request Appraisal
