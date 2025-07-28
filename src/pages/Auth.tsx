@@ -546,6 +546,7 @@ const Auth = () => {
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         className="bg-card border-border text-foreground"
+                        placeholder="ahmed.rahman@email.com"
                         required
                       />
                     </div>
