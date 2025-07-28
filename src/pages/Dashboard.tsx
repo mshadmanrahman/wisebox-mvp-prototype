@@ -12,6 +12,24 @@ const Dashboard = () => {
   } = useAuth();
   const [currentDate] = useState(new Date());
   const [selectedConsultationDate, setSelectedConsultationDate] = useState<number>(10);
+  const [currentMonth, setCurrentMonth] = useState(new Date(2025, 0)); // January 2025
+  
+  const navigateMonth = (direction: 'prev' | 'next') => {
+    setCurrentMonth(prev => {
+      const newMonth = new Date(prev);
+      if (direction === 'prev') {
+        newMonth.setMonth(newMonth.getMonth() - 1);
+      } else {
+        newMonth.setMonth(newMonth.getMonth() + 1);
+      }
+      return newMonth;
+    });
+    setSelectedConsultationDate(1); // Reset selection when changing months
+  };
+
+  const formatMonth = (date: Date) => {
+    return date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+  };
 
   // Mock data for the exact layout
   const netWorthData = [{
@@ -268,13 +286,19 @@ const Dashboard = () => {
                 }}>
                   {/* Calendar Header */}
                   <div className="flex items-center justify-between mb-4 relative">
-                    <button className="w-8 h-8 p-2.5 rounded-lg flex items-center justify-center absolute left-0">
+                    <button 
+                      onClick={() => navigateMonth('prev')}
+                      className="w-8 h-8 p-2.5 rounded-lg flex items-center justify-center absolute left-0 hover:bg-white/10"
+                    >
                       <ChevronLeft className="h-4 w-4 text-white" />
                     </button>
-                    <button className="w-8 h-8 p-2.5 rounded-lg flex items-center justify-center absolute right-0">
+                    <button 
+                      onClick={() => navigateMonth('next')}
+                      className="w-8 h-8 p-2.5 rounded-lg flex items-center justify-center absolute right-0 hover:bg-white/10"
+                    >
                       <ChevronRight className="h-4 w-4 text-white" />
                     </button>
-                    <span className="text-sm font-medium text-white mx-auto">January 2025</span>
+                    <span className="text-sm font-medium text-white mx-auto">{formatMonth(currentMonth)}</span>
                   </div>
 
                   {/* Calendar Grid */}
