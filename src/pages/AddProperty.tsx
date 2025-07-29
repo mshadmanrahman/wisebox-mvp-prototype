@@ -468,24 +468,6 @@ const AddProperty = () => {
                 <p className="text-sm text-gray-300">Book a consultation with our experts to verify your property documents</p>
               </CardHeader>
               <CardContent className="space-y-4">
-                <div className="bg-blue-500/10 border border-blue-500/20 rounded-lg p-4">
-                  <div className="flex items-start space-x-3">
-                    <UserCheck className="h-6 w-6 text-blue-400 mt-1" />
-                    <div>
-                      <h4 className="text-white font-medium mb-1">Professional Document Verification</h4>
-                      <p className="text-sm text-gray-300 mb-3">
-                        Our certified consultants will review your documents for authenticity, completeness, and legal validity according to Bangladesh property laws.
-                      </p>
-                      <ul className="text-xs text-gray-400 space-y-1">
-                        <li>• Legal document authentication</li>
-                        <li>• Completeness verification</li>
-                        <li>• Compliance with Bangladesh laws</li>
-                        <li>• Expert recommendations</li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-
                 {/* Calendar Interface */}
                   <div className="p-4 rounded-xl border border-white/10" style={{
                     background: '#001731',
