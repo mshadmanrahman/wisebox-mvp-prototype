@@ -159,28 +159,28 @@ const Dashboard = () => {
               <BarChart3 className="h-4 w-4 mr-3 text-white" />
               Snapshot
             </Button>
-            <Button variant="ghost" className="w-full justify-start text-gray-500 font-normal bg-transparent hover:bg-transparent hover:text-white">
+            <Button variant="ghost" className="w-full justify-start text-gray-500 font-normal bg-transparent hover:bg-transparent hover:text-white group">
               <Building className="h-4 w-4 mr-3 text-gray-500 group-hover:text-white" />
               My Properties
             </Button>
-            <Button variant="ghost" className="w-full justify-start text-gray-500 font-normal bg-transparent hover:bg-gray-100">
-              <FileText className="h-4 w-4 mr-3" />
+            <Button variant="ghost" className="w-full justify-start text-gray-500 font-normal bg-transparent hover:bg-transparent hover:text-white group">
+              <FileText className="h-4 w-4 mr-3 text-gray-500 group-hover:text-white" />
               Documents
             </Button>
-            <Button variant="ghost" className="w-full justify-start text-gray-500 font-normal bg-transparent hover:bg-gray-100">
-              <Settings className="h-4 w-4 mr-3" />
+            <Button variant="ghost" className="w-full justify-start text-gray-500 font-normal bg-transparent hover:bg-transparent hover:text-white group">
+              <Settings className="h-4 w-4 mr-3 text-gray-500 group-hover:text-white" />
               Services
             </Button>
-            <Button variant="ghost" className="w-full justify-start text-gray-500 font-normal bg-transparent hover:bg-gray-100">
-              <BarChart3 className="h-4 w-4 mr-3" />
+            <Button variant="ghost" className="w-full justify-start text-gray-500 font-normal bg-transparent hover:bg-transparent hover:text-white group">
+              <BarChart3 className="h-4 w-4 mr-3 text-gray-500 group-hover:text-white" />
               Accounting
             </Button>
-            <Button variant="ghost" className="w-full justify-start text-gray-500 font-normal bg-transparent hover:bg-gray-100">
-              <FileText className="h-4 w-4 mr-3" />
+            <Button variant="ghost" className="w-full justify-start text-gray-500 font-normal bg-transparent hover:bg-transparent hover:text-white group">
+              <FileText className="h-4 w-4 mr-3 text-gray-500 group-hover:text-white" />
               Compliance
             </Button>
-            <Button variant="ghost" className="w-full justify-start text-gray-500 font-normal bg-transparent hover:bg-gray-100">
-              <Settings className="h-4 w-4 mr-3" />
+            <Button variant="ghost" className="w-full justify-start text-gray-500 font-normal bg-transparent hover:bg-transparent hover:text-white group">
+              <Settings className="h-4 w-4 mr-3 text-gray-500 group-hover:text-white" />
               More
             </Button>
           </nav>
