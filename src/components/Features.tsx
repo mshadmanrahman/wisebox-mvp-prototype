@@ -101,7 +101,7 @@ const Features = () => {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {features.map((feature, index) => (
-            <Card key={index} className="rounded-xl border border-white/10 p-6" style={{
+            <Card key={index} className="rounded-xl border border-white/10 p-4" style={{
               background: '#001731',
               boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
             }}>
