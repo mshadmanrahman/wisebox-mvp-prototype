@@ -4,15 +4,18 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Calendar } from "@/components/ui/calendar";
 import { Input } from "@/components/ui/input";
-import { Building, Plus, Search, Bell, User, ChevronLeft, ChevronRight, FileText, Settings, MessageSquare, BarChart3, Calendar as CalendarIcon, Clock, MapPin, TrendingUp, TrendingDown, ExternalLink } from "lucide-react";
+import { Building, Plus, Search, Bell, User, ChevronLeft, ChevronRight, FileText, Settings, MessageSquare, BarChart3, Calendar as CalendarIcon, Clock, MapPin, TrendingUp, TrendingDown, ExternalLink, Home, Receipt, Users, ScrollText, Map, Compass, Gavel, Video, Languages, Shield, CheckCircle } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
 const Dashboard = () => {
   const {
     user
   } = useAuth();
+  const navigate = useNavigate();
   const [currentDate] = useState(new Date());
   const [selectedConsultationDate, setSelectedConsultationDate] = useState<number>(10);
   const [currentMonth, setCurrentMonth] = useState(new Date(2025, 0)); // January 2025
+  const [activeTab, setActiveTab] = useState('snapshot');
   
   const navigateMonth = (direction: 'prev' | 'next') => {
     setCurrentMonth(prev => {
@@ -81,18 +84,88 @@ const Dashboard = () => {
 
   // Mock data for the exact layout
   const netWorthData = [{
+    id: "PROP-2024-001",
     name: "Purbanchal Plot 17, Road 8, Block F",
     type: "Land",
     value: "$400,024.92",
     change: "+4.5% YoY",
     isPositive: true
   }, {
+    id: "PROP-2024-002",
     name: "House 17, Road 14, Sector 13, Uttara",
     type: "Apartment",
     value: "$90,952.52",
     change: "-1.3% YoY",
     isPositive: false
   }];
+
+  // Mock data for properties, documents, and services
+  const mockProperties = [
+    {
+      id: "PROP-2024-001",
+      name: "Purbanchal Plot 17, Road 8, Block F",
+      type: "Land",
+      value: "$400,024.92",
+      location: "Purbanchal, Dhaka",
+      status: "Verified",
+      documentsUploaded: 6,
+      totalDocuments: 8
+    },
+    {
+      id: "PROP-2024-002", 
+      name: "House 17, Road 14, Sector 13, Uttara",
+      type: "Apartment",
+      value: "$90,952.52",
+      location: "Uttara, Dhaka",
+      status: "Pending Verification",
+      documentsUploaded: 4,
+      totalDocuments: 8
+    }
+  ];
+
+  const mockDocuments = [
+    { id: "deed-001", name: "Deed (দলিল)", property: "Purbanchal Plot", status: "uploaded", uploadDate: "2024-01-15" },
+    { id: "khajna-001", name: "Khajna Receipt (খাজনা রসিদ)", property: "Purbanchal Plot", status: "uploaded", uploadDate: "2024-01-10" },
+    { id: "naamjari-001", name: "Naam Jari/Mutation (নাম জারি/মিউটেশন)", property: "Purbanchal Plot", status: "uploaded", uploadDate: "2024-01-08" },
+    { id: "porcha-001", name: "Porcha (পর্চা)", property: "Purbanchal Plot", status: "missing", uploadDate: null },
+    { id: "deed-002", name: "Deed (দলিল)", property: "Uttara House", status: "uploaded", uploadDate: "2024-01-12" },
+    { id: "survey-002", name: "Survey (সার্ভে)", property: "Uttara House", status: "missing", uploadDate: null }
+  ];
+
+  const mockServices = [
+    {
+      id: "translation",
+      name: "Document Translation",
+      description: "Professional translation of legal documents",
+      icon: Languages,
+      price: "৳500 - ৳2000",
+      category: "Documents"
+    },
+    {
+      id: "verification",
+      name: "Property Verification",
+      description: "Comprehensive property verification service",
+      icon: Shield,
+      price: "৳5000 - ৳15000",
+      category: "Verification"
+    },
+    {
+      id: "free-consultation",
+      name: "Free Consultation",
+      description: "30-minute video call with legal expert",
+      icon: Video,
+      price: "Free",
+      category: "Consultation"
+    },
+    {
+      id: "paid-consultation",
+      name: "Premium Consultation",
+      description: "60-minute detailed legal consultation",
+      icon: Video,
+      price: "৳3000",
+      category: "Consultation"
+    }
+  ];
   const propertyFacts = {
     ownership: {
       date: "January 1, 2008",
@@ -174,20 +247,44 @@ const Dashboard = () => {
           </div>
           
           <nav className="space-y-1">
-            <Button variant="ghost" className="w-full justify-start text-white font-medium bg-transparent hover:bg-white/10">
-              <BarChart3 className="h-4 w-4 mr-3 text-white" />
+            <Button 
+              variant="ghost" 
+              className={`w-full justify-start font-medium bg-transparent hover:bg-white/10 ${
+                activeTab === 'snapshot' ? 'text-white' : 'text-gray-500 hover:text-white'
+              }`}
+              onClick={() => setActiveTab('snapshot')}
+            >
+              <BarChart3 className={`h-4 w-4 mr-3 ${activeTab === 'snapshot' ? 'text-white' : 'text-gray-500'}`} />
               Snapshot
             </Button>
-            <Button variant="ghost" className="w-full justify-start text-gray-500 font-normal bg-transparent hover:bg-transparent hover:text-white group">
-              <Building className="h-4 w-4 mr-3 text-gray-500 group-hover:text-white" />
+            <Button 
+              variant="ghost" 
+              className={`w-full justify-start font-normal bg-transparent hover:bg-white/10 ${
+                activeTab === 'properties' ? 'text-white' : 'text-gray-500 hover:text-white'
+              }`}
+              onClick={() => setActiveTab('properties')}
+            >
+              <Building className={`h-4 w-4 mr-3 ${activeTab === 'properties' ? 'text-white' : 'text-gray-500'}`} />
               My Properties
             </Button>
-            <Button variant="ghost" className="w-full justify-start text-gray-500 font-normal bg-transparent hover:bg-transparent hover:text-white group">
-              <FileText className="h-4 w-4 mr-3 text-gray-500 group-hover:text-white" />
+            <Button 
+              variant="ghost" 
+              className={`w-full justify-start font-normal bg-transparent hover:bg-white/10 ${
+                activeTab === 'documents' ? 'text-white' : 'text-gray-500 hover:text-white'
+              }`}
+              onClick={() => setActiveTab('documents')}
+            >
+              <FileText className={`h-4 w-4 mr-3 ${activeTab === 'documents' ? 'text-white' : 'text-gray-500'}`} />
               Documents
             </Button>
-            <Button variant="ghost" className="w-full justify-start text-gray-500 font-normal bg-transparent hover:bg-transparent hover:text-white group">
-              <Settings className="h-4 w-4 mr-3 text-gray-500 group-hover:text-white" />
+            <Button 
+              variant="ghost" 
+              className={`w-full justify-start font-normal bg-transparent hover:bg-white/10 ${
+                activeTab === 'services' ? 'text-white' : 'text-gray-500 hover:text-white'
+              }`}
+              onClick={() => setActiveTab('services')}
+            >
+              <Settings className={`h-4 w-4 mr-3 ${activeTab === 'services' ? 'text-white' : 'text-gray-500'}`} />
               Services
             </Button>
             <Button variant="ghost" className="w-full justify-start text-gray-500 font-normal bg-transparent hover:bg-transparent hover:text-white group">
@@ -218,9 +315,10 @@ const Dashboard = () => {
 
         {/* Main Content */}
         <main className="flex-1 p-6">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            {/* Net Worth Card */}
-            <div className="lg:col-span-2">
+          {activeTab === 'snapshot' && (
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              {/* Net Worth Card */}
+              <div className="lg:col-span-2">
               <Card className="bg-white border border-border">
                 <CardHeader className="pb-4">
                   <div className="flex items-center justify-between">
@@ -246,7 +344,12 @@ const Dashboard = () => {
                     <div>Property</div>
                     <div className="text-right">Estimated Value</div>
                   </div>
-                  {netWorthData.map((property, index) => <div key={index} className="grid grid-cols-2 gap-4 py-3 border-t border-gray-200">
+                  {netWorthData.map((property, index) => (
+                    <div 
+                      key={index} 
+                      className="grid grid-cols-2 gap-4 py-3 border-t border-gray-200 cursor-pointer hover:bg-gray-50 transition-colors rounded-lg px-2"
+                      onClick={() => navigate(`/property/${property.id}`)}
+                    >
                       <div>
                         <p className="font-medium text-slate-900">{property.name}</p>
                         <p className="text-sm text-slate-600">{property.type}</p>
@@ -257,7 +360,8 @@ const Dashboard = () => {
                           {property.change}
                         </p>
                       </div>
-                    </div>)}
+                    </div>
+                  ))}
                 </CardContent>
               </Card>
 
@@ -441,7 +545,119 @@ const Dashboard = () => {
                 </div>
               </div>
             </div>
-          </div>
+          )}
+          
+          {activeTab === 'properties' && (
+            <div className="space-y-6">
+              <h2 className="text-2xl font-bold text-white">My Properties</h2>
+              <div className="grid gap-4">
+                {mockProperties.map((property) => (
+                  <Card 
+                    key={property.id} 
+                    className="bg-white border border-border cursor-pointer hover:shadow-lg transition-shadow"
+                    onClick={() => navigate(`/property/${property.id}`)}
+                  >
+                    <CardContent className="p-6">
+                      <div className="flex justify-between items-start">
+                        <div className="flex-1">
+                          <h3 className="text-lg font-semibold text-slate-900">{property.name}</h3>
+                          <p className="text-sm text-slate-600">{property.type} • {property.location}</p>
+                          <p className="text-xl font-bold text-slate-900 mt-2">{property.value}</p>
+                        </div>
+                        <div className="text-right">
+                          <Badge variant={property.status === 'Verified' ? 'default' : 'secondary'}>
+                            {property.status}
+                          </Badge>
+                          <p className="text-sm text-slate-600 mt-2">
+                            {property.documentsUploaded}/{property.totalDocuments} Documents
+                          </p>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {activeTab === 'documents' && (
+            <div className="space-y-6">
+              <h2 className="text-2xl font-bold text-white">All Documents</h2>
+              <div className="grid gap-4">
+                {mockDocuments.map((doc) => (
+                  <Card key={doc.id} className="bg-white border border-border">
+                    <CardContent className="p-6">
+                      <div className="flex justify-between items-center">
+                        <div className="flex items-center space-x-4">
+                          <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${
+                            doc.status === 'uploaded' ? 'bg-green-100' : 'bg-red-100'
+                          }`}>
+                            {doc.status === 'uploaded' ? (
+                              <CheckCircle className="w-5 h-5 text-green-600" />
+                            ) : (
+                              <FileText className="w-5 h-5 text-red-600" />
+                            )}
+                          </div>
+                          <div>
+                            <h3 className="font-medium text-slate-900">{doc.name}</h3>
+                            <p className="text-sm text-slate-600">{doc.property}</p>
+                          </div>
+                        </div>
+                        <div className="text-right">
+                          <Badge variant={doc.status === 'uploaded' ? 'default' : 'destructive'}>
+                            {doc.status === 'uploaded' ? 'Uploaded' : 'Missing'}
+                          </Badge>
+                          {doc.uploadDate && (
+                            <p className="text-sm text-slate-600 mt-1">{doc.uploadDate}</p>
+                          )}
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {activeTab === 'services' && (
+            <div className="space-y-6">
+              <h2 className="text-2xl font-bold text-white">Available Services</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {mockServices.map((service) => (
+                  <Card key={service.id} className="bg-white border border-border hover:shadow-lg transition-shadow">
+                    <CardContent className="p-6">
+                      <div className="flex items-start space-x-4">
+                        <div className="w-12 h-12 rounded-lg bg-blue-100 flex items-center justify-center">
+                          <service.icon className="w-6 h-6 text-blue-600" />
+                        </div>
+                        <div className="flex-1">
+                          <h3 className="text-lg font-semibold text-slate-900">{service.name}</h3>
+                          <p className="text-sm text-slate-600 mb-2">{service.description}</p>
+                          <div className="flex justify-between items-center">
+                            <Badge variant="outline">{service.category}</Badge>
+                            <p className="font-medium text-slate-900">{service.price}</p>
+                          </div>
+                          <Button 
+                            className="w-full mt-4" 
+                            onClick={() => {
+                              if (service.id.includes('consultation')) {
+                                // For consultations, could integrate with video call service
+                                alert(`Booking ${service.name} - Video consultation feature coming soon!`);
+                              } else {
+                                alert(`Requesting ${service.name} - Service booking feature coming soon!`);
+                              }
+                            }}
+                          >
+                            {service.id.includes('consultation') ? 'Schedule Call' : 'Request Service'}
+                          </Button>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </div>
+          )}
         </main>
       </div>
 
