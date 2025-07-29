@@ -13,7 +13,7 @@ const Hero = () => {
         <div className="max-w-4xl mx-auto">
           {/* Badge */}
           <Badge variant="outline" className="mb-6 bg-card/50 backdrop-blur-sm border-primary/20">
-            <Shield className="h-3 w-3 mr-1" />
+            <Shield className="h-3 w-3 mr-1 text-white" />
             Trusted by 500+ NRB Property Owners
           </Badge>
 
@@ -33,7 +33,7 @@ const Hero = () => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
             <Button variant="hero" size="lg" className="group" onClick={() => window.location.href = '/auth'}>
               Start Managing Properties
-              <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+              <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform text-white" />
             </Button>
             <Button variant="elegant" size="lg" onClick={() => window.location.href = '/dashboard'}>
               View Demo Dashboard
@@ -46,7 +46,7 @@ const Hero = () => {
               background: '#001731',
               boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
             }}>
-              <FileCheck className="h-8 w-8 text-success mb-3 mx-auto" />
+              <FileCheck className="h-8 w-8 text-white mb-3 mx-auto" />
               <h3 className="font-semibold mb-2">Document Management</h3>
               <p className="text-sm text-muted-foreground">Upload, organize, and track all property documents with AI-powered validation</p>
             </div>
@@ -55,7 +55,7 @@ const Hero = () => {
               background: '#001731',
               boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
             }}>
-              <Globe className="h-8 w-8 text-primary mb-3 mx-auto" />
+              <Globe className="h-8 w-8 text-white mb-3 mx-auto" />
               <h3 className="font-semibold mb-2">Remote Monitoring</h3>
               <p className="text-sm text-muted-foreground">Stay updated on property status and compliance from anywhere globally</p>
             </div>
@@ -64,7 +64,7 @@ const Hero = () => {
               background: '#001731',
               boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
             }}>
-              <Shield className="h-8 w-8 text-secondary mb-3 mx-auto" />
+              <Shield className="h-8 w-8 text-white mb-3 mx-auto" />
               <h3 className="font-semibold mb-2">Legal Support</h3>
               <p className="text-sm text-muted-foreground">Access qualified legal consultations and document verification services</p>
             </div>

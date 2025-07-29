@@ -88,7 +88,7 @@ const Features = () => {
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <Badge variant="outline" className="mb-4">
-            <CheckCircle className="h-3 w-3 mr-1" />
+            <CheckCircle className="h-3 w-3 mr-1 text-white" />
             Platform Features
           </Badge>
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
@@ -107,7 +107,7 @@ const Features = () => {
             }}>
               <CardHeader>
                 <div className="flex items-center justify-between mb-2">
-                  <feature.icon className={`h-8 w-8 ${feature.color}`} />
+                  <feature.icon className="h-8 w-8 text-white" />
                   <Badge variant={getStatusVariant(feature.status)} className="text-xs">
                     {feature.status}
                   </Badge>

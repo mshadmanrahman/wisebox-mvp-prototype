@@ -51,7 +51,7 @@ const Header = () => {
           className="md:hidden"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
         >
-          {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          {isMenuOpen ? <X className="h-5 w-5 text-white" /> : <Menu className="h-5 w-5 text-white" />}
         </Button>
       </div>
 
@@ -62,15 +62,15 @@ const Header = () => {
       )}>
         <nav className="container flex flex-col space-y-4 py-4">
           <a href="#features" className="flex items-center space-x-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
-            <FileText className="h-4 w-4" />
+            <FileText className="h-4 w-4 text-white" />
             <span>Features</span>
           </a>
           <a href="#pricing" className="flex items-center space-x-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
-            <Calendar className="h-4 w-4" />
+            <Calendar className="h-4 w-4 text-white" />
             <span>Pricing</span>
           </a>
           <a href="#about" className="flex items-center space-x-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
-            <Shield className="h-4 w-4" />
+            <Shield className="h-4 w-4 text-white" />
             <span>About</span>
           </a>
           <div className="flex flex-col space-y-2 pt-4">
