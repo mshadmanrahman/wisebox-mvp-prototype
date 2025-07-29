@@ -207,10 +207,15 @@ const Dashboard = () => {
                     }}>Net Worth</CardTitle>
                       <p className="text-sm text-neutral-500">Based on our current valuation data.</p>
                     </div>
-                    <Button variant="outline" size="sm">
-                      Request Appraisal
-                      <ExternalLink className="h-4 w-4 ml-2" />
-                    </Button>
+                    <button 
+                      className="h-8 px-3 py-2 bg-slate-50 shadow-sm rounded-lg border border-gray-200 inline-flex justify-center items-center gap-2"
+                      style={{ boxShadow: '0px 1px 2px rgba(0, 0, 0, 0.05)' }}
+                    >
+                      <span className="text-xs font-medium leading-4" style={{ color: '#002B5E', fontFamily: 'IBM Plex Sans' }}>
+                        Request Appraisal
+                      </span>
+                      <ExternalLink className="h-4 w-4" style={{ color: '#002B5E' }} />
+                    </button>
                   </div>
                 </CardHeader>
                 <CardContent className="space-y-4">
