@@ -246,7 +246,7 @@ const PropertyDetails = () => {
                     <div key={doc.id} className="border border-white/10 rounded-lg p-4 bg-white/5">
                       <div className="flex items-start justify-between mb-3">
                         <div className="flex items-center space-x-3">
-                          <IconComponent className="h-6 w-6 text-green-400" />
+                          <IconComponent className="h-6 w-6 text-white" />
                           <div>
                             <h4 className="font-medium text-white">{doc.name}</h4>
                             <p className="text-sm text-gray-400">{doc.description}</p>
@@ -365,7 +365,7 @@ const PropertyDetails = () => {
                   );
                 })}
                 
-                <Button className="w-full mt-4 bg-red-600 hover:bg-red-700 text-white">
+                <Button className="w-full mt-4 bg-orange-600 hover:bg-orange-700 text-white">
                   <Upload className="h-4 w-4 mr-2" />
                   Upload Missing Documents
                 </Button>
