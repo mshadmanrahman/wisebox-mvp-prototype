@@ -45,21 +45,21 @@ const AddProperty = () => {
     },
     { 
       id: "naamjari", 
-      name: "Naam Jari (নাম জারি)", 
-      description: "Name transfer document",
-      fields: ["applicationNumber", "approvalDate", "transferFromName", "transferToName"]
+      name: "Naam Jari/Mutation (নাম জারি/মিউটেশন)", 
+      description: "Official name transfer in land records",
+      fields: ["applicationNumber", "caseNumber", "approvalDate", "transferFromName", "transferToName", "reason"]
+    },
+    { 
+      id: "warishanNama", 
+      name: "Warishan Nama (ওয়ারিশান নামা)", 
+      description: "Legal inheritance certificate",
+      fields: ["certificateNumber", "issueDate", "deceasedName", "relationshipToDeceased", "issuingCourt", "inheritorsNames"]
     },
     { 
       id: "porcha", 
       name: "Porcha (পর্চা)", 
       description: "Land ownership record",
       fields: ["porchaNumber", "khatianNumber", "dagNumber", "landArea"]
-    },
-    { 
-      id: "mutation", 
-      name: "Mutation (মিউটেশন)", 
-      description: "Land record change",
-      fields: ["caseNumber", "applicationDate", "approvalDate", "reason"]
     },
     { 
       id: "survey", 
@@ -93,16 +93,22 @@ const AddProperty = () => {
       amount: "Amount (৳)",
       fiscalYear: "Fiscal Year",
       applicationNumber: "Application Number",
+      caseNumber: "Case Number",
       approvalDate: "Approval Date",
       transferFromName: "Transfer From (Name)",
       transferToName: "Transfer To (Name)",
+      reason: "Reason for Transfer",
+      certificateNumber: "Certificate Number",
+      issueDate: "Issue Date",
+      deceasedName: "Deceased Person's Name",
+      relationshipToDeceased: "Relationship to Deceased",
+      issuingCourt: "Issuing Court/Authority",
+      inheritorsNames: "Inheritors' Names",
       porchaNumber: "Porcha Number",
       khatianNumber: "Khatian Number",
       dagNumber: "Dag Number",
       landArea: "Land Area (decimal)",
-      caseNumber: "Case Number",
       applicationDate: "Application Date",
-      reason: "Reason for Mutation",
       surveyNumber: "Survey Number",
       settlementYear: "Settlement Year",
       landClass: "Land Class",
@@ -130,10 +136,10 @@ const AddProperty = () => {
       deed: Home,
       khajna: Receipt,
       naamjari: Users,
+      warishanNama: ScrollText,
       porcha: Map,
-      mutation: Edit,
       survey: Compass,
-      will: ScrollText,
+      will: FileText,
       powerOfAttorney: Gavel
     };
     return iconMap[docId] || FileText;
