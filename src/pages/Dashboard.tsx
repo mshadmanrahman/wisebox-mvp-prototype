@@ -309,7 +309,7 @@ const Dashboard = () => {
                 {/* Content */}
                 <div className="space-y-2">
                   <div className="text-2xl font-bold text-white">$830</div>
-                  <div className="text-sm text-red-400">₹101,294.11</div>
+                  <div className="text-sm text-red-400">৳101,294.11</div>
                   <div className="text-xs text-[#A3A3A3]">Khazna due on September 20, 2025</div>
                 </div>
               </div>
