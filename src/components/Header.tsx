@@ -13,12 +13,9 @@ const Header = () => {
         <div className="flex items-center space-x-2">
           <img 
             src="/lovable-uploads/a5240e12-bd9e-4783-b099-b06a729973c9.png" 
-            alt="WiseBox Logo"
+            alt="WiseBox Logo" 
             className="h-10 w-auto"
           />
-          <span className="text-xl font-bold bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent">
-            WiseBox
-          </span>
         </div>
 
         {/* Desktop Navigation */}
