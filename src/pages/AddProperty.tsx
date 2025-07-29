@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -13,6 +13,8 @@ import { useNavigate } from "react-router-dom";
 const AddProperty = () => {
   const navigate = useNavigate();
   const [selectedDocumentType, setSelectedDocumentType] = useState("deed");
+  const [uploadedFiles, setUploadedFiles] = useState<{[key: string]: File[]}>({});
+  const fileInputRefs = useRef<{[key: string]: HTMLInputElement | null}>({});
 
   const propertyTypes = [
     "Residential Plot",
@@ -30,7 +32,7 @@ const AddProperty = () => {
       id: "deed", 
       name: "Deed (দলিল)", 
       description: "Property ownership document",
-      fields: ["deedNumber", "registrationDate", "propertyValue", "registrationOffice"]
+      fields: ["deedNumber", "registrationDate", "purchaseValue", "currentMarketValue", "registrationOffice"]
     },
     { 
       id: "khajna", 
@@ -80,7 +82,8 @@ const AddProperty = () => {
     const labels: { [key: string]: string } = {
       deedNumber: "Deed Number",
       registrationDate: "Registration Date",
-      propertyValue: "Property Value (৳)",
+      purchaseValue: "Purchase Value (৳)",
+      currentMarketValue: "Current Market Value (৳)",
       registrationOffice: "Registration Office",
       receiptNumber: "Receipt Number",
       expiryDate: "Expiry Date",
@@ -117,6 +120,27 @@ const AddProperty = () => {
     if (field.includes("Date") || field.includes("Year")) return "date";
     if (field.includes("Value") || field.includes("Amount") || field.includes("Area")) return "number";
     return "text";
+  };
+
+  const handleFileUpload = (documentType: string, event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files;
+    if (files && files.length > 0) {
+      setUploadedFiles(prev => ({
+        ...prev,
+        [documentType]: [...(prev[documentType] || []), ...Array.from(files)]
+      }));
+    }
+  };
+
+  const triggerFileUpload = (documentType: string) => {
+    fileInputRefs.current[documentType]?.click();
+  };
+
+  const removeFile = (documentType: string, fileIndex: number) => {
+    setUploadedFiles(prev => ({
+      ...prev,
+      [documentType]: prev[documentType]?.filter((_, index) => index !== fileIndex) || []
+    }));
   };
 
   return (
@@ -298,10 +322,47 @@ const AddProperty = () => {
                             <Upload className="h-8 w-8 text-gray-400 mx-auto mb-2" />
                             <p className="text-sm text-white mb-1">Upload {doc.name}</p>
                             <p className="text-xs text-gray-400">PDF, JPG, PNG up to 10MB</p>
-                            <Button variant="outline" size="sm" className="mt-3 text-white border-white/20 hover:bg-white/10">
+                            <Button 
+                              variant="outline" 
+                              size="sm" 
+                              className="mt-3 text-white border-white/20 hover:bg-white/10"
+                              onClick={() => triggerFileUpload(doc.id)}
+                            >
                               Choose File
                             </Button>
+                            <input
+                              ref={(el) => fileInputRefs.current[doc.id] = el}
+                              type="file"
+                              accept=".pdf,.jpg,.jpeg,.png"
+                              multiple
+                              onChange={(e) => handleFileUpload(doc.id, e)}
+                              style={{ display: 'none' }}
+                            />
                           </div>
+                          
+                          {/* Display uploaded files */}
+                          {uploadedFiles[doc.id] && uploadedFiles[doc.id].length > 0 && (
+                            <div className="mt-4 space-y-2">
+                              <p className="text-sm text-white font-medium">Uploaded Files:</p>
+                              {uploadedFiles[doc.id].map((file, index) => (
+                                <div key={index} className="flex items-center justify-between bg-white/5 rounded p-2">
+                                  <div className="flex items-center space-x-2">
+                                    <FileText className="h-4 w-4 text-gray-400" />
+                                    <span className="text-sm text-white">{file.name}</span>
+                                    <span className="text-xs text-gray-400">({(file.size / 1024 / 1024).toFixed(2)} MB)</span>
+                                  </div>
+                                  <Button
+                                    variant="ghost"
+                                    size="sm"
+                                    onClick={() => removeFile(doc.id, index)}
+                                    className="text-red-400 hover:text-red-300 hover:bg-red-400/10"
+                                  >
+                                    Remove
+                                  </Button>
+                                </div>
+                              ))}
+                            </div>
+                          )}
                         </div>
                       </div>
                     </TabsContent>
