@@ -7,10 +7,9 @@ import { Input } from "@/components/ui/input";
 import { Building, Plus, Search, Bell, User, ChevronLeft, ChevronRight, FileText, Settings, MessageSquare, BarChart3, Calendar as CalendarIcon, Clock, MapPin, TrendingUp, TrendingDown, ExternalLink, Home, Receipt, Users, ScrollText, Map, Compass, Gavel, Video, Languages, Shield, CheckCircle } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
+
 const Dashboard = () => {
-  const {
-    user
-  } = useAuth();
+  const { user } = useAuth();
   const navigate = useNavigate();
   const [currentDate] = useState(new Date());
   const [selectedConsultationDate, setSelectedConsultationDate] = useState<number>(10);
@@ -166,6 +165,7 @@ const Dashboard = () => {
       category: "Consultation"
     }
   ];
+
   const propertyFacts = {
     ownership: {
       date: "January 1, 2008",
@@ -180,13 +180,16 @@ const Dashboard = () => {
       status: "Your documents are not verified yet."
     }
   };
+
   if (!user) {
     window.location.href = "/auth";
     return null;
   }
-  return <div className="min-h-screen text-foreground" style={{
-    background: 'linear-gradient(180deg, #001731 0%, #002B5E 100%)'
-  }}>
+
+  return (
+    <div className="min-h-screen text-foreground" style={{
+      background: 'linear-gradient(180deg, #001731 0%, #002B5E 100%)'
+    }}>
       {/* Top Navigation */}
       <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-md">
         <div className="flex items-center justify-between px-6 py-4">
@@ -319,227 +322,228 @@ const Dashboard = () => {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
               {/* Net Worth Card */}
               <div className="lg:col-span-2">
-              <Card className="bg-white border border-border">
-                <CardHeader className="pb-4">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <CardTitle className="text-lg font-semibold" style={{
-                      color: '#002B5E'
-                    }}>Net Worth</CardTitle>
-                      <p className="text-sm text-neutral-500">Based on our current valuation data.</p>
-                    </div>
-                    <button 
-                      className="h-8 px-3 py-2 bg-slate-50 shadow-sm rounded-lg border border-gray-200 inline-flex justify-center items-center gap-2"
-                      style={{ boxShadow: '0px 1px 2px rgba(0, 0, 0, 0.05)' }}
-                    >
-                      <span className="text-xs font-medium leading-4" style={{ color: '#002B5E', fontFamily: 'IBM Plex Sans' }}>
-                        Request Appraisal
-                      </span>
-                      <ExternalLink className="h-4 w-4" style={{ color: '#002B5E' }} />
-                    </button>
-                  </div>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="grid grid-cols-2 gap-4 text-sm font-medium text-slate-900">
-                    <div>Property</div>
-                    <div className="text-right">Estimated Value</div>
-                  </div>
-                  {netWorthData.map((property, index) => (
-                    <div 
-                      key={index} 
-                      className="grid grid-cols-2 gap-4 py-3 border-t border-gray-200 cursor-pointer hover:bg-gray-50 transition-colors rounded-lg px-2"
-                      onClick={() => navigate(`/property/${property.id}`)}
-                    >
+                <Card className="bg-white border border-border">
+                  <CardHeader className="pb-4">
+                    <div className="flex items-center justify-between">
                       <div>
-                        <p className="font-medium text-slate-900">{property.name}</p>
-                        <p className="text-sm text-slate-600">{property.type}</p>
+                        <CardTitle className="text-lg font-semibold" style={{
+                          color: '#002B5E'
+                        }}>Net Worth</CardTitle>
+                        <p className="text-sm text-neutral-500">Based on our current valuation data.</p>
                       </div>
-                      <div className="text-right">
-                        <p className="font-semibold text-slate-900">{property.value}</p>
-                        <p className={`text-sm ${property.isPositive ? 'text-green-600' : 'text-red-600'}`}>
-                          {property.change}
-                        </p>
+                      <button 
+                        className="h-8 px-3 py-2 bg-slate-50 shadow-sm rounded-lg border border-gray-200 inline-flex justify-center items-center gap-2"
+                        style={{ boxShadow: '0px 1px 2px rgba(0, 0, 0, 0.05)' }}
+                      >
+                        <span className="text-xs font-medium leading-4" style={{ color: '#002B5E', fontFamily: 'IBM Plex Sans' }}>
+                          Request Appraisal
+                        </span>
+                        <ExternalLink className="h-4 w-4" style={{ color: '#002B5E' }} />
+                      </button>
+                    </div>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div className="grid grid-cols-2 gap-4 text-sm font-medium text-slate-900">
+                      <div>Property</div>
+                      <div className="text-right">Estimated Value</div>
+                    </div>
+                    {netWorthData.map((property, index) => (
+                      <div 
+                        key={index} 
+                        className="grid grid-cols-2 gap-4 py-3 border-t border-gray-200 cursor-pointer hover:bg-gray-50 transition-colors rounded-lg px-2"
+                        onClick={() => navigate(`/property/${property.id}`)}
+                      >
+                        <div>
+                          <p className="font-medium text-slate-900">{property.name}</p>
+                          <p className="text-sm text-slate-600">{property.type}</p>
+                        </div>
+                        <div className="text-right">
+                          <p className="font-semibold text-slate-900">{property.value}</p>
+                          <p className={`text-sm ${property.isPositive ? 'text-green-600' : 'text-red-600'}`}>
+                            {property.change}
+                          </p>
+                        </div>
+                      </div>
+                    ))}
+                  </CardContent>
+                </Card>
+
+                {/* Property Facts Card */}
+                <div className="mt-6 rounded-xl border border-white/10 p-6" style={{
+                  height: '298px',
+                  background: '#001731',
+                  boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
+                }}>
+                  {/* Header */}
+                  <div className="mb-4">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-sm font-medium text-[#FAFAFA]">Property Facts</span>
+                      <div className="flex items-center space-x-2">
+                        <button className="p-2">
+                          <ChevronLeft className="h-4 w-4 text-white" />
+                        </button>
+                        <button className="p-2">
+                          <ChevronRight className="h-4 w-4 text-white" />
+                        </button>
                       </div>
                     </div>
-                  ))}
-                </CardContent>
-              </Card>
+                    <p className="text-sm text-[#A3A3A3]">Purbanchal Plot 17, Road 8, Block F</p>
+                  </div>
+                  
+                  {/* Content Grid */}
+                  <div className="grid grid-cols-2 gap-6">
+                    <div className="space-y-4">
+                      <div>
+                        <p className="text-sm font-medium text-white">Ownership Initiation</p>
+                        <p className="text-sm text-[#4cdff2]">{propertyFacts.ownership.date}</p>
+                      </div>
+                      <div>
+                        <p className="text-sm font-medium text-white">Taxation</p>
+                        <p className="text-sm text-[#4cdff2]">{propertyFacts.taxation.status}</p>
+                        <p className="text-xs text-[#A3A3A3]">Khazna payed on</p>
+                        <p className="text-xs text-[#A3A3A3]">{propertyFacts.taxation.lastPaid}</p>
+                      </div>
+                    </div>
+                    <div className="space-y-4">
+                      <div>
+                        <p className="text-sm font-medium text-white">Owner</p>
+                        <p className="text-sm text-[#4cdff2]">{propertyFacts.ownership.owner}</p>
+                      </div>
+                      <div>
+                        <p className="text-sm font-medium text-white">Document status</p>
+                        <p className="text-sm text-[#4cdff2]">{propertyFacts.documents.uploaded}</p>
+                        <p className="text-xs text-[#A3A3A3]">{propertyFacts.documents.status}</p>
+                        <div className="flex space-x-2">
+                          <button 
+                            className="mt-2 px-3 py-1 text-xs border border-white/20 rounded-md text-white hover:bg-white/10"
+                            onClick={() => window.location.href = '/property/PROP-2024-001'}
+                          >
+                            View Details
+                            <ExternalLink className="h-3 w-3 ml-1 inline" />
+                          </button>
+                          <button className="mt-2 px-3 py-1 text-xs border border-white/20 rounded-md text-white hover:bg-white/10">
+                            Verify Documents
+                            <ExternalLink className="h-3 w-3 ml-1 inline" />
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
-              {/* Property Facts Card */}
-              <div className="mt-6 rounded-xl border border-white/10 p-6" style={{
-                height: '298px',
-                background: '#001731',
-                boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
-              }}>
-                {/* Header */}
-                <div className="mb-4">
+              {/* Right Sidebar */}
+              <div className="space-y-6">
+                {/* Upcoming Fees Card */}
+                <div className="rounded-xl border border-white/10 p-6" style={{
+                  background: '#001731',
+                  boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
+                }}>
+                  {/* Header */}
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="text-sm font-medium text-[#FAFAFA]">Upcoming fees</span>
+                    <ExternalLink className="h-4 w-4 text-white" />
+                  </div>
+                  
+                  {/* Content */}
+                  <div className="space-y-2">
+                    <div className="text-2xl font-bold text-white">$830</div>
+                    <div className="text-sm text-red-400">৳101,294.11</div>
+                    <div className="text-xs text-[#A3A3A3]">Khazna due on September 20, 2025</div>
+                  </div>
+                </div>
+
+                {/* Consultation Card */}
+                <div className="rounded-xl border border-white/10 p-6" style={{
+                  background: '#001731',
+                  boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
+                }}>
+                  {/* Header */}
                   <div className="flex items-center justify-between mb-2">
-                    <span className="text-sm font-medium text-[#FAFAFA]">Property Facts</span>
-                    <div className="flex items-center space-x-2">
-                      <button className="p-2">
+                    <span className="text-sm font-medium text-[#FAFAFA]">Consultation</span>
+                    <MessageSquare className="h-4 w-4 text-white" />
+                  </div>
+                  
+                  {/* Description */}
+                  <div className="mb-4">
+                    <span className="text-xs text-[#A3A3A3] font-normal leading-4">
+                      You have one free consultation left this month. Schedule today to book your spot.
+                    </span>
+                  </div>
+
+                  {/* Custom Calendar */}
+                  <div className="p-3 rounded-xl border border-white/10" style={{
+                    background: '#001731',
+                    borderTop: '1px solid #FFFFFF1A'
+                  }}>
+                    {/* Calendar Header */}
+                    <div className="flex items-center justify-between mb-4 relative">
+                      <button 
+                        onClick={() => navigateMonth('prev')}
+                        className="w-8 h-8 p-2.5 rounded-lg flex items-center justify-center absolute left-0 hover:bg-white/10"
+                      >
                         <ChevronLeft className="h-4 w-4 text-white" />
                       </button>
-                      <button className="p-2">
+                      <button 
+                        onClick={() => navigateMonth('next')}
+                        className="w-8 h-8 p-2.5 rounded-lg flex items-center justify-center absolute right-0 hover:bg-white/10"
+                      >
                         <ChevronRight className="h-4 w-4 text-white" />
                       </button>
+                      <span className="text-sm font-medium text-white mx-auto">{formatMonth(currentMonth)}</span>
                     </div>
-                  </div>
-                  <p className="text-sm text-[#A3A3A3]">Purbanchal Plot 17, Road 8, Block F</p>
-                </div>
-                
-                {/* Content Grid */}
-                <div className="grid grid-cols-2 gap-6">
-                  <div className="space-y-4">
-                    <div>
-                      <p className="text-sm font-medium text-white">Ownership Initiation</p>
-                      <p className="text-sm text-[#4cdff2]">{propertyFacts.ownership.date}</p>
-                    </div>
-                    <div>
-                      <p className="text-sm font-medium text-white">Taxation</p>
-                      <p className="text-sm text-[#4cdff2]">{propertyFacts.taxation.status}</p>
-                      <p className="text-xs text-[#A3A3A3]">Khazna payed on</p>
-                      <p className="text-xs text-[#A3A3A3]">{propertyFacts.taxation.lastPaid}</p>
-                    </div>
-                  </div>
-                  <div className="space-y-4">
-                    <div>
-                      <p className="text-sm font-medium text-white">Owner</p>
-                      <p className="text-sm text-[#4cdff2]">{propertyFacts.ownership.owner}</p>
-                    </div>
-                    <div>
-                      <p className="text-sm font-medium text-white">Document status</p>
-                      <p className="text-sm text-[#4cdff2]">{propertyFacts.documents.uploaded}</p>
-                      <p className="text-xs text-[#A3A3A3]">{propertyFacts.documents.status}</p>
-                      <div className="flex space-x-2">
-                        <button 
-                          className="mt-2 px-3 py-1 text-xs border border-white/20 rounded-md text-white hover:bg-white/10"
-                          onClick={() => window.location.href = '/property/PROP-2024-001'}
-                        >
-                          View Details
-                          <ExternalLink className="h-3 w-3 ml-1 inline" />
-                        </button>
-                        <button className="mt-2 px-3 py-1 text-xs border border-white/20 rounded-md text-white hover:bg-white/10">
-                          Verify Documents
-                          <ExternalLink className="h-3 w-3 ml-1 inline" />
-                        </button>
+
+                    {/* Calendar Grid */}
+                    <div className="space-y-2">
+                      {/* Day Headers */}
+                      <div className="grid grid-cols-7 gap-0">
+                        {['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'].map((day) => (
+                          <div key={day} className="w-8 h-5 rounded-lg flex items-center justify-center">
+                            <span className="text-xs text-[#A3A3A3] font-normal leading-4">{day}</span>
+                          </div>
+                        ))}
+                      </div>
+
+                      {/* Calendar Days */}
+                      <div className="grid grid-cols-7 gap-0">
+                        {generateCalendarDays().map((dayObj, index) => {
+                          const isSelected = dayObj.isCurrentMonth && selectedConsultationDate === dayObj.day;
+                          
+                          return (
+                            <button 
+                              key={index}
+                              onClick={() => dayObj.isCurrentMonth && setSelectedConsultationDate(dayObj.day)}
+                              className="w-8 h-8 rounded-lg flex items-center justify-center"
+                              style={isSelected ? { background: 'white' } : {}}
+                              disabled={!dayObj.isCurrentMonth}
+                            >
+                              <span 
+                                className="text-sm font-normal leading-5"
+                                style={{ 
+                                  color: isSelected 
+                                    ? '#001731' 
+                                    : dayObj.isCurrentMonth 
+                                      ? 'white' 
+                                      : '#A3A3A3' 
+                                }}
+                              >
+                                {dayObj.day}
+                              </span>
+                            </button>
+                          );
+                        })}
                       </div>
                     </div>
                   </div>
-                </div>
-              </div>
-            </div>
 
-            {/* Right Sidebar */}
-            <div className="space-y-6">
-              {/* Upcoming Fees Card */}
-              <div className="rounded-xl border border-white/10 p-6" style={{
-                background: '#001731',
-                boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
-              }}>
-                {/* Header */}
-                <div className="flex items-center justify-between mb-4">
-                  <span className="text-sm font-medium text-[#FAFAFA]">Upcoming fees</span>
-                  <ExternalLink className="h-4 w-4 text-white" />
-                </div>
-                
-                {/* Content */}
-                <div className="space-y-2">
-                  <div className="text-2xl font-bold text-white">$830</div>
-                  <div className="text-sm text-red-400">৳101,294.11</div>
-                  <div className="text-xs text-[#A3A3A3]">Khazna due on September 20, 2025</div>
-                </div>
-              </div>
-
-              {/* Consultation Card */}
-              <div className="rounded-xl border border-white/10 p-6" style={{
-                background: '#001731',
-                boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
-              }}>
-                {/* Header */}
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-sm font-medium text-[#FAFAFA]">Consultation</span>
-                  <MessageSquare className="h-4 w-4 text-white" />
-                </div>
-                
-                {/* Description */}
-                <div className="mb-4">
-                  <span className="text-xs text-[#A3A3A3] font-normal leading-4">
-                    You have one free consultation left this month. Schedule today to book your spot.
-                  </span>
-                </div>
-
-                {/* Custom Calendar */}
-                <div className="p-3 rounded-xl border border-white/10" style={{
-                  background: '#001731',
-                  borderTop: '1px solid #FFFFFF1A'
-                }}>
-                  {/* Calendar Header */}
-                  <div className="flex items-center justify-between mb-4 relative">
-                    <button 
-                      onClick={() => navigateMonth('prev')}
-                      className="w-8 h-8 p-2.5 rounded-lg flex items-center justify-center absolute left-0 hover:bg-white/10"
-                    >
-                      <ChevronLeft className="h-4 w-4 text-white" />
-                    </button>
-                    <button 
-                      onClick={() => navigateMonth('next')}
-                      className="w-8 h-8 p-2.5 rounded-lg flex items-center justify-center absolute right-0 hover:bg-white/10"
-                    >
-                      <ChevronRight className="h-4 w-4 text-white" />
-                    </button>
-                    <span className="text-sm font-medium text-white mx-auto">{formatMonth(currentMonth)}</span>
-                  </div>
-
-                  {/* Calendar Grid */}
-                  <div className="space-y-2">
-                    {/* Day Headers */}
-                    <div className="grid grid-cols-7 gap-0">
-                      {['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'].map((day) => (
-                        <div key={day} className="w-8 h-5 rounded-lg flex items-center justify-center">
-                          <span className="text-xs text-[#A3A3A3] font-normal leading-4">{day}</span>
-                        </div>
-                      ))}
-                    </div>
-
-                    {/* Calendar Days */}
-                    <div className="grid grid-cols-7 gap-0">
-                      {generateCalendarDays().map((dayObj, index) => {
-                        const isSelected = dayObj.isCurrentMonth && selectedConsultationDate === dayObj.day;
-                        
-                        return (
-                          <button 
-                            key={index}
-                            onClick={() => dayObj.isCurrentMonth && setSelectedConsultationDate(dayObj.day)}
-                            className="w-8 h-8 rounded-lg flex items-center justify-center"
-                            style={isSelected ? { background: 'white' } : {}}
-                            disabled={!dayObj.isCurrentMonth}
-                          >
-                            <span 
-                              className="text-sm font-normal leading-5"
-                              style={{ 
-                                color: isSelected 
-                                  ? '#001731' 
-                                  : dayObj.isCurrentMonth 
-                                    ? 'white' 
-                                    : '#A3A3A3' 
-                              }}
-                            >
-                              {dayObj.day}
-                            </span>
-                          </button>
-                        );
-                      })}
-                    </div>
-                  </div>
-                </div>
-
-                {/* Timezone Section */}
-                <div className="px-4 py-2 mt-2">
-                  <div className="space-y-1">
-                    <span className="text-xs text-[#A3A3A3] font-normal leading-3">Time zone</span>
-                    <div className="flex items-center gap-2">
-                      <Clock className="h-4 w-4 text-[#A3A3A3]" />
-                      <span className="text-xs text-[#FAFAFA] font-medium leading-4">Eastern Standard Time</span>
+                  {/* Timezone Section */}
+                  <div className="px-4 py-2 mt-2">
+                    <div className="space-y-1">
+                      <span className="text-xs text-[#A3A3A3] font-normal leading-3">Time zone</span>
+                      <div className="flex items-center gap-2">
+                        <Clock className="h-4 w-4 text-[#A3A3A3]" />
+                        <span className="text-xs text-[#FAFAFA] font-medium leading-4">Eastern Standard Time</span>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -663,25 +667,27 @@ const Dashboard = () => {
 
       {/* Footer */}
       <footer className="py-4 px-6" style={{
-      borderTop: '0.5px solid #FFFFFF1A'
-    }}>
+        borderTop: '0.5px solid #FFFFFF1A'
+      }}>
         <div className="flex items-center justify-between text-sm text-muted-foreground">
           <p style={{
-          color: '#6B7280'
-        }}>© 2025 WiseBox. All rights reserved.</p>
+            color: '#6B7280'
+          }}>© 2025 WiseBox. All rights reserved.</p>
           <div className="flex items-center space-x-4">
             <Button variant="ghost" size="sm" className="font-sans font-medium text-xs tracking-normal align-middle" style={{
-            color: '#1C70EA'
-          }}>Privacy Policy</Button>
+              color: '#1C70EA'
+            }}>Privacy Policy</Button>
             <Button variant="ghost" size="sm" className="font-sans font-medium text-xs tracking-normal align-middle" style={{
-            color: '#1C70EA'
-          }}>Terms of Service</Button>
+              color: '#1C70EA'
+            }}>Terms of Service</Button>
             <Button variant="ghost" size="sm" className="font-sans font-medium text-xs tracking-normal align-middle" style={{
-            color: '#1C70EA'
-          }}>Help Center</Button>
+              color: '#1C70EA'
+            }}>Help Center</Button>
           </div>
         </div>
       </footer>
-    </div>;
+    </div>
+  );
 };
+
 export default Dashboard;
