@@ -131,8 +131,27 @@ const Dashboard = () => {
           
           <div className="flex items-center space-x-4">
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-              <Input placeholder="Search..." className="pl-10 w-64" />
+              <div 
+                className="h-9 px-3 py-1 rounded-lg border inline-flex items-center gap-1 w-64"
+                style={{ 
+                  background: 'rgba(255, 255, 255, 0.05)',
+                  boxShadow: '0px 1px 2px rgba(0, 0, 0, 0.05)',
+                  borderColor: 'rgba(255, 255, 255, 0.15)'
+                }}
+              >
+                <Search className="h-4 w-4" style={{ color: '#A3A3A3' }} />
+                <span 
+                  className="text-sm"
+                  style={{ 
+                    color: '#A3A3A3',
+                    fontFamily: 'IBM Plex Sans',
+                    fontWeight: 400,
+                    lineHeight: '20px'
+                  }}
+                >
+                  Search...
+                </span>
+              </div>
             </div>
             <Button variant="ghost" size="icon">
               <Bell className="h-5 w-5" />
