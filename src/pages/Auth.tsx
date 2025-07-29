@@ -13,7 +13,7 @@ type AuthStep = 'login' | 'signup' | 'verify' | 'reset-password';
 
 const Auth = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [email, setEmail] = useState("shadman@gmail.com");
+  const [email, setEmail] = useState("ahmed.rahman@email.com");
   const [password, setPassword] = useState("");
   const [fullName, setFullName] = useState("");
   const [country, setCountry] = useState("");
@@ -58,7 +58,7 @@ const Auth = () => {
     }
   ];
 
-  const currentTestimonial = testimonials[Math.floor(Math.random() * testimonials.length)];
+  const [currentTestimonial] = useState(() => testimonials[Math.floor(Math.random() * testimonials.length)]);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
