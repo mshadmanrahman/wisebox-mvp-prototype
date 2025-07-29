@@ -28,10 +28,10 @@ const PropertyDetails = () => {
       deed: Home,
       khajna: Receipt,
       naamjari: Users,
+      warishanNama: ScrollText,
       porcha: Map,
-      mutation: Edit,
       survey: Compass,
-      will: ScrollText,
+      will: FileText,
       powerOfAttorney: Gavel
     };
     return iconMap[docId] || FileText;
@@ -73,31 +73,33 @@ const PropertyDetails = () => {
     },
     {
       id: "naamjari",
-      name: "Naam Jari (নাম জারি)",
-      description: "Name transfer document",
+      name: "Naam Jari/Mutation (নাম জারি/মিউটেশন)",
+      description: "Official name transfer in land records",
       status: "uploaded",
       files: [
         { name: "naamjari_certificate.pdf", size: "1.5 MB", uploadDate: "2024-01-08" }
       ],
       details: {
         applicationNumber: "NJ-2023-005678",
+        caseNumber: "CS-2023-001234",
         approvalDate: "2023-04-15",
         transferFromName: "Md. Abdul Rahman",
-        transferToName: "Md. Karim Uddin"
+        transferToName: "Md. Karim Uddin",
+        reason: "Sale Purchase"
       }
     },
     {
-      id: "porcha",
-      name: "Porcha (পর্চা)",
-      description: "Land ownership record",
+      id: "warishanNama",
+      name: "Warishan Nama (ওয়ারিশান নামা)",
+      description: "Legal inheritance certificate",
       status: "missing",
       files: [],
       details: {}
     },
     {
-      id: "mutation",
-      name: "Mutation (মিউটেশন)",
-      description: "Land record change",
+      id: "porcha",
+      name: "Porcha (পর্চা)",
+      description: "Land ownership record",
       status: "missing",
       files: [],
       details: {}
