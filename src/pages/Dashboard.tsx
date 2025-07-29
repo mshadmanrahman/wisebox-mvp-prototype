@@ -207,7 +207,7 @@ const Dashboard = () => {
           <div className="mt-8">
             <Button 
               variant="outline" 
-              className="w-full text-[#002B5E] border-gray-200 bg-gray-50 hover:bg-gray-100"
+              className="w-full text-[#002B5E] border-gray-200 bg-gray-50 hover:bg-gray-100 hover:text-[#002B5E]"
               onClick={() => window.location.href = '/add-property'}
             >
               <Plus className="h-4 w-4 mr-2" />
