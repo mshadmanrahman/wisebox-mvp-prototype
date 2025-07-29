@@ -155,8 +155,8 @@ const Dashboard = () => {
           </div>
           
           <nav className="space-y-1">
-            <Button variant="ghost" className="w-full justify-start text-[#002B5E] font-medium bg-transparent hover:bg-transparent">
-              <BarChart3 className="h-4 w-4 mr-3" />
+            <Button variant="ghost" className="w-full justify-start text-white font-medium bg-transparent hover:bg-white/10">
+              <BarChart3 className="h-4 w-4 mr-3 text-white" />
               Snapshot
             </Button>
             <Button variant="ghost" className="w-full justify-start text-gray-500 font-normal bg-transparent hover:bg-gray-100">
