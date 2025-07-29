@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
 
 const AddProperty = () => {
   const navigate = useNavigate();
-  const [selectedDocumentType, setSelectedDocumentType] = useState("");
+  const [selectedDocumentType, setSelectedDocumentType] = useState("deed");
 
   const propertyTypes = [
     "Residential Plot",
@@ -237,14 +237,27 @@ const AddProperty = () => {
               </CardHeader>
               <CardContent>
                 <Tabs value={selectedDocumentType} onValueChange={setSelectedDocumentType}>
-                  <TabsList className="grid grid-cols-2 gap-1 bg-white/5 p-1">
-                    {documentTypes.slice(0, 8).map((doc) => (
+                  <TabsList className="grid grid-cols-4 gap-1 bg-white/5 p-1 h-auto">
+                    {documentTypes.slice(0, 4).map((doc) => (
                       <TabsTrigger 
                         key={doc.id} 
                         value={doc.id}
-                        className="text-xs text-white data-[state=active]:bg-primary data-[state=active]:text-white"
+                        className="text-xs text-white data-[state=active]:bg-primary data-[state=active]:text-white px-2 py-2 h-auto"
                       >
-                        {doc.name.split(' ')[0]}
+                        <span className="text-center leading-tight">{doc.name.split(' ')[0]}</span>
+                      </TabsTrigger>
+                    ))}
+                  </TabsList>
+                  
+                  {/* Second row of tabs */}
+                  <TabsList className="grid grid-cols-4 gap-1 bg-white/5 p-1 h-auto mt-2">
+                    {documentTypes.slice(4, 8).map((doc) => (
+                      <TabsTrigger 
+                        key={doc.id} 
+                        value={doc.id}
+                        className="text-xs text-white data-[state=active]:bg-primary data-[state=active]:text-white px-2 py-2 h-auto"
+                      >
+                        <span className="text-center leading-tight">{doc.name.split(' ')[0]}</span>
                       </TabsTrigger>
                     ))}
                   </TabsList>
@@ -263,7 +276,7 @@ const AddProperty = () => {
                         </div>
 
                         {/* Document Fields */}
-                        <div className="grid grid-cols-1 gap-3">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                           {doc.fields.map((field) => (
                             <div key={field}>
                               <Label htmlFor={field} className="text-white text-sm">
