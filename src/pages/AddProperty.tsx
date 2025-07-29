@@ -7,7 +7,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
-import { Upload, ArrowLeft, MapPin, FileText, Calendar, DollarSign } from "lucide-react";
+import { Upload, ArrowLeft, MapPin, FileText, Calendar, DollarSign, UserCheck, Clock, Phone } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 const AddProperty = () => {
@@ -15,6 +15,8 @@ const AddProperty = () => {
   const [selectedDocumentType, setSelectedDocumentType] = useState("deed");
   const [uploadedFiles, setUploadedFiles] = useState<{[key: string]: File[]}>({});
   const fileInputRefs = useRef<{[key: string]: HTMLInputElement | null}>({});
+  const [selectedTimeSlot, setSelectedTimeSlot] = useState<string>("");
+  const [selectedDate, setSelectedDate] = useState<string>("");
 
   const propertyTypes = [
     "Residential Plot",
@@ -141,6 +143,23 @@ const AddProperty = () => {
       ...prev,
       [documentType]: prev[documentType]?.filter((_, index) => index !== fileIndex) || []
     }));
+  };
+
+  const timeSlots = [
+    "9:00 AM - 10:00 AM",
+    "10:00 AM - 11:00 AM", 
+    "11:00 AM - 12:00 PM",
+    "2:00 PM - 3:00 PM",
+    "3:00 PM - 4:00 PM",
+    "4:00 PM - 5:00 PM"
+  ];
+
+  const handleBookConsultation = () => {
+    if (!selectedDate || !selectedTimeSlot) {
+      alert("Please select both date and time slot");
+      return;
+    }
+    alert(`Consultation booked for ${selectedDate} at ${selectedTimeSlot}`);
   };
 
   return (
@@ -368,6 +387,92 @@ const AddProperty = () => {
                     </TabsContent>
                   ))}
                 </Tabs>
+              </CardContent>
+            </Card>
+            
+            {/* Document Verification Service */}
+            <Card className="rounded-xl border border-white/10" style={{
+              background: '#001731',
+              boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
+            }}>
+              <CardHeader>
+                <CardTitle className="text-lg font-semibold text-white flex items-center">
+                  <UserCheck className="h-5 w-5 mr-2" />
+                  Verify Documents
+                </CardTitle>
+                <p className="text-sm text-gray-300">Book a consultation with our experts to verify your property documents</p>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="bg-blue-500/10 border border-blue-500/20 rounded-lg p-4">
+                  <div className="flex items-start space-x-3">
+                    <UserCheck className="h-6 w-6 text-blue-400 mt-1" />
+                    <div>
+                      <h4 className="text-white font-medium mb-1">Professional Document Verification</h4>
+                      <p className="text-sm text-gray-300 mb-3">
+                        Our certified consultants will review your documents for authenticity, completeness, and legal validity according to Bangladesh property laws.
+                      </p>
+                      <ul className="text-xs text-gray-400 space-y-1">
+                        <li>• Legal document authentication</li>
+                        <li>• Completeness verification</li>
+                        <li>• Compliance with Bangladesh laws</li>
+                        <li>• Expert recommendations</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <Label htmlFor="consultationDate" className="text-white">Select Date</Label>
+                    <Input
+                      id="consultationDate"
+                      type="date"
+                      value={selectedDate}
+                      onChange={(e) => setSelectedDate(e.target.value)}
+                      className="mt-1 bg-white/5 border-white/20 text-white"
+                      min={new Date().toISOString().split('T')[0]}
+                    />
+                  </div>
+
+                  <div>
+                    <Label htmlFor="timeSlot" className="text-white">Select Time Slot</Label>
+                    <Select value={selectedTimeSlot} onValueChange={setSelectedTimeSlot}>
+                      <SelectTrigger className="mt-1 bg-white/5 border-white/20 text-white">
+                        <SelectValue placeholder="Choose time slot" />
+                      </SelectTrigger>
+                      <SelectContent className="bg-gray-900 border-white/20">
+                        {timeSlots.map((slot) => (
+                          <SelectItem key={slot} value={slot} className="text-white hover:bg-white/10">
+                            {slot}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+
+                <div className="flex items-center justify-between bg-white/5 rounded-lg p-3">
+                  <div className="flex items-center space-x-2">
+                    <Clock className="h-4 w-4 text-gray-400" />
+                    <span className="text-sm text-white">30-minute consultation</span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <Phone className="h-4 w-4 text-gray-400" />
+                    <span className="text-sm text-white">Video/Phone call</span>
+                  </div>
+                  <Badge variant="outline" className="text-green-400 border-green-400/30">
+                    Free
+                  </Badge>
+                </div>
+
+                <Button 
+                  onClick={handleBookConsultation}
+                  className="w-full bg-blue-600 hover:bg-blue-700 text-white"
+                  disabled={!selectedDate || !selectedTimeSlot}
+                >
+                  <Calendar className="h-4 w-4 mr-2" />
+                  Book Free Consultation
+                </Button>
               </CardContent>
             </Card>
           </div>
