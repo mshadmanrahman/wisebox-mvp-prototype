@@ -159,8 +159,8 @@ const Dashboard = () => {
               <BarChart3 className="h-4 w-4 mr-3 text-white" />
               Snapshot
             </Button>
-            <Button variant="ghost" className="w-full justify-start text-gray-500 font-normal bg-transparent hover:bg-gray-100">
-              <Building className="h-4 w-4 mr-3" />
+            <Button variant="ghost" className="w-full justify-start text-gray-500 font-normal bg-transparent hover:bg-transparent hover:text-white">
+              <Building className="h-4 w-4 mr-3 text-gray-500 group-hover:text-white" />
               My Properties
             </Button>
             <Button variant="ghost" className="w-full justify-start text-gray-500 font-normal bg-transparent hover:bg-gray-100">
