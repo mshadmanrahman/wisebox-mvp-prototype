@@ -207,10 +207,10 @@ const Dashboard = () => {
           <div className="mt-8">
             <Button 
               variant="outline" 
-              className="w-full text-[#002B5E] border-gray-200 bg-gray-50 hover:bg-gray-100 hover:text-[#002B5E]"
+              className="w-full text-[#002B5E] border-gray-200 bg-gray-50 hover:bg-[#002B5E] hover:text-white hover:border-[#002B5E] group"
               onClick={() => window.location.href = '/add-property'}
             >
-              <Plus className="h-4 w-4 mr-2" />
+              <Plus className="h-4 w-4 mr-2 group-hover:text-white" />
               New Property
             </Button>
           </div>
