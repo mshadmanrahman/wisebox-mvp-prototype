@@ -7,7 +7,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
-import { Upload, ArrowLeft, MapPin, FileText, Calendar, DollarSign, UserCheck, Clock, Phone } from "lucide-react";
+import { Upload, ArrowLeft, MapPin, FileText, Calendar, DollarSign, UserCheck, Clock, Phone, ChevronLeft, ChevronRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 const AddProperty = () => {
@@ -15,8 +15,9 @@ const AddProperty = () => {
   const [selectedDocumentType, setSelectedDocumentType] = useState("deed");
   const [uploadedFiles, setUploadedFiles] = useState<{[key: string]: File[]}>({});
   const fileInputRefs = useRef<{[key: string]: HTMLInputElement | null}>({});
+  const [selectedConsultationDate, setSelectedConsultationDate] = useState<number | null>(null);
+  const [currentMonth, setCurrentMonth] = useState(new Date());
   const [selectedTimeSlot, setSelectedTimeSlot] = useState<string>("");
-  const [selectedDate, setSelectedDate] = useState<string>("");
 
   const propertyTypes = [
     "Residential Plot",
@@ -154,11 +155,75 @@ const AddProperty = () => {
     "4:00 PM - 5:00 PM"
   ];
 
+  const navigateMonth = (direction: 'prev' | 'next') => {
+    setCurrentMonth(prev => {
+      const newMonth = new Date(prev);
+      if (direction === 'prev') {
+        newMonth.setMonth(newMonth.getMonth() - 1);
+      } else {
+        newMonth.setMonth(newMonth.getMonth() + 1);
+      }
+      return newMonth;
+    });
+    setSelectedConsultationDate(null);
+    setSelectedTimeSlot("");
+  };
+
+  const formatMonth = (date: Date) => {
+    return date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+  };
+
+  const generateCalendarDays = () => {
+    const year = currentMonth.getFullYear();
+    const month = currentMonth.getMonth();
+    
+    const firstDay = new Date(year, month, 1);
+    const lastDay = new Date(year, month + 1, 0);
+    const daysInMonth = lastDay.getDate();
+    const startDayOfWeek = firstDay.getDay();
+    
+    const prevMonth = new Date(year, month - 1, 0);
+    const daysInPrevMonth = prevMonth.getDate();
+    
+    const days = [];
+    
+    // Add previous month's trailing days
+    for (let i = startDayOfWeek - 1; i >= 0; i--) {
+      days.push({
+        day: daysInPrevMonth - i,
+        isCurrentMonth: false,
+        isNextMonth: false
+      });
+    }
+    
+    // Add current month's days
+    for (let day = 1; day <= daysInMonth; day++) {
+      days.push({
+        day,
+        isCurrentMonth: true,
+        isNextMonth: false
+      });
+    }
+    
+    // Add next month's leading days
+    const remainingSlots = 42 - days.length;
+    for (let day = 1; day <= remainingSlots && days.length < 42; day++) {
+      days.push({
+        day,
+        isCurrentMonth: false,
+        isNextMonth: true
+      });
+    }
+    
+    return days;
+  };
+
   const handleBookConsultation = () => {
-    if (!selectedDate || !selectedTimeSlot) {
+    if (!selectedConsultationDate || !selectedTimeSlot) {
       alert("Please select both date and time slot");
       return;
     }
+    const selectedDate = `${formatMonth(currentMonth)} ${selectedConsultationDate}`;
     alert(`Consultation booked for ${selectedDate} at ${selectedTimeSlot}`);
   };
 
@@ -421,58 +486,120 @@ const AddProperty = () => {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <Label htmlFor="consultationDate" className="text-white">Select Date</Label>
-                    <Input
-                      id="consultationDate"
-                      type="date"
-                      value={selectedDate}
-                      onChange={(e) => setSelectedDate(e.target.value)}
-                      className="mt-1 bg-white/5 border-white/20 text-white"
-                      min={new Date().toISOString().split('T')[0]}
-                    />
-                  </div>
+                {/* Calendar Interface */}
+                  <div className="p-4 rounded-xl border border-white/10" style={{
+                    background: '#001731',
+                    borderTop: '1px solid #FFFFFF1A'
+                  }}>
+                    {/* Calendar Header */}
+                    <div className="flex items-center justify-between mb-4 relative">
+                      <button 
+                        onClick={() => navigateMonth('prev')}
+                        className="w-8 h-8 p-2.5 rounded-lg flex items-center justify-center absolute left-0 hover:bg-white/10"
+                      >
+                        <ChevronLeft className="h-4 w-4 text-white" />
+                      </button>
+                      <button 
+                        onClick={() => navigateMonth('next')}
+                        className="w-8 h-8 p-2.5 rounded-lg flex items-center justify-center absolute right-0 hover:bg-white/10"
+                      >
+                        <ChevronRight className="h-4 w-4 text-white" />
+                      </button>
+                      <span className="text-sm font-medium text-white mx-auto">{formatMonth(currentMonth)}</span>
+                    </div>
 
-                  <div>
-                    <Label htmlFor="timeSlot" className="text-white">Select Time Slot</Label>
-                    <Select value={selectedTimeSlot} onValueChange={setSelectedTimeSlot}>
-                      <SelectTrigger className="mt-1 bg-white/5 border-white/20 text-white">
-                        <SelectValue placeholder="Choose time slot" />
-                      </SelectTrigger>
-                      <SelectContent className="bg-gray-900 border-white/20">
-                        {timeSlots.map((slot) => (
-                          <SelectItem key={slot} value={slot} className="text-white hover:bg-white/10">
-                            {slot}
-                          </SelectItem>
+                    {/* Calendar Grid */}
+                    <div className="space-y-2">
+                      {/* Day Headers */}
+                      <div className="grid grid-cols-7 gap-0">
+                        {['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'].map((day) => (
+                          <div key={day} className="w-8 h-5 rounded-lg flex items-center justify-center">
+                            <span className="text-xs text-gray-400 font-normal">{day}</span>
+                          </div>
                         ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </div>
+                      </div>
 
-                <div className="flex items-center justify-between bg-white/5 rounded-lg p-3">
-                  <div className="flex items-center space-x-2">
-                    <Clock className="h-4 w-4 text-gray-400" />
-                    <span className="text-sm text-white">30-minute consultation</span>
+                      {/* Calendar Days */}
+                      <div className="grid grid-cols-7 gap-0">
+                        {generateCalendarDays().map((dayObj, index) => {
+                          const isSelected = dayObj.isCurrentMonth && selectedConsultationDate === dayObj.day;
+                          const isPastDate = dayObj.isCurrentMonth && 
+                            new Date(currentMonth.getFullYear(), currentMonth.getMonth(), dayObj.day) < new Date();
+                          
+                          return (
+                            <button 
+                              key={index}
+                              onClick={() => {
+                                if (dayObj.isCurrentMonth && !isPastDate) {
+                                  setSelectedConsultationDate(dayObj.day);
+                                  setSelectedTimeSlot(""); // Reset time slot when date changes
+                                }
+                              }}
+                              disabled={!dayObj.isCurrentMonth || isPastDate}
+                              className={`w-8 h-8 rounded-lg flex items-center justify-center text-xs font-normal transition-colors
+                                ${isSelected 
+                                  ? 'bg-blue-600 text-white' 
+                                  : dayObj.isCurrentMonth 
+                                    ? isPastDate 
+                                      ? 'text-gray-600 cursor-not-allowed'
+                                      : 'text-white hover:bg-white/10' 
+                                    : 'text-gray-600'
+                                }`}
+                            >
+                              {dayObj.day}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
                   </div>
-                  <div className="flex items-center space-x-2">
-                    <Phone className="h-4 w-4 text-gray-400" />
-                    <span className="text-sm text-white">Video/Phone call</span>
-                  </div>
-                  <Badge variant="outline" className="text-green-400 border-green-400/30">
-                    Free
-                  </Badge>
-                </div>
 
-                <Button 
-                  onClick={handleBookConsultation}
-                  className="w-full bg-blue-600 hover:bg-blue-700 text-white"
-                  disabled={!selectedDate || !selectedTimeSlot}
-                >
-                  <Calendar className="h-4 w-4 mr-2" />
-                  Book Free Consultation
-                </Button>
+                  {/* Time Slots - Show only when date is selected */}
+                  {selectedConsultationDate && (
+                    <div className="space-y-3">
+                      <Label className="text-white text-sm font-medium">
+                        Available Time Slots for {formatMonth(currentMonth)} {selectedConsultationDate}
+                      </Label>
+                      <div className="grid grid-cols-2 gap-2">
+                        {timeSlots.map((slot) => (
+                          <button
+                            key={slot}
+                            onClick={() => setSelectedTimeSlot(slot)}
+                            className={`p-2 rounded-lg text-sm border transition-colors ${
+                              selectedTimeSlot === slot
+                                ? 'bg-blue-600 border-blue-600 text-white'
+                                : 'border-white/20 text-white hover:bg-white/10'
+                            }`}
+                          >
+                            {slot}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  <div className="flex items-center justify-between bg-white/5 rounded-lg p-3">
+                    <div className="flex items-center space-x-2">
+                      <Clock className="h-4 w-4 text-gray-400" />
+                      <span className="text-sm text-white">30-minute consultation</span>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <Phone className="h-4 w-4 text-gray-400" />
+                      <span className="text-sm text-white">Video/Phone call</span>
+                    </div>
+                    <Badge variant="outline" className="text-green-400 border-green-400/30">
+                      Free
+                    </Badge>
+                  </div>
+
+                  <Button 
+                    onClick={handleBookConsultation}
+                    className="w-full bg-blue-600 hover:bg-blue-700 text-white"
+                    disabled={!selectedConsultationDate || !selectedTimeSlot}
+                  >
+                    <Calendar className="h-4 w-4 mr-2" />
+                    Book Free Consultation
+                  </Button>
               </CardContent>
             </Card>
           </div>
