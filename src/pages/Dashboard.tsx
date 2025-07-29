@@ -558,21 +558,25 @@ const Dashboard = () => {
                 {mockProperties.map((property) => (
                   <Card 
                     key={property.id} 
-                    className="bg-white border border-border cursor-pointer hover:shadow-lg transition-shadow"
+                    className="border border-white/10 cursor-pointer hover:shadow-lg transition-shadow"
+                    style={{
+                      background: '#001731',
+                      boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
+                    }}
                     onClick={() => navigate(`/property/${property.id}`)}
                   >
                     <CardContent className="p-6">
                       <div className="flex justify-between items-start">
                         <div className="flex-1">
-                          <h3 className="text-lg font-semibold text-slate-900">{property.name}</h3>
-                          <p className="text-sm text-slate-600">{property.type} • {property.location}</p>
-                          <p className="text-xl font-bold text-slate-900 mt-2">{property.value}</p>
+                          <h3 className="text-lg font-semibold text-white">{property.name}</h3>
+                          <p className="text-sm text-[#A3A3A3]">{property.type} • {property.location}</p>
+                          <p className="text-xl font-bold text-white mt-2">{property.value}</p>
                         </div>
                         <div className="text-right">
                           <Badge variant={property.status === 'Verified' ? 'default' : 'secondary'}>
                             {property.status}
                           </Badge>
-                          <p className="text-sm text-slate-600 mt-2">
+                          <p className="text-sm text-[#A3A3A3] mt-2">
                             {property.documentsUploaded}/{property.totalDocuments} Documents
                           </p>
                         </div>
@@ -589,7 +593,14 @@ const Dashboard = () => {
               <h2 className="text-2xl font-bold text-white">All Documents</h2>
               <div className="grid gap-4">
                 {mockDocuments.map((doc) => (
-                  <Card key={doc.id} className="bg-white border border-border">
+                  <Card 
+                    key={doc.id} 
+                    className="border border-white/10"
+                    style={{
+                      background: '#001731',
+                      boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
+                    }}
+                  >
                     <CardContent className="p-6">
                       <div className="flex justify-between items-center">
                         <div className="flex items-center space-x-4">
@@ -603,8 +614,8 @@ const Dashboard = () => {
                             )}
                           </div>
                           <div>
-                            <h3 className="font-medium text-slate-900">{doc.name}</h3>
-                            <p className="text-sm text-slate-600">{doc.property}</p>
+                            <h3 className="font-medium text-white">{doc.name}</h3>
+                            <p className="text-sm text-[#A3A3A3]">{doc.property}</p>
                           </div>
                         </div>
                         <div className="text-right">
@@ -612,7 +623,7 @@ const Dashboard = () => {
                             {doc.status === 'uploaded' ? 'Uploaded' : 'Missing'}
                           </Badge>
                           {doc.uploadDate && (
-                            <p className="text-sm text-slate-600 mt-1">{doc.uploadDate}</p>
+                            <p className="text-sm text-[#A3A3A3] mt-1">{doc.uploadDate}</p>
                           )}
                         </div>
                       </div>
@@ -628,18 +639,25 @@ const Dashboard = () => {
               <h2 className="text-2xl font-bold text-white">Available Services</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {mockServices.map((service) => (
-                  <Card key={service.id} className="bg-white border border-border hover:shadow-lg transition-shadow">
+                  <Card 
+                    key={service.id} 
+                    className="border border-white/10 hover:shadow-lg transition-shadow"
+                    style={{
+                      background: '#001731',
+                      boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
+                    }}
+                  >
                     <CardContent className="p-6">
                       <div className="flex items-start space-x-4">
                         <div className="w-12 h-12 rounded-lg bg-blue-100 flex items-center justify-center">
                           <service.icon className="w-6 h-6 text-blue-600" />
                         </div>
                         <div className="flex-1">
-                          <h3 className="text-lg font-semibold text-slate-900">{service.name}</h3>
-                          <p className="text-sm text-slate-600 mb-2">{service.description}</p>
+                          <h3 className="text-lg font-semibold text-white">{service.name}</h3>
+                          <p className="text-sm text-[#A3A3A3] mb-2">{service.description}</p>
                           <div className="flex justify-between items-center">
                             <Badge variant="outline">{service.category}</Badge>
-                            <p className="font-medium text-slate-900">{service.price}</p>
+                            <p className="font-medium text-white">{service.price}</p>
                           </div>
                           <Button 
                             className="w-full mt-4" 
