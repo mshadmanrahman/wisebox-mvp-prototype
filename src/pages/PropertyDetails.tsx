@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, MapPin, Calendar, DollarSign, FileText, Download, Eye, AlertCircle, CheckCircle, Upload, Home, Receipt, Users, Map, Edit, Compass, ScrollText, Gavel } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import PropertyMap from "@/components/PropertyMap";
 
 const PropertyDetails = () => {
   const navigate = useNavigate();
@@ -381,13 +382,10 @@ const PropertyDetails = () => {
                 <CardTitle className="text-lg font-semibold text-white">Location</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="h-48 bg-white/5 rounded-lg border border-white/20 flex items-center justify-center">
-                  <div className="text-center">
-                    <MapPin className="h-8 w-8 text-gray-400 mx-auto mb-2" />
-                    <p className="text-gray-400">Interactive Map</p>
-                    <p className="text-xs text-gray-500">Dhanmondi, Dhaka</p>
-                  </div>
-                </div>
+                <PropertyMap 
+                  coordinates={propertyData.coordinates}
+                  address={propertyData.address}
+                />
               </CardContent>
             </Card>
           </div>
