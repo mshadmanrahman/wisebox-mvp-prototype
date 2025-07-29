@@ -115,7 +115,7 @@ const Dashboard = () => {
     background: 'linear-gradient(180deg, #001731 0%, #002B5E 100%)'
   }}>
       {/* Top Navigation */}
-      <header className="border-b border-border">
+      <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-md">
         <div className="flex items-center justify-between px-6 py-4">
           <div className="flex items-center space-x-8">
             <div className="flex items-center space-x-2">
