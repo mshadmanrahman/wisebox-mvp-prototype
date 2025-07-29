@@ -7,7 +7,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
-import { Upload, ArrowLeft, MapPin, FileText, Calendar, DollarSign, UserCheck, Clock, Phone, ChevronLeft, ChevronRight } from "lucide-react";
+import { Upload, ArrowLeft, MapPin, FileText, Calendar, DollarSign, UserCheck, Clock, Phone, ChevronLeft, ChevronRight, Home, Receipt, Users, Map, Edit, Compass, ScrollText, Gavel } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 const AddProperty = () => {
@@ -123,6 +123,20 @@ const AddProperty = () => {
     if (field.includes("Date") || field.includes("Year")) return "date";
     if (field.includes("Value") || field.includes("Amount") || field.includes("Area")) return "number";
     return "text";
+  };
+
+  const getDocumentIcon = (docId: string) => {
+    const iconMap: { [key: string]: React.ComponentType<any> } = {
+      deed: Home,
+      khajna: Receipt,
+      naamjari: Users,
+      porcha: Map,
+      mutation: Edit,
+      survey: Compass,
+      will: ScrollText,
+      powerOfAttorney: Gavel
+    };
+    return iconMap[docId] || FileText;
   };
 
   const handleFileUpload = (documentType: string, event: React.ChangeEvent<HTMLInputElement>) => {
@@ -361,13 +375,18 @@ const AddProperty = () => {
                         >
                           <CardContent className="p-3">
                             <div className="text-center">
-                              <FileText className={`h-6 w-6 mx-auto mb-2 ${
-                                selectedDocumentType === doc.id ? 'text-primary' : 'text-gray-400'
-                              }`} />
+                              {(() => {
+                                const IconComponent = getDocumentIcon(doc.id);
+                                return (
+                                  <IconComponent className={`h-6 w-6 mx-auto mb-2 ${
+                                    selectedDocumentType === doc.id ? 'text-primary' : 'text-gray-400'
+                                  }`} />
+                                );
+                              })()}
                               <h4 className={`text-sm font-medium mb-1 ${
                                 selectedDocumentType === doc.id ? 'text-primary' : 'text-white'
                               }`}>
-                                {doc.name.split(' ')[0]}
+                                {doc.name}
                               </h4>
                               <p className="text-xs text-gray-400 leading-tight">
                                 {doc.description}
