@@ -101,7 +101,10 @@ const Features = () => {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {features.map((feature, index) => (
-            <Card key={index} className="group hover:shadow-lg transition-all duration-300 hover:-translate-y-1 border-border/50 bg-card/50 backdrop-blur-sm">
+            <Card key={index} className="rounded-xl border border-white/10 p-6" style={{
+              background: '#001731',
+              boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
+            }}>
               <CardHeader>
                 <div className="flex items-center justify-between mb-2">
                   <feature.icon className={`h-8 w-8 ${feature.color}`} />
