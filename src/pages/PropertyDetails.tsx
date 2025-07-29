@@ -366,7 +366,7 @@ const PropertyDetails = () => {
                   );
                 })}
                 
-                <Button className="w-full mt-4 bg-orange-600 hover:bg-orange-700 text-white">
+                <Button className="w-full mt-4 bg-red-700 hover:bg-red-800 text-white">
                   <Upload className="h-4 w-4 mr-2" />
                   Upload Missing Documents
                 </Button>
