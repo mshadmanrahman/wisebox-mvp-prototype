@@ -306,10 +306,19 @@ const Dashboard = () => {
                       <p className="text-sm font-medium text-white">Document status</p>
                       <p className="text-sm text-[#4cdff2]">{propertyFacts.documents.uploaded}</p>
                       <p className="text-xs text-[#A3A3A3]">{propertyFacts.documents.status}</p>
-                      <button className="mt-2 px-3 py-1 text-xs border border-white/20 rounded-md text-white hover:bg-white/10">
-                        Verify Documents
-                        <ExternalLink className="h-3 w-3 ml-1 inline" />
-                      </button>
+                      <div className="flex space-x-2">
+                        <button 
+                          className="mt-2 px-3 py-1 text-xs border border-white/20 rounded-md text-white hover:bg-white/10"
+                          onClick={() => window.location.href = '/property/PROP-2024-001'}
+                        >
+                          View Details
+                          <ExternalLink className="h-3 w-3 ml-1 inline" />
+                        </button>
+                        <button className="mt-2 px-3 py-1 text-xs border border-white/20 rounded-md text-white hover:bg-white/10">
+                          Verify Documents
+                          <ExternalLink className="h-3 w-3 ml-1 inline" />
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
