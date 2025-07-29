@@ -344,39 +344,52 @@ const AddProperty = () => {
                 <p className="text-sm text-gray-300">Upload and manage property-related documents</p>
               </CardHeader>
               <CardContent>
-                <Tabs value={selectedDocumentType} onValueChange={setSelectedDocumentType}>
-                  <TabsList className="grid grid-cols-4 gap-1 bg-white/5 p-1 h-auto">
-                    {documentTypes.slice(0, 4).map((doc) => (
-                      <TabsTrigger 
-                        key={doc.id} 
-                        value={doc.id}
-                        className="text-xs text-white data-[state=active]:bg-primary data-[state=active]:text-white px-2 py-2 h-auto"
-                      >
-                        <span className="text-center leading-tight">{doc.name.split(' ')[0]}</span>
-                      </TabsTrigger>
-                    ))}
-                  </TabsList>
-                  
-                  {/* Second row of tabs */}
-                  <TabsList className="grid grid-cols-4 gap-1 bg-white/5 p-1 h-auto mt-2">
-                    {documentTypes.slice(4, 8).map((doc) => (
-                      <TabsTrigger 
-                        key={doc.id} 
-                        value={doc.id}
-                        className="text-xs text-white data-[state=active]:bg-primary data-[state=active]:text-white px-2 py-2 h-auto"
-                      >
-                        <span className="text-center leading-tight">{doc.name.split(' ')[0]}</span>
-                      </TabsTrigger>
-                    ))}
-                  </TabsList>
+                <div className="space-y-6">
+                  {/* Document Type Selection Cards */}
+                  <div>
+                    <h3 className="text-white font-medium mb-4">Select Document Type</h3>
+                    <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3">
+                      {documentTypes.map((doc) => (
+                        <Card
+                          key={doc.id}
+                          className={`cursor-pointer transition-all duration-200 border-2 ${
+                            selectedDocumentType === doc.id
+                              ? 'border-primary bg-primary/10'
+                              : 'border-white/20 bg-white/5 hover:bg-white/10 hover:border-white/30'
+                          }`}
+                          onClick={() => setSelectedDocumentType(doc.id)}
+                        >
+                          <CardContent className="p-3">
+                            <div className="text-center">
+                              <FileText className={`h-6 w-6 mx-auto mb-2 ${
+                                selectedDocumentType === doc.id ? 'text-primary' : 'text-gray-400'
+                              }`} />
+                              <h4 className={`text-sm font-medium mb-1 ${
+                                selectedDocumentType === doc.id ? 'text-primary' : 'text-white'
+                              }`}>
+                                {doc.name.split(' ')[0]}
+                              </h4>
+                              <p className="text-xs text-gray-400 leading-tight">
+                                {doc.description}
+                              </p>
+                            </div>
+                          </CardContent>
+                        </Card>
+                      ))}
+                    </div>
+                  </div>
 
-                  {documentTypes.map((doc) => (
-                    <TabsContent key={doc.id} value={doc.id} className="mt-4">
-                      <div className="space-y-4">
+                  {/* Selected Document Form */}
+                  {(() => {
+                    const selectedDoc = documentTypes.find(doc => doc.id === selectedDocumentType);
+                    if (!selectedDoc) return null;
+                    
+                    return (
+                      <div className="space-y-4 border border-white/20 rounded-lg p-6 bg-white/5">
                         <div className="flex items-center justify-between">
                           <div>
-                            <h3 className="font-medium text-white">{doc.name}</h3>
-                            <p className="text-sm text-gray-400">{doc.description}</p>
+                            <h3 className="font-medium text-white">{selectedDoc.name}</h3>
+                            <p className="text-sm text-gray-400">{selectedDoc.description}</p>
                           </div>
                           <Badge variant="outline" className="text-white border-white/20">
                             Required
@@ -385,7 +398,7 @@ const AddProperty = () => {
 
                         {/* Document Fields */}
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                          {doc.fields.map((field) => (
+                          {selectedDoc.fields.map((field) => (
                             <div key={field}>
                               <Label htmlFor={field} className="text-white text-sm">
                                 {getFieldLabel(field)}
@@ -404,41 +417,37 @@ const AddProperty = () => {
                         <div className="border-2 border-dashed border-white/20 rounded-lg p-6">
                           <div className="text-center">
                             <Upload className="h-8 w-8 text-gray-400 mx-auto mb-2" />
-                            <p className="text-sm text-white mb-1">Upload {doc.name}</p>
+                            <p className="text-sm text-white mb-1">Upload {selectedDoc.name}</p>
                             <p className="text-xs text-gray-400">PDF, JPG, PNG up to 10MB</p>
                             <Button 
                               variant="outline" 
                               size="sm" 
                               className="mt-3 text-white border-white/20 hover:bg-white/10"
-                              onClick={() => triggerFileUpload(doc.id)}
+                              onClick={() => triggerFileUpload(selectedDoc.id)}
                             >
                               Choose File
                             </Button>
                             <input
-                              ref={(el) => fileInputRefs.current[doc.id] = el}
+                              ref={(el) => fileInputRefs.current[selectedDoc.id] = el}
                               type="file"
                               accept=".pdf,.jpg,.jpeg,.png"
                               multiple
-                              onChange={(e) => handleFileUpload(doc.id, e)}
+                              onChange={(e) => handleFileUpload(selectedDoc.id, e)}
                               style={{ display: 'none' }}
                             />
                           </div>
                           
                           {/* Display uploaded files */}
-                          {uploadedFiles[doc.id] && uploadedFiles[doc.id].length > 0 && (
+                          {uploadedFiles[selectedDoc.id] && uploadedFiles[selectedDoc.id].length > 0 && (
                             <div className="mt-4 space-y-2">
                               <p className="text-sm text-white font-medium">Uploaded Files:</p>
-                              {uploadedFiles[doc.id].map((file, index) => (
+                              {uploadedFiles[selectedDoc.id].map((file, index) => (
                                 <div key={index} className="flex items-center justify-between bg-white/5 rounded p-2">
-                                  <div className="flex items-center space-x-2">
-                                    <FileText className="h-4 w-4 text-gray-400" />
-                                    <span className="text-sm text-white">{file.name}</span>
-                                    <span className="text-xs text-gray-400">({(file.size / 1024 / 1024).toFixed(2)} MB)</span>
-                                  </div>
-                                  <Button
-                                    variant="ghost"
+                                  <span className="text-sm text-white">{file.name}</span>
+                                  <Button 
+                                    variant="ghost" 
                                     size="sm"
-                                    onClick={() => removeFile(doc.id, index)}
+                                    onClick={() => removeFile(selectedDoc.id, index)}
                                     className="text-red-400 hover:text-red-300 hover:bg-red-400/10"
                                   >
                                     Remove
@@ -449,9 +458,9 @@ const AddProperty = () => {
                           )}
                         </div>
                       </div>
-                    </TabsContent>
-                  ))}
-                </Tabs>
+                    );
+                  })()}
+                </div>
               </CardContent>
             </Card>
             
