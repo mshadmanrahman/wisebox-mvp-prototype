@@ -165,7 +165,7 @@ export const PropertyUploadWizard: React.FC = () => {
       case 'complete': return 'bg-green-500';
       case 'in-progress': return 'bg-yellow-500';
       case 'incomplete': return 'bg-red-500';
-      default: return 'bg-gray-300';
+      default: return 'bg-white/20';
     }
   };
 
