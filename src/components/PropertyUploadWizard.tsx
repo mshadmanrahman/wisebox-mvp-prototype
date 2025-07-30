@@ -566,7 +566,7 @@ export const PropertyUploadWizard: React.FC = () => {
   const canProceed = () => {
     switch (currentStep) {
       case 1: return data.propertyType && data.ownershipType;
-      case 2: return data.documents.dolilAgreements.length > 0;
+      case 2: return true; // Allow proceeding without files for testing
       default: return true; // For now, allow proceeding from other steps
     }
   };
