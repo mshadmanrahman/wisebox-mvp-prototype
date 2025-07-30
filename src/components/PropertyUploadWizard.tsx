@@ -241,9 +241,9 @@ export const PropertyUploadWizard: React.FC = () => {
 
   const renderStep2 = () => (
     <div className="space-y-6">
-      <div className="bg-blue-50 p-4 rounded-lg">
-        <h3 className="text-lg font-semibold mb-2">Ownership Documents</h3>
-        <p className="text-sm text-gray-600 mb-4">
+      <div className="bg-white/5 border border-white/20 p-4 rounded-lg">
+        <h3 className="text-lg font-semibold mb-2 text-white">Ownership Documents</h3>
+        <p className="text-sm text-gray-300 mb-4">
           Upload your core proof-of-ownership papers. These are mandatory documents.
         </p>
       </div>
@@ -281,9 +281,9 @@ export const PropertyUploadWizard: React.FC = () => {
 
   const renderStep3 = () => (
     <div className="space-y-6">
-      <div className="bg-blue-50 p-4 rounded-lg">
-        <h3 className="text-lg font-semibold mb-2">Verification Documents</h3>
-        <p className="text-sm text-gray-600 mb-4">
+      <div className="bg-white/5 border border-white/20 p-4 rounded-lg">
+        <h3 className="text-lg font-semibold mb-2 text-white">Verification Documents</h3>
+        <p className="text-sm text-gray-300 mb-4">
           Upload mutation records, land records, and tax receipts for verification.
         </p>
       </div>
@@ -340,9 +340,9 @@ export const PropertyUploadWizard: React.FC = () => {
 
   const renderStep4 = () => (
     <div className="space-y-6">
-      <div className="bg-blue-50 p-4 rounded-lg">
-        <h3 className="text-lg font-semibold mb-2">Possession & History</h3>
-        <p className="text-sm text-gray-600 mb-4">
+      <div className="bg-white/5 border border-white/20 p-4 rounded-lg">
+        <h3 className="text-lg font-semibold mb-2 text-white">Possession & History</h3>
+        <p className="text-sm text-gray-300 mb-4">
           Confirm possession and upload historical ownership records.
         </p>
       </div>
@@ -407,9 +407,9 @@ export const PropertyUploadWizard: React.FC = () => {
 
   const renderStep5 = () => (
     <div className="space-y-6">
-      <div className="bg-blue-50 p-4 rounded-lg">
-        <h3 className="text-lg font-semibold mb-2">Maps & Visuals</h3>
-        <p className="text-sm text-gray-600 mb-4">
+      <div className="bg-white/5 border border-white/20 p-4 rounded-lg">
+        <h3 className="text-lg font-semibold mb-2 text-white">Maps & Visuals</h3>
+        <p className="text-sm text-gray-300 mb-4">
           Upload official maps and visual documentation of your property.
         </p>
       </div>
@@ -434,9 +434,9 @@ export const PropertyUploadWizard: React.FC = () => {
 
   const renderStep6 = () => (
     <div className="space-y-6">
-      <div className="bg-blue-50 p-4 rounded-lg">
-        <h3 className="text-lg font-semibold mb-2">Property Details</h3>
-        <p className="text-sm text-gray-600 mb-4">
+      <div className="bg-white/5 border border-white/20 p-4 rounded-lg">
+        <h3 className="text-lg font-semibold mb-2 text-white">Property Details</h3>
+        <p className="text-sm text-gray-300 mb-4">
           Provide detailed information about your property.
         </p>
       </div>
