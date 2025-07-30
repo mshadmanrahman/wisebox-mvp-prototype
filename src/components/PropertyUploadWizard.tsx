@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { PropertyMapComponent } from './PropertyMapComponent';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -21,7 +22,8 @@ import {
   Upload,
   CheckCircle,
   AlertCircle,
-  Clock
+  Clock,
+  ArrowLeft
 } from 'lucide-react';
 
 // Types and Interfaces
@@ -94,6 +96,7 @@ const KHATIAN_TYPES = [
 ];
 
 export const PropertyUploadWizard: React.FC = () => {
+  const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1);
   const [data, setData] = useState<PropertyUploadData>({
     propertyType: '',
@@ -600,6 +603,17 @@ export const PropertyUploadWizard: React.FC = () => {
     <div className="max-w-4xl mx-auto p-6">
       {/* Header */}
       <div className="mb-8">
+        <div className="flex items-center gap-4 mb-4">
+          <Button 
+            variant="ghost" 
+            size="sm" 
+            onClick={() => navigate('/dashboard')}
+            className="flex items-center gap-2"
+          >
+            <ArrowLeft className="h-4 w-4" />
+            Back to Dashboard
+          </Button>
+        </div>
         <h1 className="text-2xl font-bold mb-2">Add New Property</h1>
         <p className="text-gray-600">Follow the steps below to upload your property documents and details.</p>
       </div>
