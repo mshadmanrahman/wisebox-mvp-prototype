@@ -7,6 +7,7 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { 
   Home, 
   Building, 
@@ -459,22 +460,28 @@ export const PropertyUploadWizard: React.FC = () => {
           />
         </div>
         <div>
-          <Label className="text-base font-medium">Unit</Label>
-          <select 
-            className="w-full p-2 border rounded-md"
+          <Label className="text-base font-medium text-white">Unit</Label>
+          <Select 
             value={data.propertyDetails.size.unit}
-            onChange={(e) => setData(prev => ({
+            onValueChange={(value) => setData(prev => ({
               ...prev,
               propertyDetails: {
                 ...prev.propertyDetails,
-                size: { ...prev.propertyDetails.size, unit: e.target.value }
+                size: { ...prev.propertyDetails.size, unit: value }
               }
             }))}
           >
-            {LAND_SIZE_UNITS.map(unit => (
-              <option key={unit} value={unit}>{unit}</option>
-            ))}
-          </select>
+            <SelectTrigger className="bg-white/5 border-white/20 text-white">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent className="bg-gray-900 border-white/20">
+              {LAND_SIZE_UNITS.map(unit => (
+                <SelectItem key={unit} value={unit} className="text-white hover:bg-white/10">
+                  {unit}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
       </div>
 
