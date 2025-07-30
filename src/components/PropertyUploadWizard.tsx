@@ -207,7 +207,7 @@ export const PropertyUploadWizard: React.FC = () => {
           className="grid grid-cols-2 gap-4"
         >
           {PROPERTY_TYPES.map((type) => (
-            <div key={type.value} className="flex items-center space-x-2 p-4 border rounded-lg hover:bg-gray-50">
+            <div key={type.value} className="flex items-center space-x-2 p-4 border rounded-lg hover:bg-white/10 transition-colors">
               <RadioGroupItem value={type.value} id={type.value} />
               <Label htmlFor={type.value} className="flex items-center space-x-2 cursor-pointer flex-1">
                 <type.icon className="h-5 w-5" />
@@ -226,7 +226,7 @@ export const PropertyUploadWizard: React.FC = () => {
           className="grid grid-cols-2 gap-4"
         >
           {OWNERSHIP_TYPES.map((type) => (
-            <div key={type.value} className="flex items-center space-x-2 p-4 border rounded-lg hover:bg-gray-50">
+            <div key={type.value} className="flex items-center space-x-2 p-4 border rounded-lg hover:bg-white/10 transition-colors">
               <RadioGroupItem value={type.value} id={type.value} />
               <Label htmlFor={type.value} className="flex items-center space-x-2 cursor-pointer flex-1">
                 <type.icon className="h-5 w-5" />
