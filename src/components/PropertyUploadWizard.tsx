@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { PropertyMapComponent } from './PropertyMapComponent';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
@@ -415,8 +416,37 @@ export const PropertyUploadWizard: React.FC = () => {
         </p>
       </div>
 
+      
+      {/* Property Address */}
       <div>
-        <Label className="text-base font-medium">Mouja Map *</Label>
+        <Label className="text-base font-medium text-white">Property Address *</Label>
+        <Textarea 
+          placeholder="Enter complete address"
+          value={data.propertyDetails.address}
+          onChange={(e) => setData(prev => ({
+            ...prev,
+            propertyDetails: { ...prev.propertyDetails, address: e.target.value }
+          }))}
+          className="bg-white/5 border-white/20 text-white"
+        />
+        <p className="text-sm text-gray-400 mt-1">The map below will update based on this address</p>
+      </div>
+
+      {/* Interactive Map */}
+      <div>
+        <Label className="text-base font-medium text-white">Location on Map</Label>
+        <p className="text-sm text-gray-400 mb-3">Confirm the exact location by dragging the pin if needed</p>
+        <PropertyMapComponent 
+          address={data.propertyDetails.address}
+          onLocationChange={(coordinates, address) => {
+            // Store the coordinates in the data state if needed
+            console.log('Location updated:', coordinates, address);
+          }}
+        />
+      </div>
+
+      <div>
+        <Label className="text-base font-medium text-white">Mouja Map *</Label>
         <p className="text-sm text-gray-500 mb-3">Official map of the plot from land registry</p>
         <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
           <Map className="h-8 w-8 mx-auto mb-2 text-gray-400" />
@@ -512,18 +542,6 @@ export const PropertyUploadWizard: React.FC = () => {
         />
       </div>
 
-      {/* Address */}
-      <div>
-        <Label className="text-base font-medium">Property Address *</Label>
-        <Textarea 
-          placeholder="Enter complete address"
-          value={data.propertyDetails.address}
-          onChange={(e) => setData(prev => ({
-            ...prev,
-            propertyDetails: { ...prev.propertyDetails, address: e.target.value }
-          }))}
-        />
-      </div>
 
       {/* Seller Information */}
       <div>
