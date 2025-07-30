@@ -27,26 +27,34 @@ import {
 } from 'lucide-react';
 
 // Types and Interfaces
+interface DocumentInfo {
+  files: File[];
+  title: string;
+  description: string;
+  category: string;
+  notes: string;
+}
+
 interface PropertyUploadData {
   propertyType: string;
   ownershipType: string;
   documents: {
-    dolilAgreements: File[];
-    dcr: File[];
+    dolilAgreements: DocumentInfo;
+    dcr: DocumentInfo;
     khatian: {
-      cs: File[];
-      sa: File[];
-      rs: File[];
-      brs: File[];
-      bs: File[];
+      cs: DocumentInfo;
+      sa: DocumentInfo;
+      rs: DocumentInfo;
+      brs: DocumentInfo;
+      bs: DocumentInfo;
     };
-    khajna: File[];
+    khajna: DocumentInfo;
     possession: {
       hasPossession: boolean;
-      photos: File[];
+      photos: DocumentInfo;
     };
-    bayaDeed: File[];
-    moujaMap: File[];
+    bayaDeed: DocumentInfo;
+    moujaMap: DocumentInfo;
   };
   propertyDetails: {
     size: {
@@ -98,17 +106,31 @@ const KHATIAN_TYPES = [
 export const PropertyUploadWizard: React.FC = () => {
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1);
+  const createEmptyDocumentInfo = (): DocumentInfo => ({
+    files: [],
+    title: '',
+    description: '',
+    category: '',
+    notes: ''
+  });
+
   const [data, setData] = useState<PropertyUploadData>({
     propertyType: '',
     ownershipType: '',
     documents: {
-      dolilAgreements: [],
-      dcr: [],
-      khatian: { cs: [], sa: [], rs: [], brs: [], bs: [] },
-      khajna: [],
-      possession: { hasPossession: false, photos: [] },
-      bayaDeed: [],
-      moujaMap: [],
+      dolilAgreements: createEmptyDocumentInfo(),
+      dcr: createEmptyDocumentInfo(),
+      khatian: { 
+        cs: createEmptyDocumentInfo(), 
+        sa: createEmptyDocumentInfo(), 
+        rs: createEmptyDocumentInfo(), 
+        brs: createEmptyDocumentInfo(), 
+        bs: createEmptyDocumentInfo() 
+      },
+      khajna: createEmptyDocumentInfo(),
+      possession: { hasPossession: false, photos: createEmptyDocumentInfo() },
+      bayaDeed: createEmptyDocumentInfo(),
+      moujaMap: createEmptyDocumentInfo(),
     },
     propertyDetails: {
       size: { value: '', unit: 'Katha' },
@@ -130,7 +152,7 @@ export const PropertyUploadWizard: React.FC = () => {
       id: 2,
       title: 'Ownership Documents',
       description: 'Upload Dolil/Agreements (Core ownership papers)',
-      status: data.documents.dolilAgreements.length > 0 ? 'complete' : currentStep === 2 ? 'in-progress' : 'pending',
+      status: data.documents.dolilAgreements.files.length > 0 ? 'complete' : currentStep === 2 ? 'in-progress' : 'pending',
     },
     {
       id: 3,
@@ -172,13 +194,183 @@ export const PropertyUploadWizard: React.FC = () => {
     }
   };
 
-  const handleFileUpload = (files: FileList | null, path: string) => {
+  const handleFileUpload = (files: FileList | null, documentPath: string) => {
     if (!files) return;
     
     const fileArray = Array.from(files);
-    // This is a simplified implementation - in reality you'd handle the nested paths properly
-    console.log(`Uploading ${fileArray.length} files to ${path}`);
+    setData(prev => {
+      const pathParts = documentPath.split('.');
+      let newData = { ...prev };
+      
+      if (pathParts.length === 1) {
+        // Direct document path like 'dolilAgreements'
+        const docInfo = newData.documents[pathParts[0] as keyof typeof newData.documents] as DocumentInfo;
+        if (docInfo && 'files' in docInfo) {
+          docInfo.files = [...docInfo.files, ...fileArray];
+        }
+      } else if (pathParts.length === 2) {
+        // Nested path like 'khatian.cs'
+        const [parent, child] = pathParts;
+        if (parent === 'khatian') {
+          const khatianDoc = newData.documents.khatian[child as keyof typeof newData.documents.khatian] as DocumentInfo;
+          if (khatianDoc && 'files' in khatianDoc) {
+            khatianDoc.files = [...khatianDoc.files, ...fileArray];
+          }
+        } else if (parent === 'possession' && child === 'photos') {
+          newData.documents.possession.photos.files = [...newData.documents.possession.photos.files, ...fileArray];
+        }
+      }
+      
+      return newData;
+    });
   };
+
+  const updateDocumentInfo = (documentPath: string, field: keyof Omit<DocumentInfo, 'files'>, value: string) => {
+    setData(prev => {
+      const pathParts = documentPath.split('.');
+      let newData = { ...prev };
+      
+      if (pathParts.length === 1) {
+        const docInfo = newData.documents[pathParts[0] as keyof typeof newData.documents] as DocumentInfo;
+        if (docInfo && 'files' in docInfo) {
+          docInfo[field] = value;
+        }
+      } else if (pathParts.length === 2) {
+        const [parent, child] = pathParts;
+        if (parent === 'khatian') {
+          const khatianDoc = newData.documents.khatian[child as keyof typeof newData.documents.khatian] as DocumentInfo;
+          if (khatianDoc && 'files' in khatianDoc) {
+            khatianDoc[field] = value;
+          }
+        } else if (parent === 'possession' && child === 'photos') {
+          newData.documents.possession.photos[field] = value;
+        }
+      }
+      
+      return newData;
+    });
+  };
+
+  const DocumentUploadComponent = ({ 
+    title, 
+    description, 
+    documentPath, 
+    documentInfo, 
+    accept = ".pdf,.jpg,.jpeg,.png",
+    multiple = true,
+    icon: IconComponent = Upload,
+    required = false 
+  }: {
+    title: string;
+    description: string;
+    documentPath: string;
+    documentInfo: DocumentInfo;
+    accept?: string;
+    multiple?: boolean;
+    icon?: any;
+    required?: boolean;
+  }) => (
+    <div className="space-y-4">
+      <div>
+        <Label className="text-base font-medium text-white">
+          {title} {required && '*'}
+        </Label>
+        <p className="text-sm text-gray-400 mb-3">{description}</p>
+      </div>
+
+      {/* Additional Information Fields */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+        <div>
+          <Label className="text-sm font-medium text-gray-300">Document Title</Label>
+          <Input 
+            placeholder="e.g., Original Sale Deed"
+            value={documentInfo.title}
+            onChange={(e) => updateDocumentInfo(documentPath, 'title', e.target.value)}
+            className="bg-white/5 border-white/20 text-white placeholder-gray-400"
+          />
+        </div>
+        <div>
+          <Label className="text-sm font-medium text-gray-300">Category</Label>
+          <Select 
+            value={documentInfo.category}
+            onValueChange={(value) => updateDocumentInfo(documentPath, 'category', value)}
+          >
+            <SelectTrigger className="bg-white/5 border-white/20 text-white">
+              <SelectValue placeholder="Select category" />
+            </SelectTrigger>
+            <SelectContent className="bg-gray-900 border-white/20">
+              <SelectItem value="original" className="text-white hover:bg-white/10">Original</SelectItem>
+              <SelectItem value="certified-copy" className="text-white hover:bg-white/10">Certified Copy</SelectItem>
+              <SelectItem value="photocopy" className="text-white hover:bg-white/10">Photocopy</SelectItem>
+              <SelectItem value="digital-scan" className="text-white hover:bg-white/10">Digital Scan</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+      </div>
+
+      <div>
+        <Label className="text-sm font-medium text-gray-300">Description</Label>
+        <Textarea 
+          placeholder="Brief description of the document content"
+          value={documentInfo.description}
+          onChange={(e) => updateDocumentInfo(documentPath, 'description', e.target.value)}
+          className="bg-white/5 border-white/20 text-white placeholder-gray-400"
+          rows={2}
+        />
+      </div>
+
+      <div>
+        <Label className="text-sm font-medium text-gray-300">Additional Notes</Label>
+        <Textarea 
+          placeholder="Any special notes or observations about this document"
+          value={documentInfo.notes}
+          onChange={(e) => updateDocumentInfo(documentPath, 'notes', e.target.value)}
+          className="bg-white/5 border-white/20 text-white placeholder-gray-400"
+          rows={2}
+        />
+      </div>
+
+      {/* File Upload Area */}
+      <div className="border-2 border-dashed border-primary/30 rounded-lg p-6 text-center bg-primary/5 hover:bg-primary/10 transition-colors">
+        <IconComponent className="h-10 w-10 mx-auto mb-3 text-primary" />
+        <p className="text-sm text-gray-300 mb-3">Drag and drop files here, or click to browse</p>
+        <Input 
+          type="file" 
+          multiple={multiple}
+          accept={accept}
+          onChange={(e) => handleFileUpload(e.target.files, documentPath)}
+          className="hidden"
+          id={`${documentPath}-upload`}
+        />
+        <Label htmlFor={`${documentPath}-upload`}>
+          <Button variant="hero" size="lg" className="cursor-pointer shadow-lg">
+            <Upload className="h-4 w-4 mr-2" />
+            Choose Files
+          </Button>
+        </Label>
+      </div>
+
+      {/* Uploaded Files Display */}
+      {documentInfo.files.length > 0 && (
+        <div className="mt-4 p-4 bg-green-500/10 border border-green-500/20 rounded-lg">
+          <div className="flex items-center gap-2 mb-2">
+            <CheckCircle className="h-4 w-4 text-green-400" />
+            <span className="text-sm font-medium text-green-400">
+              {documentInfo.files.length} file(s) uploaded successfully
+            </span>
+          </div>
+          <div className="space-y-1">
+            {documentInfo.files.map((file, index) => (
+              <div key={index} className="text-xs text-gray-400 flex items-center gap-2">
+                <FileText className="h-3 w-3" />
+                {file.name} ({(file.size / 1024 / 1024).toFixed(2)} MB)
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
 
   const addSeller = () => {
     setData(prev => ({
@@ -253,34 +445,14 @@ export const PropertyUploadWizard: React.FC = () => {
         </p>
       </div>
       
-      <div>
-        <Label className="text-base font-medium">Dolil / Agreement(s) *</Label>
-        <p className="text-sm text-gray-500 mb-3">Upload multiple files if needed</p>
-        <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
-          <Upload className="h-8 w-8 mx-auto mb-2 text-gray-400" />
-          <p className="text-sm text-gray-500 mb-2">Drag and drop files here, or click to browse</p>
-          <Input 
-            type="file" 
-            multiple 
-            accept=".pdf,.jpg,.jpeg,.png"
-            onChange={(e) => handleFileUpload(e.target.files, 'dolilAgreements')}
-            className="hidden"
-            id="dolil-upload"
-          />
-          <Label htmlFor="dolil-upload">
-            <Button variant="outline" className="cursor-pointer">
-              Choose Files
-            </Button>
-          </Label>
-        </div>
-        {data.documents.dolilAgreements.length > 0 && (
-          <div className="mt-2">
-            <Badge variant="outline" className="bg-green-50 text-green-700">
-              {data.documents.dolilAgreements.length} file(s) uploaded
-            </Badge>
-          </div>
-        )}
-      </div>
+      <DocumentUploadComponent
+        title="Dolil / Agreement(s)"
+        description="Upload multiple files if needed - these are your core ownership documents"
+        documentPath="dolilAgreements"
+        documentInfo={data.documents.dolilAgreements}
+        icon={FileText}
+        required={true}
+      />
     </div>
   );
 
@@ -448,21 +620,14 @@ export const PropertyUploadWizard: React.FC = () => {
         />
       </div>
 
-      <div>
-        <Label className="text-base font-medium text-white">Mouja Map *</Label>
-        <p className="text-sm text-gray-500 mb-3">Official map of the plot from land registry</p>
-        <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
-          <Map className="h-8 w-8 mx-auto mb-2 text-gray-400" />
-          <p className="text-sm text-gray-500 mb-2">Upload Mouja Map (PDF, Image formats)</p>
-          <Input 
-            type="file" 
-            multiple 
-            accept=".pdf,.jpg,.jpeg,.png"
-            onChange={(e) => handleFileUpload(e.target.files, 'moujaMap')}
-            className="mt-2"
-          />
-        </div>
-      </div>
+      <DocumentUploadComponent
+        title="Mouja Map"
+        description="Official map of the plot from land registry - upload PDF or image formats"
+        documentPath="moujaMap"
+        documentInfo={data.documents.moujaMap}
+        icon={Map}
+        required={true}
+      />
     </div>
   );
 
